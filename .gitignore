@@ -21,6 +21,7 @@ __pycache__/
 
 # Local env file with secrets (do NOT commit)
 env/default.env
+env/default_001.env
 *.pyc
 *.pyo
 *.pyd
