@@ -1,0 +1,27 @@
+# story_vedio_sync
+# Install:
+#   python3 -m venv .venv
+#   . .venv/bin/activate
+#   pip install -r requirements.txt
+
+# Core
+python-dotenv>=1.0.0
+pyyaml>=6.0
+requests>=2.31.0
+httpx>=0.25.0
+
+# LLM / image backends
+openai>=1.0.0
+google-genai>=0.6.0
+
+# Images
+Pillow>=10.0.0
+
+# OSS upload (used by util/util_url.py, and gemini flash image helper)
+oss2>=2.18.0
+
+# TTS (DashScope CosyVoice)
+dashscope>=1.17.0
+
+# Subtitle forced alignment
+faster-whisper>=1.0.0
