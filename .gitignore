@@ -112,6 +112,7 @@ tmp/
 temp/
 # 生成的数据文件
 data/Data_results/
+data/web_runs/
 *.db
 *.db-shm
 *.db-wal

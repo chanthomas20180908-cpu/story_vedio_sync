@@ -119,8 +119,11 @@ def _zip_results(run_dir: Path, results_dirs: Iterable[Path], log_path: Path) ->
 
 
 def run_case_kesulu_001(
-    uploaded_path: str | os.PathLike[str],
+    uploaded_path: str | os.PathLike[str] | None,
     provider: str = "cloubic",
+    *,
+    skip_video: bool = False,
+    only_video_out_root: str | os.PathLike[str] | None = None,
 ) -> Generator[str, None, RunResult]:
     """Run the existing CLI via subprocess and yield log lines.
 
@@ -137,7 +140,19 @@ def run_case_kesulu_001(
 
     log_path = run_dir / "run.log"
 
-    input_path = validate_and_copy_input(uploaded_path, run_dir=run_dir)
+    only_video_path: Optional[Path] = None
+    if only_video_out_root is not None:
+        only_video_path = Path(only_video_out_root).expanduser().resolve()
+        if not only_video_path.exists() or not only_video_path.is_dir():
+            raise ValueError("只生视频模式：out_root 不存在或不是目录")
+        # For only_video, we don't need a new story input.
+        input_path = run_dir / "input" / "input.txt"
+        input_path.parent.mkdir(parents=True, exist_ok=True)
+        input_path.write_text("only_video mode\n", encoding="utf-8")
+    else:
+        if uploaded_path is None:
+            raise ValueError("请先上传 .md / .txt 文件")
+        input_path = validate_and_copy_input(uploaded_path, run_dir=run_dir)
 
     data_results_root = repo_root / "data" / "Data_results"
     before_dirs = _snapshot_dirs(data_results_root)
@@ -160,6 +175,12 @@ def run_case_kesulu_001(
         provider,
     ]
 
+    if skip_video:
+        cmd.append("--skip_video")
+
+    if only_video_path is not None:
+        cmd.extend(["--only_video", str(only_video_path)])
+
     yield f"run_id={run_id}"
     yield f"cmd={' '.join(cmd)}"
 
@@ -168,6 +189,8 @@ def run_case_kesulu_001(
         lf.write(f"repo_root={repo_root}\n")
         lf.write(f"input_path={input_path}\n")
         lf.write(f"provider={provider}\n")
+        lf.write(f"skip_video={skip_video}\n")
+        lf.write(f"only_video_out_root={only_video_path if only_video_path is not None else ''}\n")
         lf.write(f"cmd={' '.join(cmd)}\n")
         lf.write("\n")
         lf.flush()
@@ -194,7 +217,13 @@ def run_case_kesulu_001(
         yield f"\n[done] return_code={rc}"
 
     after_dirs = _snapshot_dirs(data_results_root)
-    results_dirs = _pick_new_or_recent_dirs(before_dirs, after_dirs)
+
+    if only_video_path is not None:
+        # only_video will usually not create new directories; zip the provided out_root directly.
+        results_dirs = [only_video_path]
+    else:
+        results_dirs = _pick_new_or_recent_dirs(before_dirs, after_dirs)
+
     zip_path = _zip_results(run_dir, results_dirs=results_dirs, log_path=log_path)
 
     return RunResult(

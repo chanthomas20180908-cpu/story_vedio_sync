@@ -1,5 +1,8 @@
 # story_vedio_sync
 
+`PYTHONPATH="$(pwd)" ./.venv/bin/python3 web/gradio_app.py`
+
+
 把 `story_video_001` 工作流从原工程中抽出来，作为可单独维护的最小可运行项目（方案 A：clone 后按 README 跑）。
 
 ## 1) 环境要求
