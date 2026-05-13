@@ -1,0 +1,24 @@
+{
+  "version": 1,
+  "input": "/Users/test/Library/Mobile Documents/com~apple~CloudDocs/BEAST_BEING/my_mutimedia/my_scripts/唐僧克苏鲁/墙中之鼠/原文/06_墙中之鼠_span_class=_math-super_a_href=_#part0011.xhtml_bz26__id=_part0005.xhtml_z26_26_a_span_.md",
+  "out_dir": "/Users/test/Library/Mobile Documents/com~apple~CloudDocs/BEAST_BEING/my_mutimedia/my_scripts/唐僧克苏鲁/墙中之鼠/原文/03_split_md_20260212_100616",
+  "ts": "20260212_100616",
+  "stage": "chapter+llm",
+  "chapters": [
+    {
+      "chapter_index": 1,
+      "chapter_title": "整篇",
+      "chapter_meta": {
+        "chapter_title": "墙中之鼠：血脉中的食人梦魇",
+        "chapter_summary": "1923年，主角德拉珀重回祖宅埃克瑟姆修道院。受墙内无法解释的鼠鸣指引，他与考古队在地宫深处发现了堆积如山的白骨，揭开了德·拉·珀尔家族数个世纪以来饲养人类并食肉的骇人真相。主角最终在遗传性疯狂中彻底崩溃，残食同伴后被送入疯人院。",
+        "chapter_hook": "在修道院地底数英尺厚的骸骨堆中，究竟隐藏着怎样超越文明的原始罪恶？那永不停歇、唯有疯子能听见的鼠鸣，又是谁的召唤？",
+        "chapter_end_state": "修道院被炸毁，主角被终身监禁于疯人院，他在墙壁后无尽的鼠鸣幻听中，坚称自己无罪。",
+        "next_chapter_teaser": "当禁忌的血脉被唤醒，文明的外壳将在瞬间剥落。噩梦虽已远去，但那股潜伏在黑暗中的原始饥渴是否真的消失了？"
+      },
+      "prev_chapter_intro": "",
+      "next_chapter_intro": "",
+      "split_plan_file": "001_整篇__split_plan.json",
+      "segment_count": 17
+    }
+  ]
+}

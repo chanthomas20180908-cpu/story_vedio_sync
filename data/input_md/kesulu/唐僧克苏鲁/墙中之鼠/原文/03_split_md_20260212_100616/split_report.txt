@@ -1,0 +1,7 @@
+INPUT: /Users/test/Library/Mobile Documents/com~apple~CloudDocs/BEAST_BEING/my_mutimedia/my_scripts/唐僧克苏鲁/墙中之鼠/原文/06_墙中之鼠_span_class=_math-super_a_href=_#part0011.xhtml_bz26__id=_part0005.xhtml_z26_26_a_span_.md
+OUT_DIR: /Users/test/Library/Mobile Documents/com~apple~CloudDocs/BEAST_BEING/my_mutimedia/my_scripts/唐僧克苏鲁/墙中之鼠/原文/03_split_md_20260212_100616
+CHAPTER_MODE: none
+STAGE: chapter+llm
+CHAPTERS: 1
+
+001  line 1: 整篇

@@ -1,0 +1,24 @@
+{
+  "version": 1,
+  "input": "/Users/test/Library/Mobile Documents/com~apple~CloudDocs/BEAST_BEING/my_mutimedia/my_scripts/唐僧克苏鲁/墙中之鼠/原文/06_墙中之鼠_span_class=_math-super_a_href=_#part0011.xhtml_bz26__id=_part0005.xhtml_z26_26_a_span_.md",
+  "out_dir": "/Users/test/Library/Mobile Documents/com~apple~CloudDocs/BEAST_BEING/my_mutimedia/my_scripts/唐僧克苏鲁/墙中之鼠/原文/03_split_md_20260212_104314",
+  "ts": "20260212_104314",
+  "stage": "chapter+llm",
+  "chapters": [
+    {
+      "chapter_index": 1,
+      "chapter_title": "整篇",
+      "chapter_meta": {
+        "chapter_title": "墙中之鼠",
+        "chapter_summary": "1923年，德拉珀家族后裔重返英格兰修复祖宅埃克瑟姆修道院，却在挖掘过程中揭开了家族延续数个世纪的食人禁忌。随着对地底深处巨大骸骨坑穴的探索，主角受遗传疯狂与幻听驱使，在黑暗中失去理智，杀害并残食了同伴诺里斯上尉，最终被送往精神病院。",
+        "chapter_hook": "唯有猫能听见的墙内抓挠声，以及当地村民对该家族持续数百年的诅咒，预示着修道院地基下深埋着违背自然的血脉秘密。",
+        "chapter_end_state": "修道院被夷为平地，主角身陷疯人院，坚称同伴是被老鼠杀害，而他至今仍能在病房墙壁中听到那永不停歇的啮咬声。",
+        "next_chapter_teaser": "当禁忌的血脉被唤醒，文明的外衣瞬间崩塌。在无脸之神的笛声中，下一个沦陷于原始野蛮的灵魂会是谁？"
+      },
+      "prev_chapter_intro": "",
+      "next_chapter_intro": "",
+      "split_plan_file": "001_整篇__split_plan.json",
+      "segment_count": 14
+    }
+  ]
+}

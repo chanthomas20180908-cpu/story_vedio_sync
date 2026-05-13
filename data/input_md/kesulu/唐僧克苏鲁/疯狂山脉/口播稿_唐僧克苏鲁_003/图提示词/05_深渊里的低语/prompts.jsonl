@@ -1,0 +1,145 @@
+{
+  "任务": "05-1 地底湿热：南极地底隧道反常温暖潮湿，像有人在黑暗里呼气。",
+  "style_guide": {
+    "核心美学": "Same reference style: Dark comic, heavy ink, grotesque surrealism, hyper-detailed textures.",
+    "视觉丰富度": "Extreme detail density, humid claustrophobia.",
+    "画幅": "9:16 vertical"
+  },
+  "IP_参考图": "/Users/test/Library/Mobile Documents/com~apple~CloudDocs/BEAST_BEING/my_mutimedia/my_scripts/唐僧克苏鲁/大衮/大衮3/原图/download (30).png",
+  "角色状态_唐僧(Tang Seng)": {
+    "形象": "保持参考图一致。",
+    "动作神态": "唐僧在狭窄隧道里前行，折扇遮鼻，眼神嫌恶；额头与袍角有湿气反光。"
+  },
+  "克苏鲁式抽象装饰(Cthulhu_Abstract)": {
+    "元素堆砌": "隧道壁面是鳞片分形与腐烂珊瑚皱褶；黑色黏液神经纤维像藤蔓；空气中漂浮晶体与眼球；地面有浅浅粘液水膜反光，像活体呼吸。",
+    "物理规则": "湿热雾气逆重力上升并在顶端形成莫比乌斯环般的回流。"
+  },
+  "心理暗示符号(Psychological_Symbolism)": {
+    "暗示内容": "回流雾环象征‘幽闭循环’，脑皮层褶皱纹理象征‘理智发霉’。"
+  },
+  "色彩与感官氛围(Atmosphere)": {
+    "色调": "深邃绿、灰绿、焦油黑，少量磷光点。",
+    "质感": "湿热、黏腻、腌臜感强，颗粒噪点。"
+  },
+  "视觉构图(Composition)": {
+    "镜头": "狭长竖构图，隧道像喉管从下通向上；唐僧在中景被挤压。",
+    "禁令": "严禁出现任何文字、字母、数字、UI、标志、字幕。"
+  },
+  "负面提示": ["text", "words", "subtitle", "alphabet", "English", "Chinese", "numbers", "logo", "watermark", "UI"]
+}
+{
+  "任务": "05-2 行李被研究：罐头、书本、衣物被拆开堆放，像孩子拆玩具研究文明。",
+  "style_guide": {
+    "核心美学": "Same reference style: Dark comic, heavy ink, grotesque surrealism, hyper-detailed textures.",
+    "视觉丰富度": "Extreme detail density, alien curiosity, clutter.",
+    "画幅": "9:16 vertical"
+  },
+  "IP_参考图": "/Users/test/Library/Mobile Documents/com~apple~CloudDocs/BEAST_BEING/my_mutimedia/my_scripts/唐僧克苏鲁/大衮/大衮3/原图/download (30).png",
+  "角色状态_唐僧(Tang Seng)": {
+    "形象": "保持参考图一致。",
+    "动作神态": "唐僧站在石台前，折扇轻挑一件被翻开的衣物，眼神像在说‘你们的行李正在被窥探’。"
+  },
+  "克苏鲁式抽象装饰(Cthulhu_Abstract)": {
+    "元素堆砌": "人类物资堆放杂乱但不出现任何文字标识；石台边缘长出触须与鳞片；空气中漂浮眼球与晶体；黏液神经纤维像手指一样触碰物品。",
+    "物理规则": "物品阴影延伸成非欧几何形状，像被‘注视’改变形态。"
+  },
+  "心理暗示符号(Psychological_Symbolism)": {
+    "暗示内容": "眼球与神经纤维象征‘被研究’，锁链环纹象征‘身份被剥夺’。"
+  },
+  "色彩与感官氛围(Atmosphere)": {
+    "色调": "灰绿、深邃绿、焦油黑，冷白手电高光。",
+    "质感": "潮湿、霉味、腌臜的触感可视化。"
+  },
+  "视觉构图(Composition)": {
+    "镜头": "竖构图分层：前景唐僧，中景石台杂物，背景黑暗深处漂浮眼群。",
+    "禁令": "严禁出现任何文字、字母、数字、UI、标志、字幕。"
+  },
+  "负面提示": ["text", "words", "subtitle", "alphabet", "English", "Chinese", "numbers", "logo", "watermark", "UI"]
+}
+{
+  "任务": "05-3 古老者尸体：三具桶状躯体撕裂在家门口，像丧家之犬回家却死在门前。",
+  "style_guide": {
+    "核心美学": "Same reference style: Dark comic, heavy ink, grotesque surrealism, hyper-detailed textures.",
+    "视觉丰富度": "Extreme detail density, tragic grotesque, stylized.",
+    "画幅": "9:16 vertical"
+  },
+  "IP_参考图": "/Users/test/Library/Mobile Documents/com~apple~CloudDocs/BEAST_BEING/my_mutimedia/my_scripts/唐僧克苏鲁/大衮/大衮3/原图/download (30).png",
+  "角色状态_唐僧(Tang Seng)": {
+    "形象": "保持参考图一致。",
+    "动作神态": "唐僧站在尸体旁，眉头紧锁，神情荒诞的同情一闪即逝，随即恢复嫌恶与警惕。"
+  },
+  "克苏鲁式抽象装饰(Cthulhu_Abstract)": {
+    "元素堆砌": "桶状躯体裂口边缘有吸断般的整齐痕；地面黏液反光；空气漂浮眼球、晶体、神经纤维；墙面鳞片分形与脑褶皱纹理交织。",
+    "物理规则": "裂口周围空间像被吸走，形成微型黑洞般的暗影。"
+  },
+  "心理暗示符号(Psychological_Symbolism)": {
+    "暗示内容": "微型黑洞暗影象征‘反噬’，莫比乌斯环象征‘主人与奴隶的轮回’。"
+  },
+  "色彩与感官氛围(Atmosphere)": {
+    "色调": "焦油黑、灰绿、深邃绿，少量磷光点。",
+    "质感": "湿热、腐败、窒息感。"
+  },
+  "视觉构图(Composition)": {
+    "镜头": "中景，尸体形成三角构图，唐僧位于前景边缘；背景黑暗压迫。",
+    "禁令": "严禁出现任何文字、字母、数字、UI、标志、字幕。"
+  },
+  "负面提示": ["text", "words", "subtitle", "alphabet", "English", "Chinese", "numbers", "logo", "watermark", "UI"]
+}
+{
+  "任务": "05-4 盖德尼被收藏：人类样本被包裹成收藏品，尊严被剥成薄片。",
+  "style_guide": {
+    "核心美学": "Same reference style: Dark comic, heavy ink, grotesque surrealism, hyper-detailed textures.",
+    "视觉丰富度": "Extreme detail density, specimen display, psychological cruelty.",
+    "画幅": "9:16 vertical"
+  },
+  "IP_参考图": "/Users/test/Library/Mobile Documents/com~apple~CloudDocs/BEAST_BEING/my_mutimedia/my_scripts/唐僧克苏鲁/大衮/大衮3/原图/download (30).png",
+  "角色状态_唐僧(Tang Seng)": {
+    "形象": "保持参考图一致。",
+    "动作神态": "唐僧站在石槽旁，折扇收起握紧，眼神冰冷；他像在压住怒意与厌恶。"
+  },
+  "克苏鲁式抽象装饰(Cthulhu_Abstract)": {
+    "元素堆砌": "石槽与织物呈现异质纹理像鳞片丝绸；周围漂浮晶体与眼球；神经纤维像标签绳但没有任何文字；空间边缘出现锁链环纹。",
+    "物理规则": "灯光像从深海缝隙挤出，形成不合理的聚光。"
+  },
+  "心理暗示符号(Psychological_Symbolism)": {
+    "暗示内容": "无字标签象征‘被归类’，锁链环纹象征‘身份锁死’。"
+  },
+  "色彩与感官氛围(Atmosphere)": {
+    "色调": "深邃绿、焦油黑、灰绿，冷白聚光。",
+    "质感": "潮湿、冷汗般的光泽，压抑窒息。"
+  },
+  "视觉构图(Composition)": {
+    "镜头": "竖构图中心是石槽与包裹轮廓，唐僧在侧边形成冷静见证者。",
+    "禁令": "严禁出现任何文字、字母、数字、UI、标志、字幕。"
+  },
+  "负面提示": ["text", "words", "subtitle", "alphabet", "English", "Chinese", "numbers", "logo", "watermark", "UI"]
+}
+{
+  "任务": "05-5 修格斯逼近：隧道尽头巨大的黑色粘液填满通道，无数眼泡生灭，尖啸回荡。",
+  "style_guide": {
+    "核心美学": "Same reference style: Dark comic, heavy ink, grotesque surrealism, hyper-detailed textures.",
+    "视觉丰富度": "Extreme detail density, amorphous titan, claustrophobic chase.",
+    "画幅": "9:16 vertical"
+  },
+  "IP_参考图": "/Users/test/Library/Mobile Documents/com~apple~CloudDocs/BEAST_BEING/my_mutimedia/my_scripts/唐僧克苏鲁/大衮/大衮3/原图/download (30).png",
+  "角色状态_唐僧(Tang Seng)": {
+    "形象": "保持参考图一致。",
+    "动作神态": "唐僧回身欲退，折扇抬起像挡瘴气，眼神第一次露出明显的急迫与厌恶。"
+  },
+  "克苏鲁式抽象装饰(Cthulhu_Abstract)": {
+    "元素堆砌": "修格斯像潮水一样翻滚，表面磷光闪烁，眼泡生灭；它模仿桶状与星形轮廓；空气中充满黏液丝、神经纤维、晶体碎片与扭曲声波同心圆；隧道壁面鳞片分形密集到令人窒息。",
+    "物理规则": "声波同心圆把空间压出褶皱，黑暗像液体挤压前进。"
+  },
+  "心理暗示符号(Psychological_Symbolism)": {
+    "暗示内容": "同心圆象征‘召唤’，莫比乌斯环象征‘逃不掉’。"
+  },
+  "色彩与感官氛围(Atmosphere)": {
+    "色调": "焦油黑 + 磷光点 + 深邃绿，少量腐烂紫阴影。",
+    "质感": "湿热、吸吮、黏腻，强烈幽闭压迫。"
+  },
+  "视觉构图(Composition)": {
+    "镜头": "隧道纵深透视，修格斯占据画面大部分，唐僧被挤到前景角落。",
+    "禁令": "严禁出现任何文字、字母、数字、UI、标志、字幕。"
+  },
+  "负面提示": ["text", "words", "subtitle", "alphabet", "English", "Chinese", "numbers", "logo", "watermark", "UI"]
+}
