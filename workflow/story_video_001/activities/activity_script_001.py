@@ -221,6 +221,94 @@ def _pick_latest(dir_path: Path, pattern: str) -> Path:
     return items[0]
 
 
+def _load_json(path: Path) -> dict[str, Any]:
+    return json.loads(path.read_text(encoding="utf-8"))
+
+
+def _generate_images_for_scenes(
+    *,
+    paths: Paths,
+    provider: str,
+    image_backend_script: str,
+    image_model: str,
+    cloubic_openai_base_url: str,
+    ref_image: str,
+    aspect_ratio: str,
+    storyboard_path: Path,
+    storyboard_payload: dict[str, Any],
+    scene_list: list[dict[str, Any]],
+    prompts: list[str],
+    logger,
+) -> dict[str, Any]:
+    ref_image_path = Path(ref_image).expanduser().resolve()
+    if not ref_image_path.exists():
+        raise FileNotFoundError(f"参考图不存在: {ref_image_path}")
+    if len(scene_list) != len(prompts):
+        raise RuntimeError(f"scene/prompts 数量不一致: scenes={len(scene_list)} prompts={len(prompts)}")
+
+    image_items: list[dict[str, Any]] = []
+    for idx, (sc, prompt_str) in enumerate(zip(scene_list, prompts), start=1):
+        sid = int(sc["scene_id"])
+        dst = paths.images_dir / f"scene_{sid:03d}.png"
+        item: dict[str, Any] = {"scene_id": sid, "ok": False}
+
+        logger.info(f"image scene[{idx}/{len(scene_list)}] scene_id={sid} generating...")
+        try:
+            try:
+                prompt_txt = paths.images_dir / f"scene_{sid:03d}.prompt.txt"
+                prompt_txt.write_text(prompt_str or "", encoding="utf-8")
+            except Exception as e:
+                logger.warning(f"prompt save failed scene[{sid}]: {type(e).__name__}: {e}")
+
+            stdout = _run(
+                (
+                    [
+                        sys.executable,
+                        image_backend_script,
+                        "--image",
+                        str(ref_image_path),
+                        "--model",
+                        str(image_model),
+                        "--base_url",
+                        str(cloubic_openai_base_url),
+                        prompt_str,
+                    ]
+                    if provider == "cloubic"
+                    else [
+                        sys.executable,
+                        image_backend_script,
+                        "--aspect-ratio",
+                        str(aspect_ratio),
+                        "--image",
+                        str(ref_image_path),
+                        prompt_str,
+                    ]
+                ),
+                cwd=paths.root,
+            )
+            saved_paths = _parse_nanobanana_saved_paths(stdout)
+            moved = _move_one_image(saved_paths, dst)
+            item.update({"ok": True, "image": moved})
+            logger.info(f"image scene[{idx}/{len(scene_list)}] scene_id={sid} OK -> {dst}")
+
+            sc["prompt"] = prompt_str
+            sc["image_path"] = moved
+        except Exception as e:
+            logger.warning(f"scene[{sid}] image failed: {type(e).__name__}: {e}")
+            item["error"] = {"type": type(e).__name__, "message": str(e)}
+        image_items.append(item)
+
+    images_manifest_path = paths.images_dir / "images_manifest.json"
+    images_manifest_path.write_text(
+        json.dumps({"storyboard": str(storyboard_path), "items": image_items, "scenes": scene_list}, ensure_ascii=False, indent=2),
+        encoding="utf-8",
+    )
+    storyboard_payload = dict(storyboard_payload)
+    storyboard_payload["scenes"] = scene_list
+    write_storyboard_json(storyboard_path, storyboard_payload)
+    return {"items": image_items, "images_manifest_path": images_manifest_path}
+
+
 def _normalize_tts_outputs(*, raw_out_dir: Path, out_wav: Path, out_srt: Path) -> tuple[str, str]:
     raw_wav = _pick_latest(raw_out_dir, "*.wav")
     raw_srt = _pick_latest(raw_out_dir, "*.srt")
@@ -667,7 +755,7 @@ def _validate_profile(profile: dict[str, Any]) -> None:
 
 def build_arg_parser() -> argparse.ArgumentParser:
     ap = argparse.ArgumentParser(description="story_video_001: activity_script_001")
-    ap.add_argument("--input", required=True, help="输入文稿路径（md/txt）")
+    ap.add_argument("--input", default="", help="输入文稿路径（md/txt）")
     ap.add_argument(
         "--output_root",
         default=str(cfg.SCRIPT_RESULTS_DIR),
@@ -679,7 +767,7 @@ def build_arg_parser() -> argparse.ArgumentParser:
     # - cloubic: cloubic proxy for text (gemini_cloubic) + banana for images (CLOUBIC_API_KEY)
     ap.add_argument(
         "--provider",
-        default="cloubic",
+        default="official",
         choices=["official", "cloubic"],
         help="模型接入提供方（一次运行只选一种）：official|cloubic",
     )
@@ -695,6 +783,7 @@ def build_arg_parser() -> argparse.ArgumentParser:
     ap.add_argument("--max_scenes", type=int, default=0, help="仅处理前 N 个 scene（0 不限制）")
     ap.add_argument("--skip_images", action="store_true")
     ap.add_argument("--skip_video", action="store_true")
+    ap.add_argument("--only_images", default="", help="仅补生图：传入历史 out_root 目录")
     ap.add_argument("--only_video", default="", help="仅合成视频：传入历史 out_root 目录")
 
     # 覆盖 profile 默认值（不覆盖则用 profile）
@@ -731,6 +820,87 @@ def main(*, profile: dict[str, Any]) -> int:
 
     ap = build_arg_parser()
     args = ap.parse_args()
+
+    # only_images
+    if args.only_images:
+        out_root = Path(args.only_images).expanduser().resolve()
+        if not out_root.exists():
+            raise FileNotFoundError(str(out_root))
+
+        paths = Paths(
+            root=out_root,
+            input_dir=out_root / "00_input",
+            spoken_dir=out_root / "01_spoken",
+            prompts_dir=out_root / "02_image_prompts",
+            images_dir=out_root / "03_images",
+            audio_dir=out_root / "04_audio",
+            subtitles_dir=out_root / "05_subtitles",
+            video_dir=out_root / "06_video",
+        )
+        for d in (paths.input_dir, paths.spoken_dir, paths.prompts_dir, paths.images_dir, paths.audio_dir, paths.subtitles_dir, paths.video_dir):
+            d.mkdir(parents=True, exist_ok=True)
+
+        storyboard_path = _pick_latest(paths.prompts_dir, "*_storyboard_*.json")
+        prompts_path = _pick_latest(paths.prompts_dir, "*_scene_prompts_*.json")
+        payload = _load_json(storyboard_path)
+        prompts_payload = _load_json(prompts_path)
+        scene_list = list(payload.get("scenes") or [])
+        prompts = list(prompts_payload.get("prompts") or [])
+        if not scene_list:
+            raise RuntimeError(f"storyboard scenes 为空: {storyboard_path}")
+        if args.max_scenes and int(args.max_scenes) > 0:
+            limit = int(args.max_scenes)
+            scene_list = scene_list[:limit]
+            prompts = prompts[:limit]
+
+        manifest_path = out_root / "manifest.json"
+        manifest = _load_json(manifest_path) if manifest_path.exists() else {"out_root": str(out_root), "steps": {}}
+
+        aspect_ratio = args.aspect_ratio.strip() or str(profile["aspect_ratio"])
+        ref_image = args.ref_image.strip() or str(profile["ref_image"])
+        provider = str(args.provider).strip().lower()
+        if provider not in {"official", "cloubic"}:
+            raise ValueError(f"provider 不支持：{provider}")
+        if provider == "cloubic":
+            default_image_model = "gemini-2.5-flash-image"
+            image_backend_script = CLOUBIC_BANANA_SCRIPT
+        else:
+            default_image_model = ""
+            image_backend_script = NANOBANANA_OFFICIAL_SCRIPT
+        image_model = args.image_model.strip() or default_image_model
+        cloubic_openai_base_url = args.cloubic_openai_base_url.strip() or "https://api.cloubic.com/v1"
+
+        logger.info(f"only_images: storyboard={storyboard_path}")
+        logger.info(f"only_images: prompts={prompts_path}")
+        t0 = time.time()
+        image_result = _generate_images_for_scenes(
+            paths=paths,
+            provider=provider,
+            image_backend_script=image_backend_script,
+            image_model=image_model,
+            cloubic_openai_base_url=cloubic_openai_base_url,
+            ref_image=ref_image,
+            aspect_ratio=aspect_ratio,
+            storyboard_path=storyboard_path,
+            storyboard_payload=payload,
+            scene_list=scene_list,
+            prompts=prompts,
+            logger=logger,
+        )
+        ok_cnt = sum(1 for x in image_result["items"] if x.get("ok"))
+        manifest.setdefault("steps", {})
+        manifest["steps"]["images"] = {
+            "ok": any(x.get("ok") for x in image_result["items"]),
+            "items": image_result["items"],
+            "elapsed_s": round(time.time() - t0, 3),
+            "resumed_via": "only_images",
+        }
+        manifest_path.write_text(json.dumps(manifest, ensure_ascii=False, indent=2), encoding="utf-8")
+        logger.info(
+            f"only_images: done elapsed_s={manifest['steps']['images']['elapsed_s']} "
+            f"ok={ok_cnt}/{len(image_result['items'])} manifest={image_result['images_manifest_path']}"
+        )
+        return 0
 
     # only_video
     if args.only_video:
@@ -774,6 +944,8 @@ def main(*, profile: dict[str, Any]) -> int:
         logger.info(f"FINAL MP4 READY: {out_mp4}")
         return 0
 
+    if not str(args.input).strip():
+        raise ValueError("缺少 --input（only_images / only_video 模式除外）")
     input_path = Path(args.input).expanduser().resolve()
     if not input_path.exists():
         raise FileNotFoundError(str(input_path))
@@ -1095,73 +1267,30 @@ def main(*, profile: dict[str, Any]) -> int:
         else:
             logger.info(f"step[6/7] images: start scenes={len(scene_list)}")
             t0 = time.time()
-            ref_image_path = Path(ref_image).expanduser().resolve()
-            if not ref_image_path.exists():
-                raise FileNotFoundError(f"参考图不存在: {ref_image_path}")
-
-            image_items: list[dict[str, Any]] = []
-            for idx, (sc, prompt_str) in enumerate(zip(scene_list, res.prompts), start=1):
-                sid = int(sc["scene_id"])
-                dst = paths.images_dir / f"scene_{sid:03d}.png"
-                item: dict[str, Any] = {"scene_id": sid, "ok": False}
-
-                logger.info(f"image scene[{idx}/{len(scene_list)}] scene_id={sid} generating...")
-                try:
-                    # 落盘保存完整 prompt（便于复跑）
-                    try:
-                        prompt_txt = paths.images_dir / f"scene_{sid:03d}.prompt.txt"
-                        prompt_txt.write_text(prompt_str or "", encoding="utf-8")
-                    except Exception as e:
-                        logger.warning(f"prompt save failed scene[{sid}]: {type(e).__name__}: {e}")
-
-                    stdout = _run(
-                        (
-                            [
-                                sys.executable,
-                                image_backend_script,
-                                "--image",
-                                str(ref_image_path),
-                                "--model",
-                                str(image_model),
-                                "--base_url",
-                                str(cloubic_openai_base_url),
-                                prompt_str,
-                            ]
-                            if provider == "cloubic"
-                            else [
-                                sys.executable,
-                                image_backend_script,
-                                "--aspect-ratio",
-                                str(aspect_ratio),
-                                "--image",
-                                str(ref_image_path),
-                                prompt_str,
-                            ]
-                        ),
-                        cwd=paths.root,
-                    )
-                    saved_paths = _parse_nanobanana_saved_paths(stdout)
-                    moved = _move_one_image(saved_paths, dst)
-                    item.update({"ok": True, "image": moved})
-                    logger.info(f"image scene[{idx}/{len(scene_list)}] scene_id={sid} OK -> {dst}")
-
-                    sc["prompt"] = prompt_str
-                    sc["image_path"] = moved
-                except Exception as e:
-                    logger.warning(f"scene[{sid}] image failed: {type(e).__name__}: {e}")
-                    item["error"] = {"type": type(e).__name__, "message": str(e)}
-                image_items.append(item)
-
-            images_manifest_path = paths.images_dir / "images_manifest.json"
-            images_manifest_path.write_text(
-                json.dumps({"storyboard": str(storyboard_path), "items": image_items, "scenes": scene_list}, ensure_ascii=False, indent=2),
-                encoding="utf-8",
+            image_result = _generate_images_for_scenes(
+                paths=paths,
+                provider=provider,
+                image_backend_script=image_backend_script,
+                image_model=image_model,
+                cloubic_openai_base_url=cloubic_openai_base_url,
+                ref_image=ref_image,
+                aspect_ratio=aspect_ratio,
+                storyboard_path=storyboard_path,
+                storyboard_payload=payload,
+                scene_list=scene_list,
+                prompts=res.prompts,
+                logger=logger,
             )
-            manifest["steps"]["images"] = {"ok": any(x.get("ok") for x in image_items), "items": image_items, "elapsed_s": round(time.time() - t0, 3)}
-            ok_cnt = sum(1 for x in image_items if x.get("ok"))
-            logger.info(f"step[6/7] images: done elapsed_s={manifest['steps']['images']['elapsed_s']} ok={ok_cnt}/{len(image_items)} manifest={images_manifest_path}")
-
-            write_storyboard_json(storyboard_path, payload)
+            manifest["steps"]["images"] = {
+                "ok": any(x.get("ok") for x in image_result["items"]),
+                "items": image_result["items"],
+                "elapsed_s": round(time.time() - t0, 3),
+            }
+            ok_cnt = sum(1 for x in image_result["items"] if x.get("ok"))
+            logger.info(
+                f"step[6/7] images: done elapsed_s={manifest['steps']['images']['elapsed_s']} "
+                f"ok={ok_cnt}/{len(image_result['items'])} manifest={image_result['images_manifest_path']}"
+            )
             logger.info(f"storyboard updated: {storyboard_path}")
 
         # =========================

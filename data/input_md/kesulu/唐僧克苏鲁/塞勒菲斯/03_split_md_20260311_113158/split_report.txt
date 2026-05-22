@@ -1,7 +1,0 @@
-INPUT: /Users/test/Library/Mobile Documents/com~apple~CloudDocs/BEAST_BEING/my_mutimedia/my_scripts/唐僧克苏鲁/克苏鲁大书/原文/chapters_simple2/02_塞勒菲斯.md
-OUT_DIR: /Users/test/Library/Mobile Documents/com~apple~CloudDocs/BEAST_BEING/my_mutimedia/my_scripts/唐僧克苏鲁/克苏鲁大书/原文/chapters_simple2/03_split_md_20260311_113158
-CHAPTER_MODE: none
-STAGE: chapter+llm
-CHAPTERS: 1
-
-001  line 1: 整篇

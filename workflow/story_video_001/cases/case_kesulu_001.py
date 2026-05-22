@@ -4,32 +4,38 @@ from workflow.story_video_001.activities.activity_script_001 import main
 from workflow.story_video_001.profiles.profile_kesulu_001 import PROFILE
 
 '''
-PYTHONPATH=/Users/test/code/Python/AI_vedio_demo/pythonProject \
-/Users/test/code/Python/AI_vedio_demo/pythonProject/.venv/bin/python3 \
+PYTHONPATH=/Users/test/code/Python/AI_vedio_demo/story_vedio_sync \
+/Users/test/code/Python/AI_vedio_demo/story_vedio_sync/.venv/bin/python3 \
   -m workflow.story_video_001.cases.case_kesulu_001 \
-  --input '/Users/test/code/Python/AI_vedio_demo/pythonProject/workflow/story_video_001/cases/input/001.md'
-  --skip_images
+  --input '/Users/test/code/Python/AI_vedio_demo/story_vedio_sync/workflow/story_video_001/cases/input/001.md' \
+  --skip_images \
   --skip_video
 '''
 
 '''
-PYTHONPATH=/Users/test/code/Python/AI_vedio_demo/pythonProject \
-/Users/test/code/Python/AI_vedio_demo/pythonProject/.venv/bin/python3 \
+PYTHONPATH=/Users/test/code/Python/AI_vedio_demo/story_vedio_sync \
+/Users/test/code/Python/AI_vedio_demo/story_vedio_sync/.venv/bin/python3 \
   -m workflow.story_video_001.cases.case_kesulu_001 \
-  --input "/Users/test/code/Python/AI_vedio_demo/pythonProject/data/Data_results/script_results/001_整篇__seg001__e23f4f31_script_20260320_162701_304/00_input/001_整篇__seg001.md" \
-  --only_video "/Users/test/code/Python/AI_vedio_demo/pythonProject/data/Data_results/script_results/001_整篇__seg001__e23f4f31_script_20260320_162701_304"
+  --only_images "/Users/test/code/Python/AI_vedio_demo/story_vedio_sync/data/Data_results/script_results/001_整篇__seg001__e23f4f31_script_20260320_162701_304"
 '''
 
 '''
-PYTHONPATH=/Users/test/code/Python/AI_vedio_demo/pythonProject \
-/Users/test/code/Python/AI_vedio_demo/pythonProject/.venv/bin/python3 \
+PYTHONPATH=/Users/test/code/Python/AI_vedio_demo/story_vedio_sync \
+/Users/test/code/Python/AI_vedio_demo/story_vedio_sync/.venv/bin/python3 \
   -m workflow.story_video_001.cases.case_kesulu_001 \
-  --input "/Users/test/code/Python/AI_vedio_demo/pythonProject/workflow/story_video_001/cases/input/001_整篇__seg001.md" \
+  --only_video "/Users/test/code/Python/AI_vedio_demo/story_vedio_sync/data/Data_results/script_results/001_整篇__seg001__e23f4f31_script_20260320_162701_304"
 '''
 
 '''
-INPUT_DIR="/Users/test/code/Python/AI_vedio_demo/pythonProject/workflow/story_video_001/cases/input"
-PROJ="/Users/test/code/Python/AI_vedio_demo/pythonProject"
+PYTHONPATH=/Users/test/code/Python/AI_vedio_demo/story_vedio_sync \
+/Users/test/code/Python/AI_vedio_demo/story_vedio_sync/.venv/bin/python3 \
+  -m workflow.story_video_001.cases.case_kesulu_001 \
+  --input "/Users/test/code/Python/AI_vedio_demo/story_vedio_sync/workflow/story_video_001/cases/input/001_整篇__seg001.md"
+'''
+
+'''
+INPUT_DIR="/Users/test/code/Python/AI_vedio_demo/story_vedio_sync/workflow/story_video_001/cases/input"
+PROJ="/Users/test/code/Python/AI_vedio_demo/story_vedio_sync"
 PY="$PROJ/.venv/bin/python3"
 
 ts="$(date +%Y%m%d_%H%M%S)"
@@ -60,7 +66,6 @@ while IFS= read -r -d '' f; do
   # stdbuf 让输出尽量按行刷新（mac 上可用；如你没装 coreutils，删掉 stdbuf 这一层也能用）
   ( PYTHONPATH="$PROJ" "$PY" -m workflow.story_video_001.cases.case_kesulu_001 \
       --input "$f" \
-      --provider cloubic \
     ) 2>&1 | tee -a "$log"
 
   rc=${pipestatus[1]:-0}  # zsh: 取管道里 python 那条命令的退出码
