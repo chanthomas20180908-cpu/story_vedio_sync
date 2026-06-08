@@ -1,0 +1,447 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>HappyHorse 视频生成测试复盘 - 女儿国旧日神</title>
+  <style>
+    :root {
+      --bg: #f6f1e8;
+      --paper: #fffaf0;
+      --ink: #1f211d;
+      --muted: #6f6a5f;
+      --line: #d5c7aa;
+      --accent: #8e3f2c;
+      --accent2: #1f6470;
+      --bad: #9b2f24;
+      --good: #2f6b4f;
+      --code: #29251e;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font: 15px/1.65 -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    }
+
+    main {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 32px 24px 56px;
+    }
+
+    h1, h2, h3 {
+      line-height: 1.25;
+      margin: 0;
+      font-weight: 750;
+    }
+
+    h1 { font-size: 34px; letter-spacing: 0; }
+    h2 { font-size: 23px; margin-bottom: 14px; }
+    h3 { font-size: 18px; margin-bottom: 10px; }
+
+    p { margin: 0 0 10px; }
+    a { color: var(--accent2); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    .hero {
+      border: 1px solid var(--line);
+      background: linear-gradient(180deg, #fff8e9, #f4ead7);
+      padding: 26px;
+      margin-bottom: 22px;
+    }
+
+    .subtitle {
+      color: var(--muted);
+      margin-top: 10px;
+      max-width: 880px;
+    }
+
+    .meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 18px;
+    }
+
+    .tag {
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, .55);
+      padding: 4px 9px;
+      color: #4c463c;
+      font-size: 13px;
+    }
+
+    .section {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      padding: 22px;
+      margin-top: 18px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .card {
+      border: 1px solid var(--line);
+      background: #fffdf7;
+      padding: 14px;
+    }
+
+    .card strong {
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    .note {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .verdict {
+      border-left: 4px solid var(--accent);
+      padding: 10px 12px;
+      background: #f7eadf;
+      margin-top: 12px;
+    }
+
+    .good { color: var(--good); font-weight: 700; }
+    .bad { color: var(--bad); font-weight: 700; }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 12px;
+      font-size: 14px;
+    }
+
+    th, td {
+      border: 1px solid var(--line);
+      text-align: left;
+      vertical-align: top;
+      padding: 9px 10px;
+    }
+
+    th {
+      background: #efe3cf;
+      white-space: nowrap;
+    }
+
+    code, pre {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+    }
+
+    code {
+      background: #efe6d6;
+      padding: 1px 4px;
+      color: var(--code);
+    }
+
+    pre {
+      white-space: pre-wrap;
+      word-break: break-word;
+      background: #252117;
+      color: #f8ecd4;
+      padding: 12px;
+      overflow: auto;
+      font-size: 13px;
+      line-height: 1.55;
+      margin: 10px 0 0;
+    }
+
+    .media {
+      display: grid;
+      grid-template-columns: minmax(220px, 320px) 1fr;
+      gap: 16px;
+      align-items: start;
+      margin-top: 14px;
+    }
+
+    img, video {
+      width: 100%;
+      display: block;
+      border: 1px solid var(--line);
+      background: #161616;
+    }
+
+    video { max-height: 520px; }
+
+    ul {
+      margin: 8px 0 0;
+      padding-left: 18px;
+    }
+
+    li { margin: 4px 0; }
+
+    .path {
+      overflow-wrap: anywhere;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    @media (max-width: 820px) {
+      main { padding: 18px 14px 40px; }
+      h1 { font-size: 26px; }
+      .grid, .grid-3, .media { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+<main>
+  <section class="hero">
+    <h1>HappyHorse 视频生成测试复盘</h1>
+    <p class="subtitle">项目：女儿国旧日神事件。目标是验证 DashScope HappyHorse 能否在“天书奇谭式老动画风格”下生成可用于成片的 AI 视频，而不是静态图推进。</p>
+    <div class="meta">
+      <span class="tag">记录日期：2026-05-26</span>
+      <span class="tag">测试日期：2026-05-25</span>
+      <span class="tag">模型：happyhorse-1.0-i2v / happyhorse-1.0-r2v</span>
+      <span class="tag">策略：低成本单条测试</span>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>阶段结论</h2>
+    <div class="grid">
+      <div class="card">
+        <strong class="good">有效发现</strong>
+        <ul>
+          <li>API 链路已跑通：提交任务、轮询、下载、记录 JSON 都可用。</li>
+          <li><code>r2v</code> 相比 <code>i2v</code> 更能保持整体风格。</li>
+          <li>多参考图能改善画面一致性，但不等于分镜时间轴。</li>
+        </ul>
+      </div>
+      <div class="card">
+        <strong class="bad">主要问题</strong>
+        <ul>
+          <li><code>i2v</code> 容易穿帮，尤其是人物、影子、复杂异变运动。</li>
+          <li><code>r2v</code> 对 prompt 的动作执行弱，容易变成静态图推进。</li>
+          <li>多张不同尺度参考图会被模型融合，而不是按分镜顺序执行。</li>
+          <li>复杂人物表演、嘴部、经文、衣物、环境同时动时，结果突兀且不流畅。</li>
+        </ul>
+      </div>
+    </div>
+    <div class="verdict">
+      当前判断：HappyHorse 可作为低成本氛围动图/单动作测试工具，不适合直接承担复杂人物分镜导演。后续应改成短镜头单动作拼接，或转 Seedance / Veo / Runway 做主力视频模型验证。
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>接口差异</h2>
+    <table>
+      <thead>
+      <tr>
+        <th>接口</th>
+        <th>模型</th>
+        <th>输入</th>
+        <th>适合场景</th>
+        <th>本轮结论</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td>图生视频-基于首帧</td>
+        <td><code>happyhorse-1.0-i2v</code></td>
+        <td>1 张 <code>first_frame</code></td>
+        <td>首帧非常强、动作简单的镜头</td>
+        <td>风格和运动都不够稳，复杂画面容易穿帮。</td>
+      </tr>
+      <tr>
+        <td>参考生视频</td>
+        <td><code>happyhorse-1.0-r2v</code></td>
+        <td>1-9 张 <code>reference_image</code></td>
+        <td>多图约束风格、角色、场景的短视频</td>
+        <td>风格更稳，但动作控制不等于导演控制。</td>
+      </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="section">
+    <h2>测试 001：i2v 八戒影子逃逸</h2>
+    <div class="media">
+      <video controls src="../data/Data_results/video_results/happyhorse_womankingdom_test_20260525_001/61769428-metadata_video_720p_9123e9fb-02d2-4019-99c0-a99979e7be38_refiner.mp4"></video>
+      <div>
+        <h3>目的</h3>
+        <p>验证首帧图生视频能否让“八戒影子从地面逃走”这种核心动作成立。</p>
+        <table>
+          <tr><th>模型</th><td><code>happyhorse-1.0-i2v</code></td></tr>
+          <tr><th>首帧</th><td class="path">data/Data_results/picture_results/video_episode_002_womankingdom_cthulhu_v1/keyframes/shot_01_bajie_shadow_escape.png</td></tr>
+          <tr><th>参数</th><td><code>720P</code> / <code>3s</code> / <code>watermark=false</code> / <code>seed=20260525</code></td></tr>
+          <tr><th>输出</th><td class="path">data/Data_results/video_results/happyhorse_womankingdom_test_20260525_001/</td></tr>
+          <tr><th>任务 ID</th><td><code>9123e9fb-02d2-4019-99c0-a99979e7be38</code></td></tr>
+        </table>
+        <pre>天书奇谭式中国经典动画，手绘赛璐璐和水墨纸纹质感。夜色女儿国宫门前，猪八戒的黑色影子从地面脱离，像墨水一样贴着石阶快速爬走；镜头低角度缓慢跟随，宫灯轻微摇晃，纸面颗粒稳定，角色不要变形，不要写实化，不要现代3D感。</pre>
+        <div class="verdict">观察：链路成功，但出现明显穿帮。复杂影子与人物关系不稳定，说明 i2v 对这类“角色影子独立运动”控制力不足。</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>测试 002：i2v 子母河黑海倒影</h2>
+    <div class="media">
+      <video controls src="../data/Data_results/video_results/happyhorse_womankingdom_test_20260525_002/42047833-metadata_video_720p_86a6fe38-2f2f-4290-acfd-cb90a076c4eb_refiner.mp4"></video>
+      <div>
+        <h3>目的</h3>
+        <p>改测低风险运动：水波、墨色扩散、倒影变化，降低人物穿帮风险。</p>
+        <table>
+          <tr><th>模型</th><td><code>happyhorse-1.0-i2v</code></td></tr>
+          <tr><th>首帧</th><td class="path">data/Data_results/picture_results/video_episode_002_womankingdom_cthulhu_v1/keyframes/shot_03_zimu_river_black_sea.png</td></tr>
+          <tr><th>参数</th><td><code>720P</code> / <code>5s</code> / <code>watermark=false</code> / <code>seed=2026052502</code></td></tr>
+          <tr><th>输出</th><td class="path">data/Data_results/video_results/happyhorse_womankingdom_test_20260525_002/</td></tr>
+          <tr><th>任务 ID</th><td><code>86a6fe38-2f2f-4290-acfd-cb90a076c4eb</code></td></tr>
+        </table>
+        <pre>天书奇谭式中国经典动画，手绘赛璐璐和水墨纸纹质感。静夜的女儿国子母河，水面像旧宣纸一样安静，倒影缓慢变深，青绿河水逐渐翻涌成黑色深海；河底出现远古宫殿和巨大不可名状的黑影轮廓，只做水波、墨色扩散、倒影变化和缓慢推镜，不要改变岸边人物和建筑结构，不要现代3D感，不要写实化，不要突然切镜。</pre>
+        <div class="verdict">观察：比人物镜头更安全，但画风与期望仍有差距。问题来源包括首帧本身偏 AI 概念图、prompt 描述过强、i2v 无法引入额外风格参考。</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>测试 003：r2v 子母河多参考图</h2>
+    <div class="media">
+      <video controls src="../data/Data_results/video_results/happyhorse_womankingdom_r2v_test_20260525_001/241262-metadata_video_720p_e1ee9051-450d-4a76-96f7-5e9feb14e848_refiner.mp4"></video>
+      <div>
+        <h3>目的</h3>
+        <p>改用多参考图：用主场景锁构图，用视觉设定图和角色定稿图约束天书奇谭式风格。</p>
+        <table>
+          <tr><th>模型</th><td><code>happyhorse-1.0-r2v</code></td></tr>
+          <tr><th>参考图</th><td class="path">[Image 1] shot_03_zimu_river_black_sea.png<br>[Image 2] visual_board_tianshu_style.png<br>[Image 3] character_turnaround_sheet.png</td></tr>
+          <tr><th>参数</th><td><code>720P</code> / <code>9:16</code> / <code>5s</code> / <code>watermark=false</code> / <code>seed=2026052503</code></td></tr>
+          <tr><th>输出</th><td class="path">data/Data_results/video_results/happyhorse_womankingdom_r2v_test_20260525_001/</td></tr>
+          <tr><th>任务 ID</th><td><code>e1ee9051-450d-4a76-96f7-5e9feb14e848</code></td></tr>
+        </table>
+        <pre>以[Image 1]作为主要场景和构图，保持[Image 1]中的河面、荷叶、桥、倒影、建筑位置不变；参考[Image 2]和[Image 3]的手绘老动画质感、纸纹、淡彩设色和线条风格。只做轻微运动：水面出现细小波纹，黑色墨影缓慢向上晕开，倒影轻微错位，荷叶和莲花轻轻晃动，镜头极慢向前推进。不要新增角色，不要新增建筑，不要新增触手，不要切镜，不要改变构图，不要写实化，不要3D化。</pre>
+        <div class="verdict">观察：风格明显更稳，但动画不足，近似静态图推进。原因是 prompt 强调“保持不变”过多，模型选择最安全的运动方式：轻微镜头运动。</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>测试 004：r2v 唐僧念错经动作包</h2>
+    <div class="grid-3">
+      <img src="../data/Data_results/picture_results/video_episode_002_womankingdom_cthulhu_v1/r2v_refs_tangseng_wrong_scripture/ref_01_scene.png" alt="场景参考" />
+      <img src="../data/Data_results/picture_results/video_episode_002_womankingdom_cthulhu_v1/r2v_refs_tangseng_wrong_scripture/ref_02_tangseng.png" alt="唐僧参考" />
+      <img src="../data/Data_results/picture_results/video_episode_002_womankingdom_cthulhu_v1/r2v_refs_tangseng_wrong_scripture/ref_03_scripture.png" alt="经卷参考" />
+      <img src="../data/Data_results/picture_results/video_episode_002_womankingdom_cthulhu_v1/r2v_refs_tangseng_wrong_scripture/ref_04_robe.png" alt="袈裟参考" />
+      <img src="../data/Data_results/picture_results/video_episode_002_womankingdom_cthulhu_v1/r2v_refs_tangseng_wrong_scripture/ref_05_lantern.png" alt="宫灯参考" />
+      <img src="../data/Data_results/picture_results/video_episode_002_womankingdom_cthulhu_v1/r2v_refs_tangseng_wrong_scripture/ref_06_ink_shadow.png" alt="墨影参考" />
+    </div>
+    <div class="media">
+      <video controls src="../data/Data_results/video_results/happyhorse_womankingdom_r2v_test_20260525_002/34475076-metadata_video_720p_c15d8e1b-92b0-4266-b13e-36064173c613_refiner.mp4"></video>
+      <div>
+        <h3>目的</h3>
+        <p>先用生图生成动作参考图包，再裁成 6 张局部参考，降低视频试错成本，测试复杂场景、人物和动作。</p>
+        <table>
+          <tr><th>模型</th><td><code>happyhorse-1.0-r2v</code></td></tr>
+          <tr><th>参考图</th><td class="path">ref_01_scene.png / ref_02_tangseng.png / ref_03_scripture.png / ref_04_robe.png / ref_05_lantern.png / ref_06_ink_shadow.png</td></tr>
+          <tr><th>参数</th><td><code>720P</code> / <code>9:16</code> / <code>5s</code> / <code>watermark=false</code> / <code>seed=2026052504</code></td></tr>
+          <tr><th>输出</th><td class="path">data/Data_results/video_results/happyhorse_womankingdom_r2v_test_20260525_002/</td></tr>
+          <tr><th>任务 ID</th><td><code>c15d8e1b-92b0-4266-b13e-36064173c613</code></td></tr>
+        </table>
+        <pre>以[Image 1]为完整场景、人物站位和宫殿构图基准。参考[Image 2]保持唐僧的脸型、僧帽、袈裟和手持经卷形象。动画重点来自[Image 3]到[Image 6]：唐僧低头诵经，嘴部轻微开合，手中经卷轻微抖动，[Image 3]中的黑色经文像活的水墨书法一样缓慢游动；[Image 4]中的袈裟和袖口轻轻摆动；[Image 5]中的宫灯和帷幔持续轻晃；[Image 6]中的王座后黑色墨影缓慢扩散和翻动。镜头固定，必须有角色和物体动画，不要只做静态推镜。不要新增人物，不要改变唐僧服装，不要切镜，不要写实化，不要3D化。</pre>
+        <div class="verdict">观察：与提示词和参考图差距大，缺少指定分镜变化，画面变化突兀不流畅。核心原因是 r2v 将多参考图视为素材池，而不是时间轴；不同尺度参考图被混合后增加了不稳定性。</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>第一性原理复盘</h2>
+    <div class="grid">
+      <div class="card">
+        <strong>一致性从哪里来</strong>
+        <ul>
+          <li>同尺度、同构图、同风格参考图。</li>
+          <li>单一主体，低自由度。</li>
+          <li>避免全景、近景、特写、局部混传给同一条视频。</li>
+        </ul>
+      </div>
+      <div class="card">
+        <strong>动画从哪里来</strong>
+        <ul>
+          <li>必须明确允许某个区域变化。</li>
+          <li>一条视频只承载一个核心动作。</li>
+          <li>不要用“保持不变”把模型完全锁死。</li>
+        </ul>
+      </div>
+      <div class="card">
+        <strong>为什么复杂段失败</strong>
+        <ul>
+          <li>多参考图不是分镜时间轴。</li>
+          <li>细粒度动作执行力不足。</li>
+          <li>5 秒内塞入人物、经卷、衣物、宫灯、墨影，动作目标过载。</li>
+        </ul>
+      </div>
+      <div class="card">
+        <strong>下一步原则</strong>
+        <ul>
+          <li>每条只测 2-3 秒。</li>
+          <li>每条只做一个动作：经文游动、墨影扩散、宫灯摇晃、人物嘴动。</li>
+          <li>用剪辑、音效、字幕制造“分镜”，不要指望单条 r2v 完成导演。</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>建议路线</h2>
+    <table>
+      <thead>
+      <tr>
+        <th>路线</th>
+        <th>做法</th>
+        <th>成本</th>
+        <th>风险</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td>HappyHorse 继续测</td>
+        <td>2-3 秒单动作短镜头，后期拼接。</td>
+        <td>低</td>
+        <td>动作弱，复杂人物控制差。</td>
+      </tr>
+      <tr>
+        <td>Seedance 2.0 主测</td>
+        <td>同一镜头用多参考/首尾帧能力验证。</td>
+        <td>中</td>
+        <td>需要重新接入 API 或平台。</td>
+      </tr>
+      <tr>
+        <td>Veo / Runway 备选</td>
+        <td>做更强导演感、镜头运动和复杂动作。</td>
+        <td>中高</td>
+        <td>风格一致性仍需强参考图。</td>
+      </tr>
+      </tbody>
+    </table>
+    <div class="verdict">
+      推荐下一次最低成本验证：只测 <code>经卷特写 2-3 秒</code>。参考图只用同尺度经卷图，动作只写“墨字游动、纸面轻颤”，不混全景、不混人物、不写分镜变化。
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>关键文件</h2>
+    <ul>
+      <li><a href="../debug/dashscope/run_happyhorse_i2v.py">debug/dashscope/run_happyhorse_i2v.py</a></li>
+      <li><a href="../debug/dashscope/run_happyhorse_r2v.py">debug/dashscope/run_happyhorse_r2v.py</a></li>
+      <li><a href="../data/Data_results/video_results/happyhorse_womankingdom_test_20260525_001/run_config.json">i2v 测试 001 run_config.json</a></li>
+      <li><a href="../data/Data_results/video_results/happyhorse_womankingdom_test_20260525_002/run_config.json">i2v 测试 002 run_config.json</a></li>
+      <li><a href="../data/Data_results/video_results/happyhorse_womankingdom_r2v_test_20260525_001/run_config.json">r2v 测试 001 run_config.json</a></li>
+      <li><a href="../data/Data_results/video_results/happyhorse_womankingdom_r2v_test_20260525_002/run_config.json">r2v 测试 002 run_config.json</a></li>
+    </ul>
+  </section>
+</main>
+</body>
+</html>

@@ -1,0 +1,708 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>女儿国旧日神事件 - 故事制作工作记录</title>
+  <style>
+    :root {
+      --ink: #f1e7cf;
+      --soft: #d6c8aa;
+      --muted: #9f9278;
+      --faint: #6f644e;
+      --line: #51472f;
+      --line-soft: rgba(81,71,47,.58);
+      --gold: #d4a94f;
+      --gold-dim: rgba(212,169,79,.14);
+      --red: #d95b43;
+      --green: #7ea96f;
+      --cyan: #8fc7cf;
+      --paper: #17160f;
+      --panel: #232014;
+      --black: #0c0c08;
+      --brown: #2d2118;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; background: var(--black); }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--ink);
+      font-family: "Songti SC", "STSong", "Noto Serif CJK SC", "Source Han Serif SC", serif;
+      background:
+        linear-gradient(90deg, rgba(212,169,79,.045) 1px, transparent 1px),
+        linear-gradient(rgba(212,169,79,.04) 1px, transparent 1px),
+        radial-gradient(circle at 22% -8%, rgba(217,91,67,.12), transparent 36rem),
+        radial-gradient(circle at 86% 12%, rgba(126,169,111,.08), transparent 34rem),
+        #10100b;
+      background-size: 38px 38px, 38px 38px, auto, auto, auto;
+    }
+
+    a { color: var(--cyan); text-decoration: none; }
+    a:hover { color: #c5f4f8; text-decoration: underline; text-underline-offset: 3px; }
+
+    .page {
+      width: min(1480px, calc(100vw - 36px));
+      margin: 0 auto;
+      padding: 24px 0 56px;
+    }
+
+    .top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 16px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .crumb {
+      display: flex;
+      gap: 9px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .nav {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .nav a {
+      border: 1px solid var(--line);
+      background: rgba(35,32,20,.86);
+      color: var(--soft);
+      padding: 6px 9px;
+      font-size: 12px;
+    }
+
+    .toolbar {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      display: grid;
+      grid-template-columns: minmax(240px, 1fr) 170px 170px;
+      gap: 10px;
+      margin: 14px 0 18px;
+      padding: 9px;
+      border: 1px solid var(--line);
+      background: rgba(17,16,11,.94);
+      backdrop-filter: blur(8px);
+    }
+
+    input,
+    select {
+      width: 100%;
+      min-height: 34px;
+      border: 1px solid var(--line);
+      background: rgba(0,0,0,.28);
+      color: var(--ink);
+      padding: 6px 9px;
+      font: 13px/1.35 "Songti SC", "STSong", serif;
+    }
+
+    input::placeholder { color: var(--faint); }
+
+    .stage-map {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 7px;
+      margin-bottom: 16px;
+    }
+
+    .stage {
+      border: 1px solid var(--line);
+      background: rgba(35,32,20,.76);
+      padding: 9px;
+      min-height: 74px;
+    }
+
+    .stage b {
+      display: block;
+      color: var(--gold);
+      font-size: 13px;
+    }
+
+    .stage span {
+      display: block;
+      margin-top: 5px;
+      color: var(--muted);
+      font-size: 11px;
+      line-height: 1.42;
+    }
+
+    .month {
+      margin-top: 20px;
+    }
+
+    .month-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: 12px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    h2 {
+      margin: 0;
+      font-size: 22px;
+      line-height: 1.2;
+      font-weight: 900;
+    }
+
+    .month-head span {
+      color: var(--muted);
+      font-size: 11px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .day {
+      display: grid;
+      grid-template-columns: 120px minmax(0, 1fr);
+      gap: 18px;
+      margin-top: 13px;
+    }
+
+    .date {
+      position: sticky;
+      top: 72px;
+      height: fit-content;
+      color: var(--soft);
+      padding-top: 3px;
+    }
+
+    .date strong {
+      display: block;
+      color: var(--gold);
+      font-size: 17px;
+      line-height: 1;
+    }
+
+    .date span {
+      display: block;
+      margin-top: 5px;
+      color: var(--muted);
+      font-size: 11px;
+    }
+
+    .line {
+      position: relative;
+      display: grid;
+      gap: 8px;
+    }
+
+    .line::before {
+      content: "";
+      position: absolute;
+      left: -14px;
+      top: 8px;
+      bottom: -20px;
+      width: 1px;
+      background: linear-gradient(180deg, rgba(212,169,79,.55), rgba(81,71,47,.08));
+    }
+
+    details.record {
+      position: relative;
+      border: 1px solid var(--line-soft);
+      border-left: 4px solid var(--gold);
+      background:
+        linear-gradient(180deg, rgba(35,32,20,.94), rgba(16,16,11,.96)),
+        var(--panel);
+      box-shadow: 0 10px 32px rgba(0,0,0,.22);
+    }
+
+    details.record::before {
+      content: "";
+      position: absolute;
+      left: -22px;
+      top: 17px;
+      width: 9px;
+      height: 9px;
+      border: 3px solid #10100b;
+      border-radius: 50%;
+      background: var(--gold);
+      box-shadow: 0 0 16px rgba(212,169,79,.34);
+    }
+
+    details.record.story { border-left-color: var(--red); }
+    details.record.visual { border-left-color: var(--green); }
+    details.record.video { border-left-color: var(--cyan); }
+    details.record.board { border-left-color: var(--gold); }
+    details.record.story::before { background: var(--red); }
+    details.record.visual::before { background: var(--green); }
+    details.record.video::before { background: var(--cyan); }
+
+    details.record[open] {
+      border-color: rgba(212,169,79,.62);
+      box-shadow: 0 0 0 1px rgba(212,169,79,.1), 0 24px 70px rgba(0,0,0,.35);
+    }
+
+    summary {
+      list-style: none;
+      cursor: pointer;
+      padding: 11px 13px;
+    }
+
+    summary::-webkit-details-marker { display: none; }
+
+    .summary-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 14px;
+    }
+
+    .summary-title {
+      min-width: 0;
+    }
+
+    .meta {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin-bottom: 6px;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      border: 1px solid var(--line);
+      background: rgba(0,0,0,.2);
+      color: var(--soft);
+      padding: 1px 6px;
+      font-size: 11px;
+      white-space: nowrap;
+    }
+
+    .pill.hot { color: #ffe0a1; border-color: rgba(212,169,79,.62); background: var(--gold-dim); }
+    .pill.red { color: #ffb3a7; border-color: rgba(217,91,67,.5); }
+    .pill.green { color: #cbeac2; border-color: rgba(126,169,111,.5); }
+    .pill.cyan { color: #caf2f5; border-color: rgba(143,199,207,.5); }
+
+    h3 {
+      margin: 0;
+      color: #fff2d3;
+      font-size: 16px;
+      line-height: 1.34;
+      font-weight: 900;
+    }
+
+    .desc {
+      margin-top: 6px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.55;
+    }
+
+    .arrow {
+      color: var(--gold);
+      font-size: 18px;
+      transform: rotate(0deg);
+      transition: transform .16s ease;
+    }
+
+    details[open] .arrow { transform: rotate(90deg); }
+
+    .body {
+      border-top: 1px solid var(--line-soft);
+      padding: 11px 13px 13px;
+      background: rgba(0,0,0,.14);
+    }
+
+    .detail-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+    }
+
+    .box {
+      border: 1px solid var(--line-soft);
+      background: rgba(16,16,11,.62);
+      padding: 9px;
+      min-height: 68px;
+    }
+
+    .box.full { grid-column: 1 / -1; }
+
+    .label {
+      display: block;
+      color: var(--gold);
+      font-size: 11px;
+      letter-spacing: .1em;
+      margin-bottom: 5px;
+    }
+
+    .box p {
+      margin: 0;
+      color: var(--soft);
+      font-size: 12px;
+      line-height: 1.58;
+    }
+
+    .links {
+      display: grid;
+      gap: 5px;
+    }
+
+    .links a {
+      overflow-wrap: anywhere;
+      font-size: 13px;
+    }
+
+    .empty {
+      display: none;
+      border: 1px dashed var(--line);
+      color: var(--muted);
+      padding: 28px;
+      text-align: center;
+      background: rgba(35,32,20,.55);
+    }
+
+    @media (max-width: 1100px) {
+      .stage-map { grid-template-columns: repeat(3, 1fr); }
+      .toolbar { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 720px) {
+      .page { width: min(100vw - 18px, 1480px); padding-top: 12px; }
+      .top { align-items: flex-start; flex-direction: column; }
+      .stage-map { grid-template-columns: 1fr; }
+      .day { grid-template-columns: 1fr; gap: 10px; }
+      .date { position: static; display: flex; gap: 10px; align-items: baseline; }
+      .line { padding-left: 22px; }
+      .line::before { left: 5px; }
+      details.record::before { left: -23px; }
+      .detail-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <div class="top">
+      <div class="crumb">
+        <a href="video_episode_002_comic_storyboard.html">连环画分镜</a>
+        <span>/</span>
+        <a href="video_episode_002_timeline_production_board.html">制作看板</a>
+        <span>/</span>
+        <span>工作记录</span>
+      </div>
+      <nav class="nav">
+        <a href="womankingdom_cthulhu_video_plan.html">方案页</a>
+        <a href="happyhorse_video_tests_20260525.html">测试复盘</a>
+        <a href="video_episode_002_atomic_shotlist_v1.md">原子分镜</a>
+      </nav>
+    </div>
+
+    <section class="toolbar">
+      <input id="search" type="search" placeholder="搜索：故事、视觉、测试、结论、下一步、文件名">
+      <select id="stage">
+        <option value="">全部阶段</option>
+      </select>
+      <select id="type">
+        <option value="">全部类型</option>
+        <option value="story">故事</option>
+        <option value="visual">视觉</option>
+        <option value="video">视频</option>
+        <option value="board">看板</option>
+      </select>
+    </section>
+
+    <section class="stage-map">
+      <div class="stage"><b>01 故事定核</b><span>从普通脚本转向强混搭：西游记女儿国 + 旧日神 + 异常档案。</span></div>
+      <div class="stage"><b>02 视觉定调</b><span>从普通 AI 图转向天书奇谭式老动画，先定风格和角色。</span></div>
+      <div class="stage"><b>03 视频试错</b><span>低成本测试 HappyHorse，确认它适合单动作，不适合复杂导演。</span></div>
+      <div class="stage"><b>04 工作流重设</b><span>把生成层、合成层、剪辑层拆开，避免一条 prompt 承担整段分镜。</span></div>
+      <div class="stage"><b>05 原子拆镜</b><span>将 88 秒拆成 32 个镜头，按镜头类型决定补图和视频路线。</span></div>
+      <div class="stage"><b>06 阅读沉淀</b><span>把分镜改成连环画，先验证故事连贯性，再进入批量补图。</span></div>
+    </section>
+
+    <div id="timeline"></div>
+    <div class="empty" id="empty">没有匹配的工作记录。</div>
+  </main>
+
+  <script>
+    const records = [
+      {
+        id: "WL-001",
+        date: "2026-05-14",
+        stage: "故事定核",
+        type: "story",
+        title: "从常规短剧脚本转向强混搭事件",
+        summary: "原脚本质量合格，但混搭识别度不足；方向改为一眼可见的经典 IP 碰撞。",
+        purpose: "解决“内容白开水”和“和以前发布的视频没区别”的根问题。",
+        input: "初版账号内容策略、旧视频样式、用户反馈：要有唐三藏说克苏鲁这种明确混搭感。",
+        output: "确定核心组合：西游记女儿国、旧日神污染、异常档案、生化寄生。",
+        conclusion: "卖点不是重讲女儿国，而是把子母河解释成旧日神胚胎机制。",
+        next: "围绕“八戒影子逃出来”设计开场钩子和整集反转。",
+        links: [
+          ["内容策略初稿", "main_account_content_strategy_v1.md"],
+          ["视频方案页", "womankingdom_cthulhu_video_plan.html"]
+        ]
+      },
+      {
+        id: "WL-002",
+        date: "2026-05-14",
+        stage: "视觉定调",
+        type: "visual",
+        title: "建立天书奇谭式主视觉与角色定稿",
+        summary: "参考邮票式《天书奇谭》风格，生成主设定图和角色多角度定稿。",
+        purpose: "让画面从普通 AI 插画变成可识别的老动画质感，并锁定跨镜头一致性。",
+        input: "用户提供《天书奇谭》参考图；前一版生图被判断 AI 味太强。",
+        output: "主视觉设定图、角色多角度定稿图、三张关键帧。",
+        conclusion: "画风是当前项目的优势，应作为统一资产，而不是每次重新描述。",
+        next: "后续视频生成尽量使用已有图控制画面，提示词只承担动作指令。",
+        links: [
+          ["主视觉设定图", "../data/Data_results/picture_results/video_episode_002_womankingdom_cthulhu_v1/references/visual_board_tianshu_style.png"],
+          ["角色定稿图", "../data/Data_results/picture_results/video_episode_002_womankingdom_cthulhu_v1/references/character_turnaround_sheet.png"],
+          ["八戒影子关键帧", "../data/Data_results/picture_results/video_episode_002_womankingdom_cthulhu_v1/keyframes/shot_01_bajie_shadow_escape.png"],
+          ["唐僧念错经关键帧", "../data/Data_results/picture_results/video_episode_002_womankingdom_cthulhu_v1/keyframes/shot_02_tangseng_wrong_scripture.png"],
+          ["子母河黑海关键帧", "../data/Data_results/picture_results/video_episode_002_womankingdom_cthulhu_v1/keyframes/shot_03_zimu_river_black_sea.png"]
+        ]
+      },
+      {
+        id: "WL-003",
+        date: "2026-05-25",
+        stage: "视频试错",
+        type: "video",
+        title: "HappyHorse i2v 八戒影子逃逸测试失败",
+        summary: "单首帧让模型生成影子独立运动，结果出现明显穿帮。",
+        purpose: "低成本确认 HappyHorse 能否承担复杂人物与影子动作。",
+        input: "shot_01_bajie_shadow_escape.png，happyhorse-1.0-i2v，720P，3 秒。",
+        output: "HH-001 输出视频、run_config、final_response。",
+        conclusion: "复杂影子动作不能交给 i2v 一步生成，影子必须进入合成层。",
+        next: "把影子拆成静帧人物 + 独立墨影遮罩动画。",
+        links: [
+          ["测试复盘", "happyhorse_video_tests_20260525.html"],
+          ["输出目录", "../data/Data_results/video_results/happyhorse_womankingdom_test_20260525_001/"],
+          ["run_config", "../data/Data_results/video_results/happyhorse_womankingdom_test_20260525_001/run_config.json"]
+        ]
+      },
+      {
+        id: "WL-004",
+        date: "2026-05-25",
+        stage: "视频试错",
+        type: "video",
+        title: "子母河黑海 i2v / r2v 对照测试",
+        summary: "i2v 风格偏差大；多参考 r2v 风格较稳，但运动弱，容易变成静态推镜。",
+        purpose: "判断 HappyHorse 对环境镜头是否有保留价值。",
+        input: "shot_03 子母河关键帧、视觉设定图、角色定稿图，多参考图 r2v。",
+        output: "HH-002、HH-003 两组视频测试。",
+        conclusion: "多参考图会把参考图当素材池，不是分镜时间轴；环境镜头可测，复杂叙事不可测。",
+        next: "减少参考图数量，弱化画面描述，只保留单动作。",
+        links: [
+          ["HH-002 输出目录", "../data/Data_results/video_results/happyhorse_womankingdom_test_20260525_002/"],
+          ["HH-003 输出目录", "../data/Data_results/video_results/happyhorse_womankingdom_r2v_test_20260525_001/"],
+          ["完整复盘", "happyhorse_video_tests_20260525.html"]
+        ]
+      },
+      {
+        id: "WL-005",
+        date: "2026-05-25",
+        stage: "视频试错",
+        type: "video",
+        title: "唐僧复杂多参考 r2v 测试失败",
+        summary: "多参考图和复杂动作没有换来更强控制，反而造成提示词与画面差距变大。",
+        purpose: "验证“多图参考能否解决人物一致性和动作导演”的假设。",
+        input: "唐僧场景、经书、宫灯、墨影等 6 张参考图，happyhorse-1.0-r2v。",
+        output: "HH-004 输出视频与记录。",
+        conclusion: "参考图不是导演表。人物动作、镜头变化、叙事节奏不能压给 HappyHorse 单次调用。",
+        next: "人物镜头先用关键帧和合成处理；主力视频模型后续转 Seedance 2.0 验证。",
+        links: [
+          ["HH-004 输出目录", "../data/Data_results/video_results/happyhorse_womankingdom_r2v_test_20260525_002/"],
+          ["测试复盘", "happyhorse_video_tests_20260525.html"]
+        ]
+      },
+      {
+        id: "WL-006",
+        date: "2026-06-03",
+        stage: "工作流重设",
+        type: "board",
+        title: "OPT-001：原子化拆镜 + 分层管线",
+        summary: "把失败归因从模型能力转为工作流问题：生成层不能承担导演、合成、剪辑全部任务。",
+        purpose: "最大化利用现有接口，同时保持风格一致性和动作可控性。",
+        input: "HH-001 到 HH-004 的失败观察，用户目标：不要 PPT，要惊艳的 AI 视频成果。",
+        output: "制作看板中的 OPT-001 方案：生图、视频、合成、剪辑分层。",
+        conclusion: "HappyHorse 作为低成本单动作素材工具；影子、字卡、UI、裂纹、灯光交给合成层。",
+        next: "用单参考图、单动作、短时长再测一次环境镜头。",
+        links: [
+          ["视频制作看板", "video_production_dashboard.html"],
+          ["HappyHorse 测试复盘", "happyhorse_video_tests_20260525.html"]
+        ]
+      },
+      {
+        id: "WL-007",
+        date: "2026-06-03",
+        stage: "视频试错",
+        type: "video",
+        title: "HH-005：单参考图子母河 3 秒重测",
+        summary: "去掉多参考图和复杂画面描述，只保留水波、墨影、荷叶的单动作。",
+        purpose: "验证原子化策略是否比多参考复杂 prompt 更稳。",
+        input: "1 张 shot_03 子母河参考图，happyhorse-1.0-r2v，720P，9:16，duration=3。",
+        output: "HH-005 输出视频。",
+        conclusion: "比 HH-003 更好，风格可用，但时长太短且动画仍偏弱，只能作为环境动效模板。",
+        next: "正式生成阶段先补关键帧，再把环境单动作、局部动效、影子合成分开处理。",
+        links: [
+          ["HH-005 输出视频", "../data/Data_results/video_results/happyhorse_womankingdom_r2v_test_20260603_001/35402056-metadata_video_720p_5e86ca71-7a86-4fdc-96d6-938d4cefbc7c_refiner.mp4"],
+          ["HH-005 run_config", "../data/Data_results/video_results/happyhorse_womankingdom_r2v_test_20260603_001/run_config.json"],
+          ["HH-005 final_response", "../data/Data_results/video_results/happyhorse_womankingdom_r2v_test_20260603_001/final_task_response.json"]
+        ]
+      },
+      {
+        id: "WL-008",
+        date: "2026-06-03",
+        stage: "原子拆镜",
+        type: "story",
+        title: "88 秒脚本拆成 32 个原子镜头",
+        summary: "把完整故事拆到 2-3 秒级，明确每个镜头的素材状态和生成路线。",
+        purpose: "判断故事是否完备、分镜图是否充分，并进入正式补图和视频生成。",
+        input: "故事脚本、现有 3 张关键帧、HappyHorse 测试结论。",
+        output: "video_episode_002_atomic_shotlist_v1.md。",
+        conclusion: "故事完整，可以进入制作；现有分镜图不足，P0 需要补 8 张关键帧。",
+        next: "优先补 A01、A06、A13、A16、A21、A23、A29、A31。",
+        links: [
+          ["原子分镜表", "video_episode_002_atomic_shotlist_v1.md"],
+          ["技术制作看板", "video_episode_002_timeline_production_board.html"]
+        ]
+      },
+      {
+        id: "WL-009",
+        date: "2026-06-03",
+        stage: "阅读沉淀",
+        type: "board",
+        title: "分镜看板改为可阅读连环画",
+        summary: "技术分镜页看不出故事连贯性，因此新增连环画阅读版。",
+        purpose: "在缺图状态下仍能直接阅读故事，检查开场、递进、反转是否成立。",
+        input: "32 个原子镜头、用户反馈：不是从项目角度，而是从视频角度看完整故事。",
+        output: "video_episode_002_comic_storyboard.html。",
+        conclusion: "故事页应隐藏技术细节，只保留画面、文字和时长；技术信息留在制作看板。",
+        next: "按连环画缺图顺序补图，先让阅读页从文字占位变成完整画面序列。",
+        links: [
+          ["连环画分镜", "video_episode_002_comic_storyboard.html"],
+          ["时间线制作看板", "video_episode_002_timeline_production_board.html"]
+        ]
+      },
+      {
+        id: "WL-010",
+        date: "2026-06-04",
+        stage: "看板沉淀",
+        type: "board",
+        title: "新增故事制作工作记录页",
+        summary: "参考工作记录页结构，但沿用当前暗色宣纸 UI，把制作过程沉淀成可追溯日志。",
+        purpose: "让后续继续制作时能快速知道每一步为什么做、证明了什么、下一步该做什么。",
+        input: "增长记录中心 worklog.html 的结构、现有方案页、测试复盘、分镜看板、连环画页。",
+        output: "video_episode_002_worklog.html。",
+        conclusion: "工作记录页承担过程记忆；连环画页承担故事阅读；制作看板承担执行调度。",
+        next: "补 P0 关键帧时，每完成一张图或一次视频测试，都追加一条记录。",
+        links: [
+          ["当前工作记录页", "video_episode_002_worklog.html"],
+          ["连环画分镜", "video_episode_002_comic_storyboard.html"],
+          ["制作看板", "video_episode_002_timeline_production_board.html"]
+        ]
+      }
+    ];
+
+    const typeLabel = {
+      story: "故事",
+      visual: "视觉",
+      video: "视频",
+      board: "看板"
+    };
+
+    function monthKey(date) {
+      return date.slice(0, 7);
+    }
+
+    function dayLabel(date) {
+      return date.split("-").slice(1).join(".");
+    }
+
+    function renderFilters() {
+      const stages = [...new Set(records.map(r => r.stage))];
+      document.getElementById("stage").innerHTML = '<option value="">全部阶段</option>' + stages.map(s => `<option value="${s}">${s}</option>`).join("");
+    }
+
+    function linkList(items) {
+      return `<div class="links">${items.map(item => `<a href="${item[1]}">${item[0]}</a>`).join("")}</div>`;
+    }
+
+    function recordNode(r) {
+      return `
+        <details class="record ${r.type}">
+          <summary>
+            <div class="summary-top">
+              <div class="summary-title">
+                <div class="meta">
+                  <span class="pill hot">${r.id}</span>
+                  <span class="pill">${r.stage}</span>
+                  <span class="pill ${r.type === "video" ? "cyan" : r.type === "visual" ? "green" : r.type === "story" ? "red" : ""}">${typeLabel[r.type]}</span>
+                </div>
+                <h3>${r.title}</h3>
+                <div class="desc">${r.summary}</div>
+              </div>
+              <div class="arrow">›</div>
+            </div>
+          </summary>
+          <div class="body">
+            <div class="detail-grid">
+              <div class="box"><span class="label">目的</span><p>${r.purpose}</p></div>
+              <div class="box"><span class="label">输入</span><p>${r.input}</p></div>
+              <div class="box"><span class="label">产出</span><p>${r.output}</p></div>
+              <div class="box"><span class="label">结论</span><p>${r.conclusion}</p></div>
+              <div class="box"><span class="label">下一步</span><p>${r.next}</p></div>
+              <div class="box"><span class="label">证据 / 文件</span>${linkList(r.links)}</div>
+            </div>
+          </div>
+        </details>
+      `;
+    }
+
+    function render() {
+      const q = document.getElementById("search").value.trim().toLowerCase();
+      const stage = document.getElementById("stage").value;
+      const type = document.getElementById("type").value;
+      const filtered = records.filter(r => {
+        const hay = Object.values(r).flat().join(" ").toLowerCase();
+        return (!q || hay.includes(q)) && (!stage || r.stage === stage) && (!type || r.type === type);
+      });
+
+      const groups = {};
+      filtered.forEach(r => {
+        const mk = monthKey(r.date);
+        groups[mk] ||= {};
+        groups[mk][r.date] ||= [];
+        groups[mk][r.date].push(r);
+      });
+
+      const html = Object.keys(groups).sort().reverse().map(month => `
+        <section class="month">
+          <div class="month-head">
+            <h2>${month.replace("-", " 年 ")} 月</h2>
+            <span>${Object.values(groups[month]).flat().length} records</span>
+          </div>
+          ${Object.keys(groups[month]).sort().reverse().map(date => `
+            <div class="day">
+              <aside class="date"><strong>${dayLabel(date)}</strong><span>${date}</span></aside>
+              <div class="line">${groups[month][date].map(recordNode).join("")}</div>
+            </div>
+          `).join("")}
+        </section>
+      `).join("");
+
+      document.getElementById("timeline").innerHTML = html;
+      document.getElementById("empty").style.display = filtered.length ? "none" : "block";
+    }
+
+    renderFilters();
+    render();
+    document.getElementById("search").addEventListener("input", render);
+    document.getElementById("stage").addEventListener("change", render);
+    document.getElementById("type").addEventListener("change", render);
+  </script>
+</body>
+</html>

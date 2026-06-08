@@ -1,0 +1,462 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>女儿国旧日神事件 - 连环画分镜</title>
+  <style>
+    :root {
+      --ink: #f1e7cf;
+      --muted: #9f9278;
+      --line: #51472f;
+      --gold: #d4a94f;
+      --red: #d95b43;
+      --green: #7ea96f;
+      --paper: #17160f;
+      --panel: #232014;
+      --black: #0c0c08;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; background: var(--black); }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      font-family: "Songti SC", "STSong", "Noto Serif CJK SC", "Source Han Serif SC", serif;
+      background:
+        linear-gradient(90deg, rgba(212,169,79,.045) 1px, transparent 1px),
+        linear-gradient(rgba(212,169,79,.04) 1px, transparent 1px),
+        radial-gradient(circle at 50% 0, rgba(217,91,67,.09), transparent 42rem),
+        #10100b;
+      background-size: 38px 38px, 38px 38px, auto, auto;
+    }
+
+    a { color: #8fc7cf; text-decoration: none; }
+
+    .page {
+      width: min(1500px, calc(100vw - 36px));
+      margin: 0 auto;
+      padding: 26px 0 54px;
+    }
+
+    .cover {
+      min-height: 78vh;
+      border: 1px solid var(--line);
+      padding: 34px;
+      display: grid;
+      grid-template-columns: minmax(0, .92fr) minmax(360px, .58fr);
+      gap: 28px;
+      align-items: stretch;
+      background:
+        linear-gradient(135deg, rgba(35,32,20,.98), rgba(10,10,7,.98)),
+        var(--paper);
+      box-shadow: 0 24px 90px rgba(0,0,0,.45), inset 0 0 0 1px rgba(241,231,207,.04);
+    }
+
+    .cover::before {
+      content: "混搭档案";
+      position: absolute;
+      opacity: 0;
+    }
+
+    .cover-text {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 26px;
+    }
+
+    .kicker {
+      color: var(--gold);
+      font-size: 13px;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 0;
+      max-width: 900px;
+      font-size: clamp(42px, 6vw, 88px);
+      line-height: .98;
+      font-weight: 900;
+    }
+
+    .lead {
+      max-width: 760px;
+      margin: 18px 0 0;
+      color: #d6c8aa;
+      font-size: 22px;
+      line-height: 1.75;
+    }
+
+    .cover-art {
+      display: grid;
+      grid-template-rows: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .cover-art img,
+    .cover-art video {
+      width: 100%;
+      height: 100%;
+      min-height: 220px;
+      object-fit: cover;
+      border: 1px solid var(--line);
+      background: #090907;
+    }
+
+    .summary {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      margin: 14px 0 30px;
+    }
+
+    .sum {
+      border: 1px solid var(--line);
+      background: rgba(35,32,20,.86);
+      padding: 14px;
+    }
+
+    .sum strong {
+      display: block;
+      color: var(--gold);
+      font-size: 26px;
+      line-height: 1;
+    }
+
+    .sum span {
+      display: block;
+      margin-top: 8px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .reader-note {
+      border: 1px solid var(--line);
+      background: rgba(35,32,20,.78);
+      padding: 18px 20px;
+      margin: 14px 0 28px;
+      color: #dbcdae;
+      font-size: 18px;
+      line-height: 1.72;
+    }
+
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      padding: 12px 0;
+      background: linear-gradient(#10100b 72%, rgba(16,16,11,0));
+    }
+
+    .nav a {
+      border: 1px solid var(--line);
+      background: rgba(35,32,20,.94);
+      color: var(--ink);
+      padding: 8px 10px;
+      font-size: 13px;
+    }
+
+    .nav a:hover {
+      border-color: var(--gold);
+      color: #ffe4a0;
+    }
+
+    .chapter {
+      margin-top: 30px;
+      border: 1px solid var(--line);
+      background: rgba(17,17,11,.82);
+    }
+
+    .chapter-head {
+      padding: 7px 14px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      border-bottom: 1px solid var(--line);
+      background: rgba(0,0,0,.32);
+    }
+
+    .act-label {
+      color: var(--red);
+      font-size: 13px;
+      font-weight: 900;
+      letter-spacing: .16em;
+    }
+
+    .act-range { color: var(--muted); font-size: 12px; }
+    .act-time { color: var(--gold); font-size: 12px; }
+
+    .strip {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 0;
+    }
+
+    .frame {
+      min-height: 480px;
+      border-right: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      background: var(--panel);
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+    }
+
+    .frame-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      padding: 9px 10px;
+      border-bottom: 1px solid rgba(81,71,47,.82);
+      background: rgba(0,0,0,.2);
+    }
+
+    .id {
+      color: var(--gold);
+      font-size: 20px;
+      font-weight: 900;
+      line-height: 1;
+    }
+
+    .time {
+      color: #e8dcc2;
+      border: 1px solid var(--line);
+      padding: 3px 6px;
+      font-size: 12px;
+      background: rgba(0,0,0,.28);
+    }
+
+    .picture {
+      position: relative;
+      aspect-ratio: 9 / 16;
+      margin: 10px 10px 0;
+      border: 1px solid var(--line);
+      background:
+        linear-gradient(135deg, rgba(217,91,67,.1), rgba(126,169,111,.08)),
+        #0a0a07;
+      overflow: hidden;
+    }
+
+    .picture img,
+    .picture video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .missing {
+      height: 100%;
+      display: grid;
+      place-items: center;
+      padding: 18px;
+      text-align: center;
+      color: #d6c8aa;
+      line-height: 1.7;
+      font-size: 16px;
+      background:
+        linear-gradient(45deg, rgba(212,169,79,.04) 25%, transparent 25% 50%, rgba(212,169,79,.04) 50% 75%, transparent 75%),
+        #10100b;
+      background-size: 18px 18px;
+    }
+
+    .tag {
+      position: absolute;
+      left: 8px;
+      bottom: 8px;
+      border: 1px solid rgba(212,169,79,.62);
+      background: rgba(8,8,5,.74);
+      color: #d6c8aa;
+      padding: 4px 6px;
+      font-size: 11px;
+    }
+
+    .caption {
+      padding: 13px 14px 16px;
+      min-height: 150px;
+      background:
+        linear-gradient(180deg, rgba(241,231,207,.025), transparent),
+        rgba(0,0,0,.12);
+    }
+
+    .caption p {
+      margin: 0;
+      color: #f1e7cf;
+      font-size: 17px;
+      line-height: 1.72;
+    }
+
+    .caption .dialogue {
+      display: block;
+      margin-top: 8px;
+      color: #ffe5a3;
+      font-size: 20px;
+      font-weight: 900;
+    }
+
+    .turn {
+      color: var(--red);
+      font-weight: 900;
+    }
+
+    .end-note {
+      margin-top: 28px;
+      border: 1px solid var(--line);
+      background: rgba(35,32,20,.86);
+      padding: 18px;
+      color: #d6c8aa;
+      line-height: 1.72;
+    }
+
+    @media (max-width: 980px) {
+      .cover { grid-template-columns: 1fr; min-height: 0; }
+      .summary { grid-template-columns: repeat(2, 1fr); }
+      .chapter-head { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 560px) {
+      .page { width: min(100vw - 18px, 1500px); padding-top: 10px; }
+      .cover { padding: 18px; }
+      .summary { grid-template-columns: 1fr; }
+      .strip { grid-template-columns: 1fr; }
+      .frame { min-height: 0; }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+
+    <nav class="nav">
+      <a href="#act1">起（A01–A10）</a>
+      <a href="#act2">困（A11–A22）</a>
+      <a href="#act3">破（A23–A32）</a>
+    </nav>
+
+    <div id="chapters"></div>
+
+    <section class="end-note">
+      故事到这里并没有结束。那个影子第一个知道西天是什么，所以它跑了。它现在还在外面，贴着八戒，一路往西走。
+    </section>
+  </main>
+
+  <script>
+    const ASSET = "../data/Data_results/picture_results/video_episode_002_womankingdom_cthulhu_v1/";
+    const VIDEO = "../data/Data_results/video_results/";
+    const img = {
+      board: ASSET + "references/visual_board_tianshu_style.png",
+      chars: ASSET + "references/character_turnaround_sheet.png",
+      shadow: ASSET + "keyframes/shot_01_bajie_shadow_escape.png",
+      tang: ASSET + "keyframes/shot_02_tangseng_wrong_scripture.png",
+      river: ASSET + "keyframes/shot_03_zimu_river_black_sea.png",
+      scripture: ASSET + "r2v_refs_tangseng_wrong_scripture/ref_03_scripture.png",
+      lantern: ASSET + "r2v_refs_tangseng_wrong_scripture/ref_05_lantern.png",
+      ink: ASSET + "r2v_refs_tangseng_wrong_scripture/ref_06_ink_shadow.png",
+      hh005: VIDEO + "happyhorse_womankingdom_r2v_test_20260603_001/35402056-metadata_video_720p_5e86ca71-7a86-4fdc-96d6-938d4cefbc7c_refiner.mp4"
+    };
+
+    const acts = [
+      {
+        id: "act1",
+        label: "起",
+        range: "A01–A10",
+        time: "0–30s",
+        frames: [
+          ["A01", "0-2s",   "",             "话说取经路上，唐僧师徒四人夜宿女儿国。夜宴散了，四人并肩走出宫门，月色正好。",                                     "宫门月夜出场"],
+          ["A02", "2-4s",   img.shadow,     "八戒走着走着，停下来。脚下那团黑影悄悄松开，像水从他身底流走。",                                                   "八戒影子脱离"],
+          ["A03", "4-6s",   "",             "沙僧回头一看，叫道：<span class='dialogue'>二师兄，你的影子呢？</span>宫门石阶上，空空如也。",                    "黑影贴地逃走"],
+          ["A04", "6-8s",   "",             "女儿国的夜，静得不正常。宫殿倒影映在河面，颜色不是天光。",                                                         "女儿国夜景"],
+          ["A05", "8-10s",  img.hh005,      "子母河慢慢变黑。荷叶无风自动，水底像有什么翻了个身。",                                                             "子母河发黑"],
+          ["A06", "10-12s", "",             "沙僧捞起一把水，皱眉道：<span class='dialogue'>这水里有别的东西。</span>",                                          "沙僧查水"],
+          ["A07", "12-15s", "",             "夜宴散了，正殿只剩烛光。王座阴影里，一卷经书的书角悄悄露出来。",                                                     "王座下藏经"],
+          ["A08", "15-18s", img.tang,       "唐僧展开经书，站在王座前念了起来。他以为是自己带来的。",                                                           "唐僧王座前诵经"],
+          ["A09", "18-21s", "",             "殿外，沙僧猛地回头——师父的包袱，还绑在马背上，一动没动。",                                                         "包袱未动起疑"],
+          ["A10", "21-24s", img.scripture,  "唐僧翻开第一页。金色佛文整齐，安静，干净。他松了口气，往下念。",                                                   "第一页佛文正常"]
+        ]
+      },
+      {
+        id: "act2",
+        label: "困",
+        range: "A11–A22",
+        time: "24–60s",
+        frames: [
+          ["A11", "24-27s", img.scripture,  "翻到第二页，笔画开始扭动。金色褪去，黑色螺旋从字里长出来，像触手。",                                               "经文变成黑色螺旋"],
+          ["A12", "27-30s", img.lantern,    "唐僧只念错了一个字。下一刻，正殿所有烛火齐齐一闪，变成幽绿色。",                                                   "烛火转绿"],
+          ["A13", "30-33s", "",             "悟空蹲到河边，金箍棒先红了光。皱眉道：<span class='dialogue'>没有妖气。</span>低头看，脸色变了。",                   "悟空查河"],
+          ["A14", "33-36s", img.hh005,      "子母河沉静如镜。镜里没有云，没有月，只有黑色海底，深不见底。",                                                     "水面倒映黑海"],
+          ["A15", "36-39s", img.river,      "黑海深处，一座沉没的佛塔缓缓浮起，越来越清晰，从水底盯着女儿国。",                                                 "沉没佛塔"],
+          ["A16", "39-42s", "",             "悟空捞起一朵莲花，翻过来，扔了出去。花瓣背面密密麻麻，全是眼睛。",                                                 "莲花眼孔"],
+          ["A17", "42-45s", "",             "八戒凑过来道：大师兄，里头有啥？悟空道：<span class='dialogue'>没有孩子。一个也没有。</span>",                       "悟空验水"],
+          ["A18", "45-48s", "",             "悟空将金箍棒插入水中，棒身渐渐暗红。道：<span class='dialogue'>它们连着同一根。</span>",                             "金箍棒探水"],
+          ["A19", "48-51s", "",             "不是孩子。是同一个东西，分成无数份，住进无数人体内，等着一个信号。",                                               "根须分裂图"],
+          ["A20", "51-54s", "",             "悟空一棒砸向照妖镜，镜面裂开。盯了半天，收回棒子，道：<span class='dialogue'>没有妖怪。</span>",                   "照妖镜破裂"],
+          ["A21", "54-57s", "",             "破镜正中浮出一行红字，一笔一划，清清楚楚。悟空认不出，但那字认出了他。",                                           "镜中红字"],
+          ["A22", "57-60s", "",             "金箍突然一紧。不是师父遇险那种紧——是有什么东西的数量，不对了。",                                                   "金箍报警"]
+        ]
+      },
+      {
+        id: "act3",
+        label: "破",
+        range: "A23–A32",
+        time: "60–88s",
+        frames: [
+          ["A23", "60-63s", "",             "悟空挨个数影子：师父一个，沙师弟两个，白龙马……没有。他停下来，倒吸一口气。",                                       "师徒影子异常"],
+          ["A24", "63-66s", img.shadow,     "河边跪着一个黑影，低头喝着子母河的水。那是八戒的影子。而八戒，就站在悟空身边。",                                   "八戒影子饮水"],
+          ["A25", "66-69s", img.lantern,    "三更鼓声落，女儿国所有宫灯同时熄灭。整座城陷入黑暗，像被一只手捂住了眼睛。",                                       "宫灯齐灭"],
+          ["A26", "69-72s", "",             "宫女们登上城墙，面朝西方，齐声开口。悟空听了半天，铁青着脸：<span class='dialogue'>这不是佛经。</span>",            "城墙诵经"],
+          ["A27", "72-75s", img.scripture,  "她们念的，正是唐僧白天念错的那一页。黑色经文一遍一遍，回响在女儿国上空。",                                         "错误经页回响"],
+          ["A28", "75-78s", "",             "念一遍，全城腹部同时发光，同步加深。像被同一颗心牵着，一起跳。",                                                   "腹光同步"],
+          ["A29", "78-81s", "",             "女王坐在王座上，腹部幽绿光一明一暗。里面传出一个声音——不是她的，不是孩子的。",                                     "女王腹中异声"],
+          ["A30", "81-84s", "",             "那声音道：<span class='dialogue'>别去西天。</span>就这一句，说完，静了。",                                           "黑场低语"],
+          ["A31", "84-86s", "",             "西天不是终点。那里是一座神庙，等着把觉醒的容器送到神龛前。如来，不是佛。",                                         "如来神庙"],
+          ["A32", "86-88s", "",             "所以那个逃出来的，也许从来不是八戒。是那个影子——它第一个知道，第一个跑了。",                                       "影子回望"]
+        ]
+      }
+    ];
+
+    function mediaNode(src, label) {
+      if (!src) return `<div class="missing">${label}</div>`;
+      if (src.endsWith(".mp4")) return `<video controls src="${src}"></video>`;
+      return `<img src="${src}" alt="${label}">`;
+    }
+
+    function render() {
+      const root = document.getElementById("chapters");
+      root.innerHTML = acts.map(act => `
+        <section class="chapter" id="${act.id}">
+          <div class="chapter-head">
+            <span class="act-label">${act.label}</span>
+            <span class="act-range">${act.range}</span>
+            <span class="act-time">${act.time}</span>
+          </div>
+          <div class="strip">
+            ${act.frames.map(frame => `
+              <article class="frame">
+                <div class="frame-top">
+                  <span class="id">${frame[0]}</span>
+                  <span class="time">${frame[1]}</span>
+                </div>
+                <div class="picture">
+                  ${mediaNode(frame[2], frame[4])}
+                  <span class="tag">${frame[4]}</span>
+                </div>
+                <div class="caption">
+                  <p>${frame[3]}</p>
+                </div>
+              </article>
+            `).join("")}
+          </div>
+        </section>
+      `).join("");
+    }
+
+    render();
+  </script>
+</body>
+</html>

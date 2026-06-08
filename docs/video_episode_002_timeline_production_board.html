@@ -1,0 +1,988 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>女儿国旧日神事件 - 时间线制作看板</title>
+  <style>
+    :root {
+      --ink: #efe6cf;
+      --muted: #a79b82;
+      --paper: #191911;
+      --panel: #222116;
+      --panel-2: #2d2a1d;
+      --line: #51472f;
+      --red: #d95b43;
+      --green: #7aa76d;
+      --gold: #d4a94f;
+      --blue: #78b5bd;
+      --black: #090907;
+    }
+
+    * { box-sizing: border-box; }
+
+    html {
+      scroll-behavior: smooth;
+      background: var(--black);
+    }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      font-family: "Songti SC", "STSong", "Noto Serif CJK SC", "Source Han Serif SC", serif;
+      background:
+        linear-gradient(90deg, rgba(212, 169, 79, .05) 1px, transparent 1px),
+        linear-gradient(rgba(212, 169, 79, .04) 1px, transparent 1px),
+        radial-gradient(circle at 50% 0%, rgba(217, 91, 67, .08), transparent 34rem),
+        #11110c;
+      background-size: 34px 34px, 34px 34px, auto, auto;
+    }
+
+    a { color: var(--blue); text-decoration: none; }
+    a:hover { color: #a7d8df; }
+
+    .shell {
+      width: min(1480px, calc(100vw - 40px));
+      margin: 0 auto;
+      padding: 24px 0 48px;
+    }
+
+    .hero {
+      border: 1px solid var(--line);
+      min-height: 360px;
+      padding: 28px;
+      display: grid;
+      grid-template-columns: minmax(0, 1.05fr) minmax(360px, .95fr);
+      gap: 24px;
+      background: linear-gradient(135deg, rgba(34, 33, 22, .96), rgba(12, 12, 8, .98));
+      box-shadow: inset 0 0 0 1px rgba(239, 230, 207, .04), 0 20px 80px rgba(0,0,0,.4);
+    }
+
+    .kicker {
+      color: var(--gold);
+      letter-spacing: .14em;
+      font-size: 12px;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+    }
+
+    h1 {
+      margin: 0;
+      max-width: 820px;
+      font-size: clamp(36px, 5vw, 72px);
+      line-height: .98;
+      font-weight: 900;
+    }
+
+    .hook {
+      margin: 18px 0 0;
+      max-width: 760px;
+      color: #d6cbb2;
+      font-size: 19px;
+      line-height: 1.72;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      grid-auto-rows: 1fr;
+      gap: 10px;
+      min-height: 300px;
+    }
+
+    .hero-grid img {
+      width: 100%;
+      height: 100%;
+      min-height: 142px;
+      object-fit: cover;
+      border: 1px solid var(--line);
+      background: #0b0b08;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 10px;
+      margin: 14px 0 24px;
+    }
+
+    .stat {
+      border: 1px solid var(--line);
+      background: rgba(34,33,22,.86);
+      padding: 14px;
+      min-height: 88px;
+    }
+
+    .stat .n {
+      display: block;
+      font-size: 32px;
+      font-weight: 900;
+      color: var(--gold);
+      line-height: 1;
+    }
+
+    .stat .t {
+      display: block;
+      color: var(--muted);
+      margin-top: 8px;
+      font-size: 13px;
+      line-height: 1.35;
+    }
+
+    .toolbar {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 0;
+      margin-bottom: 12px;
+      background: linear-gradient(#11110c 72%, rgba(17,17,12,0));
+    }
+
+    .filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    button {
+      appearance: none;
+      border: 1px solid var(--line);
+      background: rgba(34,33,22,.95);
+      color: var(--ink);
+      padding: 9px 12px;
+      font: inherit;
+      cursor: pointer;
+    }
+
+    button:hover,
+    button.active {
+      border-color: var(--gold);
+      color: #ffe3a0;
+      background: rgba(70, 55, 25, .95);
+    }
+
+    .jump {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      max-width: 520px;
+      justify-content: flex-end;
+    }
+
+    .jump a {
+      display: block;
+      min-width: 40px;
+      text-align: center;
+      border: 1px solid var(--line);
+      padding: 7px 8px;
+      color: var(--muted);
+      background: rgba(12,12,8,.75);
+      font-size: 12px;
+    }
+
+    .jump a:hover {
+      color: var(--ink);
+      border-color: var(--gold);
+    }
+
+    .section-title {
+      margin: 34px 0 14px;
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 16px;
+      border-bottom: 1px solid var(--line);
+      padding-bottom: 12px;
+    }
+
+    .section-title h2 {
+      margin: 0;
+      font-size: 34px;
+      line-height: 1;
+    }
+
+    .section-title p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.6;
+      max-width: 780px;
+    }
+
+    .timeline {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
+      gap: 12px;
+      align-items: start;
+    }
+
+    .shot {
+      border: 1px solid var(--line);
+      background: rgba(25, 25, 17, .92);
+      display: grid;
+      grid-template-columns: 1fr;
+      min-height: 0;
+      overflow: hidden;
+    }
+
+    .shot.hidden { display: none; }
+
+    .shot-index {
+      border-right: 0;
+      border-bottom: 1px solid var(--line);
+      background: linear-gradient(180deg, rgba(217,91,67,.1), rgba(212,169,79,.05));
+      padding: 10px 12px;
+      display: flex;
+      flex-direction: row;
+      gap: 7px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .shot-id {
+      font-size: 24px;
+      font-weight: 900;
+      color: var(--gold);
+      line-height: 1;
+    }
+
+    .time {
+      color: var(--ink);
+      border: 1px solid var(--line);
+      padding: 4px 7px;
+      font-size: 12px;
+      background: rgba(0,0,0,.25);
+    }
+
+    .badge {
+      display: inline-flex;
+      width: fit-content;
+      align-items: center;
+      border: 1px solid var(--line);
+      padding: 4px 6px;
+      font-size: 11px;
+      color: var(--muted);
+      background: rgba(0,0,0,.16);
+    }
+
+    .badge.need { color: #ffd0bf; border-color: rgba(217,91,67,.7); }
+    .badge.have { color: #cfeec6; border-color: rgba(122,167,109,.7); }
+    .badge.mix { color: #f7dda0; border-color: rgba(212,169,79,.7); }
+    .badge.post { color: #c5f4fa; border-color: rgba(120,181,189,.7); }
+
+    .media {
+      border-right: 0;
+      border-bottom: 1px solid var(--line);
+      padding: 10px;
+      display: flex;
+      flex-direction: row;
+      gap: 8px;
+      background: rgba(0,0,0,.18);
+    }
+
+    .preview {
+      aspect-ratio: 9 / 16;
+      width: 44%;
+      min-width: 126px;
+      border: 1px solid var(--line);
+      background:
+        linear-gradient(135deg, rgba(217,91,67,.08), rgba(120,181,189,.06)),
+        #0b0b08;
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+    }
+
+    .preview img,
+    .preview video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .placeholder {
+      padding: 18px;
+      text-align: center;
+      color: var(--muted);
+      line-height: 1.5;
+      font-size: 14px;
+    }
+
+    .refs {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 6px;
+      flex: 1;
+      align-content: start;
+    }
+
+    .refs a,
+    .refs span {
+      aspect-ratio: 1;
+      border: 1px solid var(--line);
+      display: grid;
+      place-items: center;
+      background: rgba(0,0,0,.25);
+      color: var(--muted);
+      font-size: 11px;
+      overflow: hidden;
+      text-align: center;
+      padding: 4px;
+    }
+
+    .refs img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .shot-body {
+      padding: 12px;
+      display: grid;
+      gap: 9px;
+      align-content: start;
+    }
+
+    .shot-head {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      justify-content: space-between;
+      border-bottom: 1px solid rgba(81,71,47,.72);
+      padding-bottom: 8px;
+    }
+
+    .shot-head h3 {
+      margin: 0;
+      font-size: 20px;
+      line-height: 1.18;
+    }
+
+    .script {
+      border-left: 3px solid var(--red);
+      padding: 7px 0 7px 10px;
+      color: #f3dec8;
+      font-size: 15px;
+      line-height: 1.48;
+      background: linear-gradient(90deg, rgba(217,91,67,.08), transparent);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 8px;
+    }
+
+    .field {
+      border: 1px solid rgba(81,71,47,.86);
+      background: rgba(0,0,0,.16);
+      padding: 9px 10px;
+      min-height: 0;
+    }
+
+    .field.full { grid-column: 1 / -1; }
+
+    .label {
+      color: var(--gold);
+      font-size: 12px;
+      letter-spacing: .08em;
+      margin-bottom: 5px;
+    }
+
+    .field p {
+      margin: 0;
+      color: #d7ccb2;
+      line-height: 1.46;
+      font-size: 13px;
+    }
+
+    details.field {
+      cursor: pointer;
+    }
+
+    details summary {
+      color: var(--gold);
+      font-size: 12px;
+      letter-spacing: .08em;
+      list-style-position: inside;
+    }
+
+    details[open] summary {
+      margin-bottom: 7px;
+    }
+
+    code {
+      color: #bfe3e7;
+      background: rgba(120,181,189,.1);
+      padding: 1px 4px;
+    }
+
+    .prompt {
+      white-space: pre-wrap;
+      font-family: "Songti SC", "STSong", serif;
+    }
+
+    .p0-board {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+    }
+
+    .p0 {
+      border: 1px solid var(--line);
+      background: rgba(34,33,22,.9);
+      padding: 14px;
+      min-height: 150px;
+    }
+
+    .p0 strong {
+      display: block;
+      color: var(--gold);
+      margin-bottom: 8px;
+      font-size: 18px;
+    }
+
+    .p0 p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.55;
+    }
+
+    .notes {
+      border: 1px solid var(--line);
+      background: rgba(9,9,7,.72);
+      padding: 18px;
+      color: #d7ccb2;
+      line-height: 1.7;
+    }
+
+    @media (max-width: 1100px) {
+      .hero { grid-template-columns: 1fr; }
+      .timeline { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+      .stats { grid-template-columns: repeat(3, 1fr); }
+      .p0-board { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 760px) {
+      .shell { width: min(100vw - 20px, 1480px); padding-top: 10px; }
+      .hero { padding: 18px; }
+      .stats { grid-template-columns: repeat(2, 1fr); }
+      .media { flex-direction: column; }
+      .preview { width: 100%; }
+      .refs { grid-template-columns: repeat(4, 1fr); }
+      .grid { grid-template-columns: 1fr; }
+      .p0-board { grid-template-columns: 1fr; }
+      .toolbar { position: relative; }
+      .jump { justify-content: flex-start; }
+    }
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <section class="hero">
+      <div>
+        <div class="kicker">VIDEO 002 / TIMELINE PRODUCTION BOARD / 2026-06-03</div>
+        <h1>女儿国旧日神事件：从 0 秒到 88 秒的制作台本</h1>
+        <p class="hook">这不是项目资源页，而是单条视频的逐段制作看板。每个镜头卡片都绑定脚本文案、画面任务、图提示词、视频提示词、参考图、视频素材、后期动作和当前状态。</p>
+      </div>
+      <div class="hero-grid">
+        <img src="../data/Data_results/picture_results/video_episode_002_womankingdom_cthulhu_v1/references/visual_board_tianshu_style.png" alt="主视觉设定">
+        <img src="../data/Data_results/picture_results/video_episode_002_womankingdom_cthulhu_v1/references/character_turnaround_sheet.png" alt="角色定稿">
+        <img src="../data/Data_results/picture_results/video_episode_002_womankingdom_cthulhu_v1/keyframes/shot_02_tangseng_wrong_scripture.png" alt="唐僧念错经">
+        <img src="../data/Data_results/picture_results/video_episode_002_womankingdom_cthulhu_v1/keyframes/shot_03_zimu_river_black_sea.png" alt="子母河黑海">
+      </div>
+    </section>
+
+    <section class="stats">
+      <div class="stat"><span class="n">88s</span><span class="t">目标成片长度</span></div>
+      <div class="stat"><span class="n">32</span><span class="t">原子镜头</span></div>
+      <div class="stat"><span class="n">8</span><span class="t">P0 必补关键帧</span></div>
+      <div class="stat"><span class="n">3</span><span class="t">现有核心关键帧</span></div>
+      <div class="stat"><span class="n">5</span><span class="t">已完成视频测试</span></div>
+    </section>
+
+    <nav class="toolbar">
+      <div class="filters">
+        <button class="active" data-filter="all">全部镜头</button>
+        <button data-filter="need">只看缺图</button>
+        <button data-filter="have">已有素材</button>
+        <button data-filter="video">需生视频</button>
+        <button data-filter="post">后期合成</button>
+        <button data-filter="p0">P0 优先</button>
+      </div>
+      <div class="jump" id="jump"></div>
+    </nav>
+
+    <section class="section-title">
+      <div>
+        <h2>时间线制作台本</h2>
+      </div>
+      <p>按最终视频播放顺序排列。不要把多张参考图混进同一条视频生成；每条视频素材只承载一个动作。</p>
+    </section>
+
+    <section class="timeline" id="timeline"></section>
+
+    <section class="section-title">
+      <div>
+        <h2>P0 补图队列</h2>
+      </div>
+      <p>这 8 张不是装饰图，是决定视频是否能成立的叙事支点。</p>
+    </section>
+
+    <section class="p0-board">
+      <div class="p0"><strong>A01 档案封面</strong><p>建立 WKG-013 事故复盘语境，替代普通开场。</p></div>
+      <div class="p0"><strong>A06 同源寄生</strong><p>把“怀孕反转”变成可视证据。</p></div>
+      <div class="p0"><strong>A13 悟空调查</strong><p>补足西游 IP 一眼识别度。</p></div>
+      <div class="p0"><strong>A16 莲花眼孔</strong><p>提供高记忆点的微距恐怖镜头。</p></div>
+      <div class="p0"><strong>A21 照妖镜编号</strong><p>把 SCP/异常档案混搭落到画面。</p></div>
+      <div class="p0"><strong>A23 影子异常</strong><p>承接开场钩子，形成中段强记忆点。</p></div>
+      <div class="p0"><strong>A29 女王胎光</strong><p>完成事故升级和角色压迫感。</p></div>
+      <div class="p0"><strong>A31 另一个子宫</strong><p>支撑结尾世界观抬升。</p></div>
+    </section>
+
+    <section class="section-title">
+      <div>
+        <h2>制作规则</h2>
+      </div>
+    </section>
+    <div class="notes">
+      图提示词负责静态信息密度：人物、道具、构图、世界观符号。视频提示词只负责一个动作：水波、墨影、烛火、胎光、眼孔、经文游动。影子逃逸、裂纹、红框、编号、字幕和警报光优先交给后期合成。
+    </div>
+  </main>
+
+  <script>
+    const ASSET = "../data/Data_results/picture_results/video_episode_002_womankingdom_cthulhu_v1/";
+    const VIDEO = "../data/Data_results/video_results/";
+    const styleRef = ASSET + "references/visual_board_tianshu_style.png";
+    const charRef = ASSET + "references/character_turnaround_sheet.png";
+    const shot01 = ASSET + "keyframes/shot_01_bajie_shadow_escape.png";
+    const shot02 = ASSET + "keyframes/shot_02_tangseng_wrong_scripture.png";
+    const shot03 = ASSET + "keyframes/shot_03_zimu_river_black_sea.png";
+    const scripture = ASSET + "r2v_refs_tangseng_wrong_scripture/ref_03_scripture.png";
+    const lantern = ASSET + "r2v_refs_tangseng_wrong_scripture/ref_05_lantern.png";
+    const ink = ASSET + "r2v_refs_tangseng_wrong_scripture/ref_06_ink_shadow.png";
+    const hh005 = VIDEO + "happyhorse_womankingdom_r2v_test_20260603_001/35402056-metadata_video_720p_5e86ca71-7a86-4fdc-96d6-938d4cefbc7c_refiner.mp4";
+
+    const baseStyle = "天书奇谭式中国老动画，手绘赛璐璐，宣纸纹理，淡彩设色，细墨线，东方宫廷怪谈，不写实化，不现代3D。";
+
+    const shots = [
+      {
+        id:"A01", time:"0-2s", type:"字卡/档案", status:"need", priority:"p0", route:"后期字卡 + 生图",
+        title:"事故档案开场",
+        script:"取经队进入女儿国后",
+        image:"", refs:[styleRef],
+        visual:"黑场闪出事故档案编号 WKG-013，红色机密印章，水渍档案纸，佛经残页压在页面上。",
+        imagePrompt:`${baseStyle} 竖版9:16，异常档案封面，标题 WKG-013 女儿国子母河事件，红色机密印章，破损旧纸，水渍，黑色佛经残页，小瓶绿色河水样本，暗光，档案事故复盘感，中央留字幕空间。`,
+        videoPrompt:"红色编号短暂闪烁，纸张轻微抖动，故障雪花一闪。镜头固定。",
+        post:"叠加红色时间码、警报短鸣、低频冲击。"
+      },
+      {
+        id:"A02", time:"2-4s", type:"钩子画面", status:"have", priority:"", route:"静帧轻推 + 影子合成",
+        title:"八戒影子逃逸迹象",
+        script:"只有猪八戒的影子逃了出来。",
+        image:shot01, refs:[shot01, charRef, styleRef],
+        visual:"八戒本体僵在宫门前，地上影子边缘变软，像要从身体下方剥离。",
+        imagePrompt:`${baseStyle} 猪八戒站在女儿国宫门前，身体僵硬，地面黑影开始脱离脚下，宫灯昏暗，远处子母河泛绿，恐怖又黑色幽默。`,
+        videoPrompt:"人物只轻微颤动，地面黑影边缘像墨水一样向外拉长。镜头固定。",
+        post:"影子独立运动不要交给视频模型，使用遮罩、液化形变和黑墨边缘。"
+      },
+      {
+        id:"A03", time:"4-6s", type:"局部动效", status:"need", priority:"", route:"补局部图 + 合成",
+        title:"黑影贴地流走",
+        script:"影子逃了出来。",
+        image:"", refs:[shot01, ink],
+        visual:"只看地面，黑影贴着石阶向画面外流走，边缘长出细小墨丝。",
+        imagePrompt:`${baseStyle} 竖版9:16，女儿国宫门石阶局部，地面黑色影子像活墨水一样贴地流动，边缘有细小触手状墨丝，不出现人物正脸。`,
+        videoPrompt:"黑影沿石阶缓慢流出画面，边缘墨丝轻轻摆动。镜头固定。",
+        post:"后期遮罩形变优先，可用静态局部图完成。"
+      },
+      {
+        id:"A04", time:"6-8s", type:"环境", status:"need", priority:"p1", route:"生图 + 轻动效",
+        title:"女儿国宫殿远景",
+        script:"原著里，女儿国最可怕的是子母河。",
+        image:"", refs:[styleRef, shot03],
+        visual:"女儿国宫殿远景，河水贯穿城前，水面反光不自然。",
+        imagePrompt:`${baseStyle} 竖版9:16，女儿国宫殿远景，青绿河水穿过宫城前方，宫殿倒影轻微扭曲，莲叶漂浮，夜色安静但不祥。`,
+        videoPrompt:"水面轻微波动，倒影有一点不自然的错位。镜头缓慢下压。",
+        post:"可用静帧加水面置换。"
+      },
+      {
+        id:"A05", time:"8-10s", type:"子母河", status:"have", priority:"", route:"HappyHorse r2v / 裁切",
+        title:"子母河近景",
+        script:"喝一口水，男人也会怀孕。",
+        image:shot03, video:hh005, refs:[shot03],
+        visual:"河水近景，荷叶和莲花漂在水面，颜色开始发暗。",
+        imagePrompt:`${baseStyle} 子母河水面近景，荷叶、莲花、宫殿倒影，水色青绿中发黑，平静但有异常压迫感。`,
+        videoPrompt:"黑色墨影从水面中央缓慢向四周晕开，水面细微涟漪，荷叶轻轻漂动。镜头固定。",
+        post:"HH-005 可作为参考素材，后续可拉长到 5s。"
+      },
+      {
+        id:"A06", time:"10-12s", type:"档案证据", status:"need", priority:"p0", route:"生图 + 红框后期",
+        title:"同源寄生红框",
+        script:"但这份残缺档案里写的不是怀孕，而是四个字：同源寄生。",
+        image:"", refs:[styleRef],
+        visual:"档案页特写，红框标出“同源寄生”，页面有水渍和检测编号。",
+        imagePrompt:`${baseStyle} 竖版9:16，旧档案页特写，中文红框标注“同源寄生”，样本编号、子母河水样、胚层记录，纸面破损，红印章，轻微屏幕噪声。`,
+        videoPrompt:"档案纸轻微抖动，红框和“同源寄生”短暂闪烁。镜头固定。",
+        post:"文字建议后期重新排版，保证可读。"
+      },
+      {
+        id:"A07", time:"12-15s", type:"场景建立", status:"need", priority:"", route:"生图",
+        title:"夜宴后正殿",
+        script:"事故发生在御花园夜宴之后。",
+        image:"", refs:[styleRef, shot02],
+        visual:"正殿空旷，王座、烛火、帷幔，唐僧将要入画。",
+        imagePrompt:`${baseStyle} 女儿国王宫正殿夜景，王座居中，烛火成排，红色帷幔，地面有水光反射，宴会刚结束后的空旷不安。`,
+        videoPrompt:"烛火轻晃，帷幔轻动，镜头缓慢推进到王座前。",
+        post:"可以静帧推镜。"
+      },
+      {
+        id:"A08", time:"15-18s", type:"角色", status:"have", priority:"", route:"静帧 + 局部动效",
+        title:"唐僧王座前诵经",
+        script:"唐僧被请入正殿，为女王诵一卷安胎经。",
+        image:shot02, refs:[shot02, charRef],
+        visual:"唐僧站在王座前，手持经书，姿态端正，周围烛火压暗。",
+        imagePrompt:`${baseStyle} 唐僧站在女儿国王座前诵经，白净僧人，僧袍整洁，手持经书，王座和烛火在背景，庄严里带诡异。`,
+        videoPrompt:"唐僧身体极轻微起伏，经书轻微抖动，烛火摇晃。不要改变角色造型。",
+        post:"人物嘴动不要在 HappyHorse 中强求。"
+      },
+      {
+        id:"A09", time:"18-21s", type:"道具特写", status:"need", priority:"p1", route:"生图",
+        title:"经书来自王座下",
+        script:"那卷经书不是从包袱里取出来的。它原本就放在王座下面。",
+        image:"", refs:[scripture, shot02],
+        visual:"王座底部阴影中露出一卷旧经书，书页边缘泛黑。",
+        imagePrompt:`${baseStyle} 王座底部特写，阴影里露出一卷旧佛经，书页边缘被黑墨侵蚀，地面有青绿色反光，唐僧的手正要拿起。`,
+        videoPrompt:"经书页角微微翻动，黑墨从边缘缓慢渗出。镜头固定。",
+        post:"可与 A10 经文动效连接。"
+      },
+      {
+        id:"A10", time:"21-24s", type:"经文动效", status:"have", priority:"", route:"HappyHorse r2v 单图",
+        title:"第一页正常",
+        script:"第一页还正常",
+        image:scripture, refs:[scripture],
+        visual:"经书特写，金色佛文正常排列，第二页边缘开始渗黑。",
+        imagePrompt:`${baseStyle} 经书打开特写，左页金色佛文正常，右页边缘渗出一点黑色螺旋墨迹，纸张古旧。`,
+        videoPrompt:"黑色墨迹从右页边缘缓慢渗入，金色佛文轻微发光。镜头固定。",
+        post:"单图单动作。"
+      },
+      {
+        id:"A11", time:"24-27s", type:"异变", status:"mix", priority:"", route:"补终帧 + 合成/视频",
+        title:"经文变黑色螺旋",
+        script:"第二页开始，所有经文都变成了黑色螺旋。",
+        image:scripture, refs:[scripture, ink],
+        visual:"金色佛文被黑色螺旋经文吞掉，文字像细小触手。",
+        imagePrompt:`${baseStyle} 经书特写，佛经文字转化为黑色螺旋触手符号，墨迹像活物缠绕纸面，纸张发旧，强烈异变感。`,
+        videoPrompt:"黑色螺旋经文缓慢游动并覆盖页面，动作集中在文字，不改变书本形状。",
+        post:"建议生成终帧，再做形变过渡。"
+      },
+      {
+        id:"A12", time:"27-30s", type:"烛火", status:"have", priority:"", route:"r2v 或后期调色",
+        title:"烛火转绿",
+        script:"唐僧只念错了一个字，殿里的烛火就全部变成了绿色。",
+        image:lantern, refs:[lantern],
+        visual:"宫灯和烛火特写，黄色火焰转为幽绿色。",
+        imagePrompt:`${baseStyle} 女儿国宫灯和烛火特写，红色宫灯，火焰从暖黄转为幽绿色，纸纹明显，暗处有墨影。`,
+        videoPrompt:"烛火从黄色缓慢变为幽绿色，宫灯轻轻摇晃。镜头固定。",
+        post:"后期调色更可控。"
+      },
+      {
+        id:"A13", time:"30-33s", type:"悟空调查", status:"need", priority:"p0", route:"生图",
+        title:"悟空到子母河",
+        script:"悟空第一时间去查子母河。",
+        image:"", refs:[charRef, shot03, styleRef],
+        visual:"孙悟空蹲在河边，金箍棒横在身前，河面倒影异常。",
+        imagePrompt:`${baseStyle} 孙悟空蹲在子母河边调查，手持金箍棒，金箍棒发出微红警光，河面倒映黑色海底，岸边莲花异常，女儿国宫殿远景。`,
+        videoPrompt:"河面轻微波动，金箍棒红光闪一次，悟空姿态保持。镜头固定。",
+        post:"人物镜头先做静帧，不用 HappyHorse 做复杂动作。"
+      },
+      {
+        id:"A14", time:"33-36s", type:"河面异常", status:"have", priority:"", route:"HH-005 模板",
+        title:"水面不映天空",
+        script:"水面没有倒映天空",
+        image:shot03, video:hh005, refs:[shot03],
+        visual:"子母河水面倒映的不是天空，而是一片黑色海底。",
+        imagePrompt:`${baseStyle} 子母河水面特写，水面不倒映天空，倒映出黑色深海和远处沉没建筑轮廓，荷叶漂浮。`,
+        videoPrompt:"黑色倒影缓慢扩散，水面涟漪连续，荷叶轻动。镜头固定。",
+        post:"沿用 HH-005 的提示结构。"
+      },
+      {
+        id:"A15", time:"36-39s", type:"世界观", status:"need", priority:"p1", route:"生图 + r2v",
+        title:"黑色海底佛塔",
+        script:"只倒映出一片黑色海底。",
+        image:"", refs:[shot03, styleRef],
+        visual:"河面深处出现沉没佛塔和不可名状的黑色轮廓。",
+        imagePrompt:`${baseStyle} 子母河水面倒映黑色海底，深处有沉没佛塔、断裂牌坊和巨大黑影轮廓，荷叶在前景，水色青黑。`,
+        videoPrompt:"黑色海底倒影缓慢浮现，水波轻荡，佛塔轮廓若隐若现。镜头固定。",
+        post:"可做从 A14 到 A15 的叠化。"
+      },
+      {
+        id:"A16", time:"39-42s", type:"微距", status:"need", priority:"p0", route:"生图 + 轻合成",
+        title:"莲花眼孔",
+        script:"河里的莲花也不是植物，花瓣背面长满了像眼睛一样的孔。",
+        image:"", refs:[styleRef],
+        visual:"莲花花瓣背面微距，密集眼孔半睁，湿润但保持手绘风。",
+        imagePrompt:`${baseStyle} 莲花微距，花瓣背面长满密集眼孔，青绿色水面反光，眼孔像古怪纹样，不写实血腥，东方怪谈感。`,
+        videoPrompt:"花瓣轻轻颤动，几个眼孔缓慢睁开。镜头固定。",
+        post:"眼孔开合可用局部遮罩。"
+      },
+      {
+        id:"A17", time:"42-45s", type:"检测报告", status:"need", priority:"", route:"生图 + UI",
+        title:"水样检测报告",
+        script:"最怪的是检测记录。",
+        image:"", refs:[styleRef],
+        visual:"子母河水样检测 UI，绿色胚层细胞图，编号表格。",
+        imagePrompt:`${baseStyle} 竖版9:16，伪科学检测报告界面，标题“子母河水样与胚层样本比对”，绿色细胞团显微图，旧档案纸和屏幕噪声混合。`,
+        videoPrompt:"报告数据行逐条亮起，绿色细胞团轻微分裂。镜头固定。",
+        post:"关键文字后期重排，保证可读。"
+      },
+      {
+        id:"A18", time:"45-48s", type:"数据证据", status:"need", priority:"", route:"后期图形动画",
+        title:"同一胚层 ID",
+        script:"所有人的胚层编号完全一致。",
+        image:"", refs:[],
+        visual:"多个样本编号用红线连接到同一个胚层 ID。",
+        imagePrompt:`${baseStyle} 检测报告细节，多条样本编号、红色连线、统一指向同一胚层 ID，档案纸质感，冷色仪器光。`,
+        videoPrompt:"红线依次出现，最后汇聚到同一个编号。镜头固定。",
+        post:"完全可以后期完成，不必烧视频生成。"
+      },
+      {
+        id:"A19", time:"48-51s", type:"显微镜", status:"need", priority:"p1", route:"生图 + 微动效",
+        title:"未知胚层分裂",
+        script:"她们怀的不是孩子，是同一个东西的不同部分。",
+        image:"", refs:[styleRef],
+        visual:"绿色细胞团像触手一样重复分裂，同步脉动。",
+        imagePrompt:`${baseStyle} 显微镜视野中的绿色未知胚层，细胞团呈触手状同步分裂，圆形镜头边缘，档案标注 E-002，冷光。`,
+        videoPrompt:"绿色胚层缓慢脉动并分裂出细小触须。镜头固定。",
+        post:"可用缩放和形变模拟。"
+      },
+      {
+        id:"A20", time:"51-54s", type:"破镜", status:"need", priority:"", route:"生图 + 裂纹后期",
+        title:"照妖镜破裂",
+        script:"悟空打碎了王宫里的照妖镜。",
+        image:"", refs:[charRef, styleRef],
+        visual:"古代铜镜破裂，悟空的手和金箍棒在画面边缘。",
+        imagePrompt:`${baseStyle} 古代照妖铜镜破裂特写，镜面裂纹放射状扩散，孙悟空的手和金箍棒出现在边缘，背景是女儿国宫殿暗影。`,
+        videoPrompt:"镜面裂纹快速扩散，碎片轻微震动。镜头固定。",
+        post:"裂纹用后期最稳。"
+      },
+      {
+        id:"A21", time:"54-57s", type:"编号显现", status:"need", priority:"p0", route:"生图 + 字符闪烁",
+        title:"WKG-013 显现",
+        script:"镜子里没有妖气，只有一串收容编号：WKG-013。",
+        image:"", refs:[styleRef],
+        visual:"破镜裂纹中央浮现红色 WKG-013，周围倒映黑色海底。",
+        imagePrompt:`${baseStyle} 破裂照妖镜特写，镜面裂纹中浮现红色编号 WKG-013，镜中没有妖怪，只有黑色海底和巨大眼睛轮廓，强档案事故感。`,
+        videoPrompt:"红色 WKG-013 闪烁出现，镜面黑色倒影轻微流动。镜头固定。",
+        post:"编号必须后期叠字，避免文字错误。"
+      },
+      {
+        id:"A22", time:"57-60s", type:"警报", status:"need", priority:"", route:"生图 + 红光后期",
+        title:"金箍报警",
+        script:"金箍第一次出现报警。",
+        image:"", refs:[charRef],
+        visual:"金箍红光报警，画面边缘有故障波纹。",
+        imagePrompt:`${baseStyle} 金箍棒或金箍局部特写，红色警报光亮起，周围暗色宫殿背景，线条手绘，异常档案感。`,
+        videoPrompt:"红光闪烁两次，画面轻微故障抖动。镜头固定。",
+        post:"红光和故障波纹后期叠加。"
+      },
+      {
+        id:"A23", time:"60-63s", type:"影子统计", status:"need", priority:"p0", route:"生图",
+        title:"师徒影子数量不对",
+        script:"金箍检测到师徒四人的影子数量不对。唐僧一个影子。沙僧两个影子。白龙马没有影子。",
+        image:"", refs:[charRef, shot01],
+        visual:"王宫长廊全景，师徒站在烛光下，地面影子数量异常。",
+        imagePrompt:`${baseStyle} 女儿国王宫长廊，唐僧、孙悟空、沙僧、猪八戒、白龙马站在烛光下，地上影子数量异常：唐僧一个影子，沙僧两个影子，白龙马没有影子，金箍红光报警。`,
+        videoPrompt:"烛光轻晃，地面影子轻微错位，角色保持不动。镜头固定。",
+        post:"影子数量可后期修正，优先保证构图清晰。"
+      },
+      {
+        id:"A24", time:"63-66s", type:"八戒影子", status:"mix", priority:"", route:"补局部图 + 合成",
+        title:"影子跪着喝水",
+        script:"猪八戒的影子，正在跪着喝子母河的水。",
+        image:shot01, refs:[shot01, shot03, ink],
+        visual:"远处河边，八戒影子跪地饮水，身体本体不在旁边。",
+        imagePrompt:`${baseStyle} 子母河边远景，猪八戒的黑色影子像独立活物一样跪在河边喝水，水面泛绿，周围无本体，黑色幽默恐怖感。`,
+        videoPrompt:"影子低头饮水一次，水面产生细小涟漪。镜头固定。",
+        post:"影子动作后期做，避免模型把影子实体化。"
+      },
+      {
+        id:"A25", time:"66-69s", type:"熄灯", status:"mix", priority:"", route:"补灯阵图 + 后期",
+        title:"宫灯同步熄灭",
+        script:"当晚三更，女儿国所有宫灯同时熄灭。",
+        image:lantern, refs:[lantern, styleRef],
+        visual:"宫城长廊/街巷里一排排宫灯熄灭。",
+        imagePrompt:`${baseStyle} 女儿国宫城长廊，成排红色宫灯延伸到远处，夜色中灯火即将熄灭，地面有水光反射。`,
+        videoPrompt:"宫灯从远到近依次熄灭，最后只剩幽绿色余光。镜头固定。",
+        post:"熄灯交给后期遮罩和亮度动画。"
+      },
+      {
+        id:"A26", time:"69-72s", type:"群像", status:"need", priority:"p1", route:"生图",
+        title:"城墙宫女诵经",
+        script:"宫女们站在城墙上，对着西方一起诵经。",
+        image:"", refs:[styleRef],
+        visual:"城墙上宫女整齐列队，面向西方，口型统一，像仪式。",
+        imagePrompt:`${baseStyle} 女儿国城墙夜景，宫女们整齐站成一排，对着西方低声诵经，宫灯熄灭，远处黑云和河水，仪式感强。`,
+        videoPrompt:"宫女队列轻微摇晃，衣袖微动，远处黑云缓慢移动。镜头固定。",
+        post:"群像不强求口型。"
+      },
+      {
+        id:"A27", time:"72-75s", type:"经页回响", status:"need", priority:"", route:"生图 + 字体动效",
+        title:"错误经页漂浮",
+        script:"她们念的不是佛经，是唐僧白天念错的那一页。",
+        image:"", refs:[scripture],
+        visual:"错误经页悬在空中，黑色经文同步震动。",
+        imagePrompt:`${baseStyle} 黑色螺旋经页漂浮在夜空中，纸页破损，黑色经文像水墨符号，周围宫灯熄灭后的暗色女儿国城墙。`,
+        videoPrompt:"经页轻轻漂浮，黑色经文同步震动游动。镜头固定。",
+        post:"文字动效可后期。"
+      },
+      {
+        id:"A28", time:"75-78s", type:"孕相同步", status:"need", priority:"", route:"生图",
+        title:"腹光同步加深",
+        script:"每念一遍，城里的孕相就同步加深一寸。",
+        image:"", refs:[styleRef],
+        visual:"多个剪影腹部幽绿光点同步亮起，像同一信号。",
+        imagePrompt:`${baseStyle} 女儿国城中多个女子剪影站在暗处，腹部同时透出幽绿色光，光线同步加深，背景为宫城夜色，不血腥，仪式恐怖。`,
+        videoPrompt:"多个腹部绿光同步脉冲一次，周围暗下。镜头固定。",
+        post:"绿光脉冲后期可控。"
+      },
+      {
+        id:"A29", time:"78-81s", type:"女王", status:"need", priority:"p0", route:"生图 + 脉冲合成",
+        title:"女王腹部胎光",
+        script:"直到国王腹部传出第五个人的声音：",
+        image:"", refs:[charRef, styleRef],
+        visual:"女王坐在王座上，腹部幽绿光脉冲，表情平静但诡异。",
+        imagePrompt:`${baseStyle} 女儿国国王坐在王座上，华丽古装，神情平静诡异，腹部透出幽绿色胎光，光里隐约有触手状胚胎轮廓，宫女影子在背后延伸。`,
+        videoPrompt:"腹部幽绿色胎光缓慢脉冲，王座后黑影轻微翻动。镜头固定。",
+        post:"胎光建议后期叠加，保护人物脸。"
+      },
+      {
+        id:"A30", time:"81-84s", type:"字幕重击", status:"post", priority:"", route:"后期字卡",
+        title:"别去西天",
+        script:"别去西天。",
+        image:"", refs:[],
+        visual:"画面暗下，只留红色/幽绿色一句话。",
+        imagePrompt:"无需生图。黑场、旧纸纹、红色警报字。",
+        videoPrompt:"文字从暗处闪现后轻微抖动，低频骤停。",
+        post:"必须后期排字，保证节奏。"
+      },
+      {
+        id:"A31", time:"84-86s", type:"子宫隐喻", status:"need", priority:"p0", route:"生图",
+        title:"另一个子宫",
+        script:"那里只是另一个子宫。",
+        image:"", refs:[styleRef, shot03],
+        visual:"宫殿轮廓像巨大子宫，河水向内回流，远处像西天也像器官。",
+        imagePrompt:`${baseStyle} 终局画面，女儿国宫殿轮廓像巨大子宫，子母河向宫殿内部回流，远处西天方向被画成另一个幽暗子宫入口，青黑水墨，压迫感强。`,
+        videoPrompt:"河水缓慢向宫殿内部回流，远处幽绿光轻微脉冲。镜头固定。",
+        post:"作为世界观抬升大图。"
+      },
+      {
+        id:"A32", time:"86-88s", type:"结尾反转", status:"need", priority:"p1", route:"生图 + 影子合成",
+        title:"影子学会成人形",
+        script:"而真正逃出来的，可能不是猪八戒。是已经学会变成影子的那一部分。",
+        image:"", refs:[shot01, ink],
+        visual:"八戒影子回头，轮廓变得更像一个人，但没有五官。",
+        imagePrompt:`${baseStyle} 黑色影子在宫门外回头，轮廓像猪八戒又像陌生人，没有五官，边缘有墨丝，远处女儿国宫殿和子母河幽绿光。`,
+        videoPrompt:"黑影停下并缓慢回头，边缘墨丝轻动。镜头固定。",
+        post:"结尾反转镜头，建议后期做影子轮廓。"
+      }
+    ];
+
+    function statusBadge(shot) {
+      if (shot.status === "have") return '<span class="badge have">已有素材</span>';
+      if (shot.status === "mix") return '<span class="badge mix">半成品</span>';
+      if (shot.status === "post") return '<span class="badge post">后期完成</span>';
+      return '<span class="badge need">需补图</span>';
+    }
+
+    function mediaBlock(shot) {
+      const preview = shot.video
+        ? `<video controls src="${shot.video}"></video>`
+        : shot.image
+          ? `<img src="${shot.image}" alt="${shot.title}">`
+          : `<div class="placeholder">缺图<br>${shot.id} ${shot.title}</div>`;
+      const refs = (shot.refs || []).slice(0, 8).map((ref, i) => {
+        if (!ref) return "";
+        return `<a href="${ref}" title="参考图 ${i + 1}"><img src="${ref}" alt="参考图 ${i + 1}"></a>`;
+      }).join("") || '<span>无参考图</span>';
+      return `<div class="media"><div class="preview">${preview}</div><div class="refs">${refs}</div></div>`;
+    }
+
+    function shotTags(shot) {
+      const tags = [shot.status, shot.route.includes("视频") || shot.route.includes("r2v") || shot.video ? "video" : "", shot.route.includes("后期") || shot.route.includes("合成") ? "post" : "", shot.priority].filter(Boolean);
+      return tags.join(" ");
+    }
+
+    function renderShots(filter = "all") {
+      const timeline = document.getElementById("timeline");
+      timeline.innerHTML = shots.map(shot => {
+        const tags = shotTags(shot);
+        const hidden = filter !== "all" && !tags.split(" ").includes(filter);
+        return `
+          <article class="shot ${hidden ? "hidden" : ""}" id="${shot.id}" data-tags="${tags}">
+            <aside class="shot-index">
+              <div class="shot-id">${shot.id}</div>
+              <div class="time">${shot.time}</div>
+              <span class="badge">${shot.type}</span>
+              ${statusBadge(shot)}
+              ${shot.priority === "p0" ? '<span class="badge need">P0</span>' : ""}
+            </aside>
+            ${mediaBlock(shot)}
+            <div class="shot-body">
+              <div class="shot-head">
+                <h3>${shot.title}</h3>
+                <span class="badge">${shot.route}</span>
+              </div>
+              <div class="script">${shot.script}</div>
+              <div class="grid">
+                <div class="field">
+                  <div class="label">画面说明</div>
+                  <p>${shot.visual}</p>
+                </div>
+                <div class="field">
+                  <div class="label">参考图/视频</div>
+                  <p>${shot.image ? `<a href="${shot.image}">主图</a>` : "主图缺失"}${shot.video ? ` / <a href="${shot.video}">视频素材</a>` : ""} / 参考图 ${shot.refs ? shot.refs.length : 0} 张</p>
+                </div>
+                <details class="field full">
+                  <summary>图提示词</summary>
+                  <p class="prompt">${shot.imagePrompt}</p>
+                </details>
+                <details class="field full">
+                  <summary>视频提示词</summary>
+                  <p class="prompt">${shot.videoPrompt}</p>
+                </details>
+                <details class="field full">
+                  <summary>后期动作</summary>
+                  <p>${shot.post}</p>
+                </details>
+              </div>
+            </div>
+          </article>
+        `;
+      }).join("");
+    }
+
+    function renderJump() {
+      const jump = document.getElementById("jump");
+      jump.innerHTML = shots.map(s => `<a href="#${s.id}">${s.id}</a>`).join("");
+    }
+
+    document.querySelectorAll("[data-filter]").forEach(btn => {
+      btn.addEventListener("click", () => {
+        document.querySelectorAll("[data-filter]").forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+        renderShots(btn.dataset.filter);
+      });
+    });
+
+    renderJump();
+    renderShots();
+  </script>
+</body>
+</html>

@@ -1,0 +1,1423 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>女儿国旧日神事件 - 视频制作总看板</title>
+  <style>
+    :root {
+      --bg: #10100d;
+      --panel: #191812;
+      --panel-2: #211f17;
+      --paper: #efe3c5;
+      --paper-2: #d7c59a;
+      --ink: #f4ebd2;
+      --muted: #aaa084;
+      --line: #3d3829;
+      --red: #b5533b;
+      --blue: #4f8f95;
+      --green: #6f9b68;
+      --gold: #d4a94f;
+      --bad: #d96650;
+      --warn: #dfb45b;
+      --ok: #74a574;
+      --todo: #8992a0;
+      --shadow: 0 18px 50px rgba(0,0,0,.28);
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      background:
+        radial-gradient(circle at 18% -10%, rgba(157, 90, 58, .22), transparent 34%),
+        radial-gradient(circle at 86% 12%, rgba(43, 111, 121, .18), transparent 28%),
+        linear-gradient(180deg, #11100d 0%, #17150f 46%, #0f0f0c 100%);
+      color: var(--ink);
+      font: 14px/1.55 "Songti SC", "STSong", "Noto Serif CJK SC", "PingFang SC", "Microsoft YaHei", serif;
+      letter-spacing: 0;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: .12;
+      background-image:
+        linear-gradient(rgba(255,255,255,.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.04) 1px, transparent 1px);
+      background-size: 24px 24px;
+      mask-image: linear-gradient(180deg, #000, transparent 84%);
+    }
+
+    a { color: #8fc3c9; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    .app {
+      display: grid;
+      grid-template-columns: 260px minmax(0, 1fr);
+      min-height: 100vh;
+    }
+
+    aside {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      padding: 22px 16px;
+      border-right: 1px solid var(--line);
+      background: rgba(15, 15, 12, .88);
+      backdrop-filter: blur(14px);
+      overflow: auto;
+    }
+
+    .brand {
+      border: 1px solid var(--line);
+      background: linear-gradient(180deg, rgba(239,227,197,.11), rgba(239,227,197,.04));
+      padding: 14px;
+      margin-bottom: 16px;
+    }
+
+    .brand .eyebrow {
+      color: var(--gold);
+      font-size: 12px;
+      margin-bottom: 6px;
+    }
+
+    .brand strong {
+      display: block;
+      font-size: 20px;
+      line-height: 1.2;
+    }
+
+    nav a {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 9px 10px;
+      border-bottom: 1px solid rgba(239,227,197,.08);
+      color: var(--ink);
+    }
+
+    nav a span {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    nav a:hover {
+      background: rgba(239,227,197,.08);
+      text-decoration: none;
+    }
+
+    main {
+      max-width: 1480px;
+      width: 100%;
+      padding: 26px;
+    }
+
+    h1, h2, h3 {
+      margin: 0;
+      line-height: 1.2;
+      font-weight: 800;
+    }
+
+    h1 {
+      font-size: clamp(32px, 5vw, 62px);
+      max-width: 980px;
+      letter-spacing: 0;
+    }
+
+    h2 {
+      font-size: 24px;
+      margin-bottom: 14px;
+    }
+
+    h3 {
+      font-size: 17px;
+      margin-bottom: 8px;
+    }
+
+    p { margin: 0; }
+
+    .hero {
+      min-height: 520px;
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(320px, .9fr);
+      gap: 22px;
+      align-items: stretch;
+      margin-bottom: 20px;
+    }
+
+    .hero-copy {
+      border: 1px solid var(--line);
+      background: linear-gradient(135deg, rgba(33,31,23,.96), rgba(22,22,17,.94));
+      box-shadow: var(--shadow);
+      padding: 28px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .hook {
+      margin-top: 18px;
+      color: var(--paper-2);
+      font-size: 18px;
+      max-width: 740px;
+    }
+
+    .hero-art {
+      position: relative;
+      border: 1px solid var(--line);
+      background: #080806;
+      overflow: hidden;
+      min-height: 420px;
+      box-shadow: var(--shadow);
+    }
+
+    .hero-art img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      opacity: .86;
+      filter: saturate(.82) contrast(.95);
+    }
+
+    .hero-art::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, transparent 48%, rgba(0,0,0,.58));
+    }
+
+    .hero-caption {
+      position: absolute;
+      left: 16px;
+      right: 16px;
+      bottom: 14px;
+      color: var(--paper);
+      z-index: 1;
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      font-size: 13px;
+    }
+
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 22px;
+    }
+
+    .chip {
+      border: 1px solid var(--line);
+      color: var(--paper);
+      background: rgba(239,227,197,.06);
+      padding: 5px 9px;
+      font-size: 12px;
+    }
+
+    .status-strip {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 22px;
+    }
+
+    .metric {
+      border: 1px solid var(--line);
+      background: rgba(0,0,0,.18);
+      padding: 12px;
+      min-height: 86px;
+    }
+
+    .metric .label {
+      color: var(--muted);
+      font-size: 12px;
+      margin-bottom: 8px;
+    }
+
+    .metric strong {
+      font-size: 18px;
+      color: var(--paper);
+    }
+
+    .section {
+      margin-top: 20px;
+      border: 1px solid var(--line);
+      background: rgba(25,24,18,.9);
+      box-shadow: 0 10px 34px rgba(0,0,0,.18);
+      padding: 20px;
+    }
+
+    .section-head {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 14px;
+    }
+
+    .section-head p {
+      color: var(--muted);
+      max-width: 720px;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .grid-4 {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .card {
+      border: 1px solid var(--line);
+      background: linear-gradient(180deg, rgba(239,227,197,.07), rgba(239,227,197,.025));
+      padding: 14px;
+      min-height: 120px;
+    }
+
+    .card.tight { min-height: auto; }
+
+    .card p, .card li {
+      color: #d0c5aa;
+    }
+
+    .muted { color: var(--muted); }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      min-height: 22px;
+      padding: 2px 8px;
+      border: 1px solid currentColor;
+      font-size: 12px;
+      margin-bottom: 10px;
+    }
+
+    .done { color: var(--ok); }
+    .risk { color: var(--bad); }
+    .active { color: var(--warn); }
+    .next { color: #86b8c0; }
+    .paused { color: var(--todo); }
+
+    .pipeline {
+      display: grid;
+      grid-template-columns: repeat(8, minmax(150px, 1fr));
+      gap: 10px;
+      overflow-x: auto;
+      padding-bottom: 4px;
+    }
+
+    .stage {
+      border: 1px solid var(--line);
+      background: #15140f;
+      min-width: 150px;
+      padding: 12px;
+      position: relative;
+    }
+
+    .stage::before {
+      content: "";
+      display: block;
+      width: 100%;
+      height: 3px;
+      background: var(--todo);
+      position: absolute;
+      left: 0;
+      top: 0;
+    }
+
+    .stage.done::before { background: var(--ok); }
+    .stage.active::before { background: var(--warn); }
+    .stage.risk::before { background: var(--bad); }
+    .stage.next::before { background: var(--blue); }
+
+    .stage .k {
+      color: var(--muted);
+      font-size: 12px;
+      margin-top: 10px;
+    }
+
+    .asset-grid {
+      display: grid;
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    figure {
+      margin: 0;
+      border: 1px solid var(--line);
+      background: #0b0b08;
+      overflow: hidden;
+    }
+
+    figure img, figure video {
+      width: 100%;
+      display: block;
+      aspect-ratio: 9 / 12;
+      object-fit: cover;
+      background: #070705;
+    }
+
+    figure video {
+      aspect-ratio: 9 / 16;
+      max-height: 420px;
+    }
+
+    figcaption {
+      padding: 9px;
+      min-height: 70px;
+      border-top: 1px solid var(--line);
+      background: rgba(239,227,197,.05);
+    }
+
+    figcaption strong {
+      display: block;
+      margin-bottom: 3px;
+      font-size: 13px;
+    }
+
+    figcaption span {
+      display: block;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .shot-table, .experiment-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+
+    .test-summary {
+      display: grid;
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+
+    .test-stat {
+      border: 1px solid var(--line);
+      background: rgba(0,0,0,.2);
+      padding: 12px;
+      min-height: 82px;
+    }
+
+    .test-stat .n {
+      display: block;
+      color: var(--paper);
+      font-size: 26px;
+      line-height: 1;
+      margin-bottom: 7px;
+    }
+
+    .test-stat .t {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .test-records {
+      display: grid;
+      gap: 14px;
+    }
+
+    .test-record {
+      border: 1px solid var(--line);
+      background: linear-gradient(180deg, rgba(239,227,197,.07), rgba(0,0,0,.12));
+      padding: 16px;
+    }
+
+    .test-record-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 14px;
+      align-items: flex-start;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--line);
+      margin-bottom: 14px;
+    }
+
+    .test-record-head h3 {
+      font-size: 20px;
+      margin-bottom: 6px;
+    }
+
+    .test-record-body {
+      display: grid;
+      grid-template-columns: minmax(280px, 420px) minmax(0, 1fr);
+      gap: 16px;
+    }
+
+    .test-media {
+      display: grid;
+      gap: 10px;
+    }
+
+    .test-media video {
+      width: 100%;
+      aspect-ratio: 9 / 16;
+      max-height: 520px;
+      background: #070705;
+      border: 1px solid var(--line);
+    }
+
+    .thumb-row {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 8px;
+    }
+
+    .thumb-row a {
+      display: block;
+      border: 1px solid var(--line);
+      background: #080806;
+      min-height: 92px;
+    }
+
+    .thumb-row img {
+      width: 100%;
+      height: 100%;
+      min-height: 92px;
+      aspect-ratio: 1 / 1;
+      object-fit: cover;
+      display: block;
+    }
+
+    .test-detail-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .test-detail {
+      border: 1px solid rgba(239,227,197,.14);
+      background: rgba(0,0,0,.14);
+      padding: 11px;
+    }
+
+    .test-detail.full {
+      grid-column: 1 / -1;
+    }
+
+    .test-detail .label {
+      color: var(--gold);
+      font-size: 12px;
+      margin-bottom: 5px;
+    }
+
+    .test-detail p,
+    .test-detail li {
+      color: #d4c9ac;
+    }
+
+    .test-detail ul {
+      margin: 0;
+      padding-left: 17px;
+    }
+
+    details {
+      border: 1px solid rgba(239,227,197,.14);
+      background: rgba(0,0,0,.18);
+      margin-top: 10px;
+      padding: 10px 11px;
+    }
+
+    summary {
+      cursor: pointer;
+      color: var(--paper);
+    }
+
+    pre {
+      white-space: pre-wrap;
+      word-break: break-word;
+      margin: 10px 0 0;
+      color: #e8ddc1;
+      background: rgba(0,0,0,.28);
+      padding: 10px;
+      font: 12px/1.55 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    }
+
+    th, td {
+      border: 1px solid var(--line);
+      padding: 10px;
+      vertical-align: top;
+      text-align: left;
+    }
+
+    th {
+      color: var(--paper);
+      background: rgba(239,227,197,.08);
+      white-space: nowrap;
+    }
+
+    td { color: #d5ccb4; }
+
+    code {
+      background: rgba(239,227,197,.1);
+      color: var(--paper);
+      padding: 1px 4px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: .92em;
+    }
+
+    .source-list {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .source {
+      border: 1px solid var(--line);
+      background: rgba(0,0,0,.16);
+      padding: 13px;
+    }
+
+    .source .type {
+      color: var(--gold);
+      font-size: 12px;
+      margin-bottom: 4px;
+    }
+
+    .source p {
+      color: var(--muted);
+      margin-top: 6px;
+    }
+
+    .path {
+      margin-top: 8px;
+      color: #8f866f;
+      font: 12px/1.45 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      overflow-wrap: anywhere;
+    }
+
+    .decision {
+      border-left: 4px solid var(--gold);
+      padding: 12px 14px;
+      background: rgba(212,169,79,.09);
+      color: var(--paper);
+    }
+
+    .decision strong { color: var(--gold); }
+
+    .small {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    /* ── 优化方案库 ── */
+    .plan-registry {
+      border: 1px solid var(--line);
+      background: rgba(0,0,0,.15);
+      margin-bottom: 16px;
+      overflow: hidden;
+    }
+    .plan-registry-row {
+      display: grid;
+      grid-template-columns: 90px 1fr 130px 110px;
+      gap: 14px;
+      align-items: center;
+      padding: 11px 14px;
+      border-bottom: 1px solid var(--line);
+      text-decoration: none;
+      color: var(--ink);
+    }
+    .plan-registry-row:last-child { border-bottom: 0; }
+    a.plan-registry-row:hover { background: rgba(239,227,197,.08); }
+    .plan-registry-head {
+      background: rgba(239,227,197,.06);
+      color: var(--muted);
+      font-size: 12px;
+    }
+    .plan-num {
+      font: 700 13px/1 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      color: var(--gold);
+    }
+    .plan-doc {
+      border: 1px solid var(--line);
+      background: linear-gradient(180deg, rgba(239,227,197,.06), rgba(239,227,197,.02));
+      margin-top: 10px;
+    }
+    .plan-doc-head {
+      border-bottom: 1px solid var(--line);
+      padding: 16px 18px;
+      background: rgba(0,0,0,.2);
+      display: grid;
+      grid-template-columns: 68px 1fr auto;
+      gap: 16px;
+      align-items: start;
+    }
+    .plan-doc-body { padding: 18px; display: grid; gap: 18px; }
+    .plan-id {
+      font: 800 16px/1.2 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      color: var(--gold);
+      border: 1px solid rgba(212,169,79,.5);
+      padding: 8px 6px;
+      text-align: center;
+      background: rgba(212,169,79,.07);
+      letter-spacing: .05em;
+    }
+    .plan-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 7px;
+    }
+    .plan-meta span {
+      font-size: 11px;
+      color: var(--muted);
+      border: 1px solid var(--line);
+      padding: 2px 7px;
+      background: rgba(0,0,0,.14);
+    }
+    .pipeline-arch {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      border: 1px solid var(--line);
+      overflow: hidden;
+    }
+    .arch-layer {
+      padding: 14px;
+      border-right: 1px solid var(--line);
+    }
+    .arch-layer:last-child { border-right: 0; }
+    .arch-layer .layer-label {
+      color: var(--gold);
+      font-size: 11px;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+    .arch-route {
+      border: 1px solid var(--line);
+      background: rgba(239,227,197,.04);
+      padding: 8px 10px;
+      margin-bottom: 6px;
+      font-size: 13px;
+    }
+    .arch-route:last-child { margin-bottom: 0; }
+    .arch-route .rt {
+      color: var(--muted);
+      font-size: 11px;
+      margin-top: 3px;
+    }
+
+    @media (max-width: 1100px) {
+      .app { grid-template-columns: 1fr; }
+      aside {
+        position: static;
+        height: auto;
+      }
+      nav {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+      .hero, .grid-2, .grid-3, .grid-4, .source-list {
+        grid-template-columns: 1fr;
+      }
+      .asset-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 680px) {
+      main { padding: 14px; }
+      .hero-copy { padding: 18px; }
+      nav { grid-template-columns: 1fr; }
+      .status-strip, .asset-grid, .test-summary {
+        grid-template-columns: 1fr;
+      }
+      .test-record-body, .test-detail-grid {
+        grid-template-columns: 1fr;
+      }
+      th, td { display: block; width: 100%; }
+      th { border-bottom: 0; }
+    }
+  </style>
+</head>
+<body>
+<div class="app">
+  <aside>
+    <div class="brand">
+      <div class="eyebrow">VIDEO OPS BOARD</div>
+      <strong>女儿国旧日神事件</strong>
+    </div>
+    <nav aria-label="页面导航">
+      <a href="#overview">总览 <span>High level</span></a>
+      <a href="#pipeline">流水线 <span>Status</span></a>
+      <a href="#optimization">优化方案 <span>Optimization</span></a>
+      <a href="#tests">测试记录 <span>Evidence</span></a>
+      <a href="#assets">资产库 <span>Materials</span></a>
+      <a href="#docs">资料源 <span>Sources</span></a>
+      <a href="#next">下一步 <span>Action</span></a>
+    </nav>
+  </aside>
+
+  <main>
+    <section class="hero" id="overview">
+      <div class="hero-copy">
+        <div>
+          <div class="chips">
+            <span class="chip">项目总控台</span>
+            <span class="chip">看板 + 目录</span>
+            <span class="chip">本地资源入口</span>
+            <span class="chip">更新：2026-06-03</span>
+          </div>
+          <h1>从“唐僧念错一页经”到可执行的视频制作系统</h1>
+          <p class="hook">核心钩子：取经队进入女儿国后，只有猪八戒的影子逃了出来。当前目标不是再做 PPT，而是把《天书奇谭》式老动画风格推进到真实可用的 AI 视频短片。</p>
+        </div>
+
+        <div>
+          <div class="status-strip">
+            <div class="metric">
+              <div class="label">当前阶段</div>
+              <strong>视频模型验证中</strong>
+            </div>
+            <div class="metric">
+              <div class="label">已验证优势</div>
+              <strong>画风成立</strong>
+            </div>
+            <div class="metric">
+              <div class="label">主要阻塞</div>
+              <strong>动作导演控制</strong>
+            </div>
+            <div class="metric">
+              <div class="label">下一步优先</div>
+              <strong>短镜头单动作</strong>
+            </div>
+          </div>
+          <div class="decision" style="margin-top:14px;">
+            <strong>当前决策：</strong>根因是工作流设计问题——把合成层的任务压给了生成层。新方向：原子化拆镜头 + 分层管线（生图 → 生视频 → 合成）+ 按镜头类型路由模型。详见 <a href="#opt-001">OPT-001 优化方案</a>。
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-art">
+        <img src="../data/Data_results/picture_results/video_episode_002_womankingdom_cthulhu_v1/references/visual_board_tianshu_style.png" alt="视觉设定图" />
+        <div class="hero-caption">
+          <span>视觉设定图：天书奇谭式老动画基准</span>
+          <a href="../data/Data_results/picture_results/video_episode_002_womankingdom_cthulhu_v1/references/visual_board_tianshu_style.png">打开原图</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <div>
+          <h2>数据分层</h2>
+          <p>看板按决策层级组织，而不是把链接堆在一起。高层负责判断方向，底层负责找到素材和证据。</p>
+        </div>
+      </div>
+      <div class="grid-4">
+        <div class="card">
+          <span class="badge next">L1 项目判断</span>
+          <h3>现在该不该继续</h3>
+          <p>展示阶段、核心结论、风险、下一步花钱点。</p>
+        </div>
+        <div class="card">
+          <span class="badge active">L2 制作流程</span>
+          <h3>卡在哪一步</h3>
+          <p>从创意、脚本、视觉、关键帧到视频、剪辑、音频、发布。</p>
+        </div>
+        <div class="card">
+          <span class="badge done">L3 测试记录库</span>
+          <h3>每次测试证明什么</h3>
+          <p>把镜头、输入、模型、输出、结论、下一步放进同一条记录。</p>
+        </div>
+        <div class="card">
+          <span class="badge risk">L4 证据归档</span>
+          <h3>为什么这么判断</h3>
+          <p>用视频、run_config、final_response、补充参考图支撑结论，避免重复烧钱。</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="pipeline">
+      <div class="section-head">
+        <div>
+          <h2>制作流水线</h2>
+          <p>这是项目状态的主看板。每个阶段只放当前判断和下一步，不替代底层文档。</p>
+        </div>
+      </div>
+      <div class="pipeline">
+        <div class="stage done">
+          <h3>账号方向</h3>
+          <p>经典 IP 混搭 + 异常档案 + 高概念短视频。</p>
+          <div class="k">状态：已定</div>
+        </div>
+        <div class="stage done">
+          <h3>脚本概念</h3>
+          <p>西游记女儿国 x 旧日神污染。</p>
+          <div class="k">状态：已锁</div>
+        </div>
+        <div class="stage done">
+          <h3>视觉风格</h3>
+          <p>天书奇谭式老动画、纸纹、淡彩、平面手绘。</p>
+          <div class="k">状态：用户认可</div>
+        </div>
+        <div class="stage done">
+          <h3>关键帧</h3>
+          <p>八戒影子、唐僧念经、子母河黑海已产出。</p>
+          <div class="k">状态：部分可用</div>
+        </div>
+        <div class="stage risk">
+          <h3>HappyHorse</h3>
+          <p>流程可用，动作控制弱，复杂分镜不适合。</p>
+          <div class="k">状态：限制明确</div>
+        </div>
+        <div class="stage active">
+          <h3>视频模型</h3>
+          <p>需要转短镜头单动作，或测试 Seedance。</p>
+          <div class="k">状态：验证中</div>
+        </div>
+        <div class="stage paused">
+          <h3>剪辑成片</h3>
+          <p>等可用视频片段后进入节奏剪辑。</p>
+          <div class="k">状态：未开始</div>
+        </div>
+        <div class="stage paused">
+          <h3>声音发布</h3>
+          <p>配音、音效、字幕、封面包装未开始。</p>
+          <div class="k">状态：待后置</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="optimization">
+      <div class="section-head">
+        <div>
+          <h2>优化方案库</h2>
+          <p>每次阶段性复盘后产出的优化决策。每个方案有独立编号、触发原因和执行状态；后续版本追加在此，旧方案保留存档。</p>
+        </div>
+      </div>
+
+      <!-- 方案索引 -->
+      <div class="plan-registry">
+        <div class="plan-registry-row plan-registry-head">
+          <span>编号</span>
+          <span>方案标题</span>
+          <span>创建日期</span>
+          <span>状态</span>
+        </div>
+        <a class="plan-registry-row" href="#opt-001">
+          <span class="plan-num">OPT-001</span>
+          <span>工作流重设计 · 原子化拆镜 + 分层管线</span>
+          <span class="muted">2026-06-03</span>
+          <span class="badge active" style="margin:0;">执行中</span>
+        </a>
+      </div>
+
+      <!-- ── OPT-001 ── -->
+      <article class="plan-doc" id="opt-001">
+        <div class="plan-doc-head">
+          <div class="plan-id">OPT<br>001</div>
+          <div>
+            <h3>工作流重设计 · 原子化拆镜 + 分层管线</h3>
+            <div class="plan-meta">
+              <span>触发：HappyHorse 四轮测试全部失败</span>
+              <span>创建：2026-06-03</span>
+              <span>依据：happyhorse_video_tests_20260525.html</span>
+            </div>
+          </div>
+          <span class="badge active" style="margin:0;">执行中</span>
+        </div>
+
+        <div class="plan-doc-body">
+
+          <!-- 核心判断 -->
+          <div class="decision">
+            <strong>根因：</strong>这是工作流设计问题，不是模型问题。4 次测试全失败的共同原因是用单条生成调用承担了导演的全部工作——把合成层的任务压给了生成层。模型没有被错误使用，而是被错误期待。
+          </div>
+
+          <!-- 4 类问题诊断 -->
+          <div>
+            <h3 style="margin-bottom:10px;">问题诊断</h3>
+            <div class="grid-2">
+              <div class="card tight">
+                <span class="badge risk">P1 · Prompt 架构失调</span>
+                <ul style="margin:4px 0 0;padding-left:17px;">
+                  <li><code>保持不变</code> × 3 把模型锁死，运动空间关闭，只能做最保守的镜头推拉</li>
+                  <li>5 个同时进行的动作目标，超出模型动作带宽</li>
+                  <li>风格 + 内容 + 负向描述混写，核心运动信号被稀释</li>
+                </ul>
+              </div>
+              <div class="card tight">
+                <span class="badge risk">P2 · 参考图策略错误</span>
+                <ul style="margin:4px 0 0;padding-left:17px;">
+                  <li>r2v 是素材池，不是分镜时间轴</li>
+                  <li>全景、近景、特写、道具混传同一条 r2v</li>
+                  <li>模型把多图融合成新画面，而不是按描述执行分镜</li>
+                </ul>
+              </div>
+              <div class="card tight">
+                <span class="badge risk">P3 · 镜头没有原子化</span>
+                <ul style="margin:4px 0 0;padding-left:17px;">
+                  <li>HH-004：5 秒内同时要求嘴动 + 经卷 + 袈裟 + 宫灯 + 墨影共 6 个动作</li>
+                  <li>这是 6 层合成片，不是一个镜头</li>
+                  <li>任何现有 i2v / r2v 模型都无法可靠完成</li>
+                </ul>
+              </div>
+              <div class="card tight">
+                <span class="badge risk">P4 · 模型路由错误</span>
+                <ul style="margin:4px 0 0;padding-left:17px;">
+                  <li>八戒影子逃逸 = 所有 i2v 最难的动作类型之一</li>
+                  <li>影子独立于身体运动是合成层任务，不属于生成层</li>
+                  <li>HappyHorse 对此无控制能力；Seedance / Kling 单条 prompt 也不能稳定完成</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <!-- Prompt 正确结构 -->
+          <div>
+            <h3 style="margin-bottom:10px;">Prompt 正确架构</h3>
+            <table>
+              <thead>
+                <tr><th>维度</th><th>❌ 当前错误模式</th><th>✓ 正确模式</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>结构公式</td>
+                  <td>风格 + 保持不变×3 + 5 个动作 + 负向×4</td>
+                  <td><code>[风格锚 ≤5词] + [唯一运动焦点] + [镜头状态] + [≤2 关键负向]</code></td>
+                </tr>
+                <tr>
+                  <td>运动目标</td>
+                  <td>人物、经卷、衣物、宫灯、墨影同时要求</td>
+                  <td>每条只承载 1 个核心动作，时长 2–3 秒</td>
+                </tr>
+                <tr>
+                  <td>锁定语言</td>
+                  <td>"保持不变""不要改变构图"</td>
+                  <td>"镜头固定"——只锁摄像机，不锁内容</td>
+                </tr>
+                <tr>
+                  <td>示例重写</td>
+                  <td colspan="2">天书奇谭手绘风。子母河水面黑色墨影缓慢向四周晕开，水波轻荡。镜头固定。不写实化。</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- 专业分层管线 -->
+          <div>
+            <h3 style="margin-bottom:10px;">专业分层管线（2025–2026 业内标准）</h3>
+            <div class="pipeline-arch">
+              <div class="arch-layer">
+                <div class="layer-label">Layer 1 · 生图层</div>
+                <div class="arch-route">Midjourney / FLUX / SD<div class="rt">关键帧 · 风格参考 · 角色定稿 · 动作参考图包</div></div>
+              </div>
+              <div class="arch-layer">
+                <div class="layer-label">Layer 2 · 生视频层（按镜头类型路由）</div>
+                <div class="arch-route" style="border-color:rgba(111,155,104,.5);">氛围 / 环境动效<div class="rt">→ HappyHorse r2v（低成本，单主体，单动作）</div></div>
+                <div class="arch-route" style="border-color:rgba(79,143,149,.5);">角色 + 一致性要求高<div class="rt">→ Seedance 2.0（多路输入，跨镜头人物锁定）</div></div>
+                <div class="arch-route" style="border-color:rgba(212,169,79,.5);">复杂动作 / 强导演感<div class="rt">→ Kling 3.0 / Runway Gen-4</div></div>
+              </div>
+              <div class="arch-layer">
+                <div class="layer-label">Layer 3 · 合成层</div>
+                <div class="arch-route">DaVinci / After Effects / CapCut<div class="rt">影子遮罩分离 · 经文游动特效 · 嵌 SRT 字幕 · 音效</div></div>
+                <div class="arch-route">后期独占效果<div class="rt">影子形变 · 墨迹粒子 · 多镜头拼接节奏</div></div>
+              </div>
+            </div>
+            <p class="muted" style="margin-top:8px;font-size:12px;">核心原则（业内）：Seedance 作为生成引擎，Runway 负责时间轴编辑和后期。生成层提供风格和动作原料；合成层负责导演控制。</p>
+          </div>
+
+          <!-- 三个镜头具体方案 -->
+          <div>
+            <h3 style="margin-bottom:10px;">三个镜头具体拆解方案</h3>
+            <table>
+              <thead>
+                <tr><th>镜头</th><th>当前失败原因</th><th>新方案</th><th>负责层</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>八戒影子逃逸</strong><br><span class="muted">开场钩子，最高优先</span></td>
+                  <td>i2v 无法理解影子与身体的物理分离，脑补时空关系风险过高</td>
+                  <td>生成：Seedance 2.0 做八戒身体轻微颤抖（2s）<br>合成：单独提取影子区域，遮罩 + 形变动画做"墨水流走"</td>
+                  <td>Seedance + <strong>合成</strong></td>
+                </tr>
+                <tr>
+                  <td><strong>子母河黑海倒影</strong><br><span class="muted">最快出效果，优先验证</span></td>
+                  <td>首帧偏 AI 概念图；混传风格板和角色图导致画风飘移</td>
+                  <td>r2v 只传 1 张同尺度场景图；prompt 只写墨影扩散 + 水波；时长 3s；去掉所有"保持不变"</td>
+                  <td>HappyHorse r2v</td>
+                </tr>
+                <tr>
+                  <td><strong>唐僧念错经</strong><br><span class="muted">拆为 3 条独立片段</span></td>
+                  <td>6 个同时运动目标，r2v 无分镜导演能力，参考图尺度混乱</td>
+                  <td>A：宫灯 + 帷幔（背景参考图，2s，宫灯摇晃）<br>B：经卷墨字游动（经卷特写图，2s，墨字轻动）<br>C：嘴部开合（人物面部图，2s，嘴轻动）<br>→ 合成拼接为 6s 完整镜头</td>
+                  <td>HappyHorse r2v ×3 + <strong>合成</strong></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- 行动优先级 -->
+          <div>
+            <h3 style="margin-bottom:10px;">执行优先级</h3>
+            <div class="grid-3">
+              <div class="card tight">
+                <span class="badge next">Tier 1 · 立刻执行</span>
+                <p>子母河单参考图 r2v，3s，单一墨影扩散动作，采用正确 Prompt 结构重测。<br><span class="muted" style="font-size:12px;">目标：产出第一条可用素材</span></p>
+              </div>
+              <div class="card tight">
+                <span class="badge active">Tier 2 · 下轮接入</span>
+                <p>接入 Seedance 2.0 API，用角色定稿图 + 八戒关键帧测试"首帧模式"。<br><span class="muted" style="font-size:12px;">目标：验证角色一致性上限</span></p>
+              </div>
+              <div class="card tight">
+                <span class="badge paused">Tier 3 · 并行准备</span>
+                <p>确认 DaVinci / AE / CapCut 可用；准备影子遮罩合成方案；修复 ffmpeg drawtext。<br><span class="muted" style="font-size:12px;">目标：建立合成层能力</span></p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </article>
+    </section>
+
+    <section class="section" id="tests">
+      <div class="section-head">
+        <div>
+          <h2>测试记录库</h2>
+          <p>合并原“镜头级数据库”和“模型实验库”。每条记录按一次 API 测试组织，完整记录测试目标、输入、模型参数、输出、时间、结论、分析、下一步和补充资料。</p>
+        </div>
+        <a href="happyhorse_video_tests_20260525.html">打开完整复盘</a>
+      </div>
+
+      <div class="test-summary">
+        <div class="test-stat"><span class="n">5</span><span class="t">已完成视频测试</span></div>
+        <div class="test-stat"><span class="n">5</span><span class="t">成功返回 MP4</span></div>
+        <div class="test-stat"><span class="n">0</span><span class="t">可直接进成片</span></div>
+        <div class="test-stat"><span class="n">4</span><span class="t">可复用结论</span></div>
+        <div class="test-stat"><span class="n">2</span><span class="t">脚本：i2v / r2v</span></div>
+        <div class="test-stat"><span class="n">1</span><span class="t">推荐下一测：经卷特写</span></div>
+      </div>
+
+      <div class="test-records">
+        <article class="test-record">
+          <div class="test-record-head">
+            <div>
+              <h3>HH-001｜i2v｜八戒影子逃逸</h3>
+              <p class="muted">测试目标：验证单首帧图生视频能否让“八戒影子从地面脱离并逃走”成立。</p>
+            </div>
+            <span class="badge risk">失败：穿帮明显</span>
+          </div>
+          <div class="test-record-body">
+            <div class="test-media">
+              <video controls src="../data/Data_results/video_results/happyhorse_womankingdom_test_20260525_001/61769428-metadata_video_720p_9123e9fb-02d2-4019-99c0-a99979e7be38_refiner.mp4"></video>
+              <div class="thumb-row">
+                <a href="../data/Data_results/picture_results/video_episode_002_womankingdom_cthulhu_v1/keyframes/shot_01_bajie_shadow_escape.png"><img src="../data/Data_results/picture_results/video_episode_002_womankingdom_cthulhu_v1/keyframes/shot_01_bajie_shadow_escape.png" alt="八戒影子首帧" /></a>
+              </div>
+            </div>
+            <div class="test-detail-grid">
+              <div class="test-detail"><div class="label">输入资产</div><p>1 张首帧：<a href="../data/Data_results/picture_results/video_episode_002_womankingdom_cthulhu_v1/keyframes/shot_01_bajie_shadow_escape.png">shot_01_bajie_shadow_escape.png</a></p></div>
+              <div class="test-detail"><div class="label">模型与参数</div><p><code>happyhorse-1.0-i2v</code>，<code>720P</code>，<code>duration=3</code>，<code>watermark=false</code>，<code>seed=20260525</code></p></div>
+              <div class="test-detail"><div class="label">时间与任务</div><p>提交：2026-05-25 14:50:13.332<br>完成：2026-05-25 14:51:31.760<br>task_id：<code>9123e9fb-02d2-4019-99c0-a99979e7be38</code></p></div>
+              <div class="test-detail"><div class="label">输出与记录</div><p><a href="../data/Data_results/video_results/happyhorse_womankingdom_test_20260525_001/61769428-metadata_video_720p_9123e9fb-02d2-4019-99c0-a99979e7be38_refiner.mp4">输出视频</a> / <a href="../data/Data_results/video_results/happyhorse_womankingdom_test_20260525_001/run_config.json">run_config</a> / <a href="../data/Data_results/video_results/happyhorse_womankingdom_test_20260525_001/final_task_response.json">final_response</a><br>usage：<code>duration=3</code>，<code>SR=720</code></p></div>
+              <div class="test-detail full"><div class="label">结论、分析、下一步</div><ul><li>结论：不适合直接进成片。</li><li>观察：人物、影子、地面关系不稳定，出现明显穿帮。</li><li>分析：i2v 只有一张首帧，复杂“影子独立运动”需要模型脑补时空关系，风险过高。</li><li>下一步：改成极短快切，或换 Seedance/Veo/Runway 重新测同镜头。</li></ul></div>
+              <details class="test-detail full"><summary>Prompt 原文</summary><pre>天书奇谭式中国经典动画，手绘赛璐璐和水墨纸纹质感。夜色女儿国宫门前，猪八戒的黑色影子从地面脱离，像墨水一样贴着石阶快速爬走；镜头低角度缓慢跟随，宫灯轻微摇晃，纸面颗粒稳定，角色不要变形，不要写实化，不要现代3D感。</pre></details>
+            </div>
+          </div>
+        </article>
+
+        <article class="test-record">
+          <div class="test-record-head">
+            <div>
+              <h3>HH-002｜i2v｜子母河黑海倒影</h3>
+              <p class="muted">测试目标：从复杂人物运动切到环境运动，验证水波、墨色扩散、倒影变化是否更稳定。</p>
+            </div>
+            <span class="badge active">局部可用：画面仍偏</span>
+          </div>
+          <div class="test-record-body">
+            <div class="test-media">
+              <video controls src="../data/Data_results/video_results/happyhorse_womankingdom_test_20260525_002/42047833-metadata_video_720p_86a6fe38-2f2f-4290-acfd-cb90a076c4eb_refiner.mp4"></video>
+              <div class="thumb-row">
+                <a href="../data/Data_results/picture_results/video_episode_002_womankingdom_cthulhu_v1/keyframes/shot_03_zimu_river_black_sea.png"><img src="../data/Data_results/picture_results/video_episode_002_womankingdom_cthulhu_v1/keyframes/shot_03_zimu_river_black_sea.png" alt="子母河黑海首帧" /></a>
+              </div>
+            </div>
+            <div class="test-detail-grid">
+              <div class="test-detail"><div class="label">输入资产</div><p>1 张首帧：<a href="../data/Data_results/picture_results/video_episode_002_womankingdom_cthulhu_v1/keyframes/shot_03_zimu_river_black_sea.png">shot_03_zimu_river_black_sea.png</a></p></div>
+              <div class="test-detail"><div class="label">模型与参数</div><p><code>happyhorse-1.0-i2v</code>，<code>720P</code>，<code>duration=5</code>，<code>watermark=false</code>，<code>seed=2026052502</code></p></div>
+              <div class="test-detail"><div class="label">时间与任务</div><p>提交：2026-05-25 15:41:32.671<br>完成：2026-05-25 15:42:50.595<br>task_id：<code>86a6fe38-2f2f-4290-acfd-cb90a076c4eb</code></p></div>
+              <div class="test-detail"><div class="label">输出与记录</div><p><a href="../data/Data_results/video_results/happyhorse_womankingdom_test_20260525_002/42047833-metadata_video_720p_86a6fe38-2f2f-4290-acfd-cb90a076c4eb_refiner.mp4">输出视频</a> / <a href="../data/Data_results/video_results/happyhorse_womankingdom_test_20260525_002/run_config.json">run_config</a> / <a href="../data/Data_results/video_results/happyhorse_womankingdom_test_20260525_002/final_task_response.json">final_response</a><br>usage：<code>duration=5</code>，<code>SR=720</code></p></div>
+              <div class="test-detail full"><div class="label">结论、分析、下一步</div><ul><li>结论：环境运动比人物镜头更安全，但仍不能直接作为成片标准。</li><li>观察：画面风格和目标存在差距，运动更接近氛围变化。</li><li>分析：首帧本身偏 AI 概念图；i2v 无法引入额外风格参考，文本难以纠正画风。</li><li>下一步：改 r2v 多参考图，弱化画面描述，只强调动作。</li></ul></div>
+              <details class="test-detail full"><summary>Prompt 原文</summary><pre>天书奇谭式中国经典动画，手绘赛璐璐和水墨纸纹质感。静夜的女儿国子母河，水面像旧宣纸一样安静，倒影缓慢变深，青绿河水逐渐翻涌成黑色深海；河底出现远古宫殿和巨大不可名状的黑影轮廓，只做水波、墨色扩散、倒影变化和缓慢推镜，不要改变岸边人物和建筑结构，不要现代3D感，不要写实化，不要突然切镜。</pre></details>
+            </div>
+          </div>
+        </article>
+
+        <article class="test-record">
+          <div class="test-record-head">
+            <div>
+              <h3>HH-003｜r2v｜子母河多参考图</h3>
+              <p class="muted">测试目标：验证多参考图能否比 i2v 更好地保持“天书奇谭式老动画”画风。</p>
+            </div>
+            <span class="badge done">风格更稳：动画弱</span>
+          </div>
+          <div class="test-record-body">
+            <div class="test-media">
+              <video controls src="../data/Data_results/video_results/happyhorse_womankingdom_r2v_test_20260525_001/241262-metadata_video_720p_e1ee9051-450d-4a76-96f7-5e9feb14e848_refiner.mp4"></video>
+              <div class="thumb-row">
+                <a href="../data/Data_results/picture_results/video_episode_002_womankingdom_cthulhu_v1/keyframes/shot_03_zimu_river_black_sea.png"><img src="../data/Data_results/picture_results/video_episode_002_womankingdom_cthulhu_v1/keyframes/shot_03_zimu_river_black_sea.png" alt="主场景参考" /></a>
+                <a href="../data/Data_results/picture_results/video_episode_002_womankingdom_cthulhu_v1/references/visual_board_tianshu_style.png"><img src="../data/Data_results/picture_results/video_episode_002_womankingdom_cthulhu_v1/references/visual_board_tianshu_style.png" alt="视觉设定参考" /></a>
+                <a href="../data/Data_results/picture_results/video_episode_002_womankingdom_cthulhu_v1/references/character_turnaround_sheet.png"><img src="../data/Data_results/picture_results/video_episode_002_womankingdom_cthulhu_v1/references/character_turnaround_sheet.png" alt="角色定稿参考" /></a>
+              </div>
+            </div>
+            <div class="test-detail-grid">
+              <div class="test-detail"><div class="label">输入资产</div><p>3 张参考图：主场景、视觉设定、角色定稿。用途分别是锁构图、锁画风、辅助线条与人物风格。</p></div>
+              <div class="test-detail"><div class="label">模型与参数</div><p><code>happyhorse-1.0-r2v</code>，<code>720P</code>，<code>ratio=9:16</code>，<code>duration=5</code>，<code>watermark=false</code>，<code>seed=2026052503</code></p></div>
+              <div class="test-detail"><div class="label">时间与任务</div><p>提交：2026-05-25 18:36:02.318<br>完成：2026-05-25 18:37:33.943<br>task_id：<code>e1ee9051-450d-4a76-96f7-5e9feb14e848</code></p></div>
+              <div class="test-detail"><div class="label">输出与记录</div><p><a href="../data/Data_results/video_results/happyhorse_womankingdom_r2v_test_20260525_001/241262-metadata_video_720p_e1ee9051-450d-4a76-96f7-5e9feb14e848_refiner.mp4">输出视频</a> / <a href="../data/Data_results/video_results/happyhorse_womankingdom_r2v_test_20260525_001/run_config.json">run_config</a> / <a href="../data/Data_results/video_results/happyhorse_womankingdom_r2v_test_20260525_001/final_task_response.json">final_response</a><br>usage：<code>duration=5</code>，<code>SR=720</code>，<code>ratio=9:16</code></p></div>
+              <div class="test-detail full"><div class="label">结论、分析、下一步</div><ul><li>结论：r2v 可显著改善风格稳定性，但没有解决动作问题。</li><li>观察：画面更接近参考风格，但视频像静态图推进，缺少可见动画。</li><li>分析：prompt 中“保持不变、不要新增、不要改变构图”过多，模型选择最安全的微推镜。</li><li>下一步：不要全局锁死，改用局部裁切图指定可动区域。</li></ul></div>
+              <details class="test-detail full"><summary>Prompt 原文</summary><pre>以[Image 1]作为主要场景和构图，保持[Image 1]中的河面、荷叶、桥、倒影、建筑位置不变；参考[Image 2]和[Image 3]的手绘老动画质感、纸纹、淡彩设色和线条风格。只做轻微运动：水面出现细小波纹，黑色墨影缓慢向上晕开，倒影轻微错位，荷叶和莲花轻轻晃动，镜头极慢向前推进。不要新增角色，不要新增建筑，不要新增触手，不要切镜，不要改变构图，不要写实化，不要3D化。</pre></details>
+            </div>
+          </div>
+        </article>
+
+        <article class="test-record">
+          <div class="test-record-head">
+            <div>
+              <h3>HH-004｜r2v｜唐僧念错经动作包</h3>
+              <p class="muted">测试目标：用生图先补齐复杂动作参考，再用 6 张参考图测试人物、经卷、袈裟、宫灯、墨影是否能共同运动。</p>
+            </div>
+            <span class="badge risk">复杂控制失败</span>
+          </div>
+          <div class="test-record-body">
+            <div class="test-media">
+              <video controls src="../data/Data_results/video_results/happyhorse_womankingdom_r2v_test_20260525_002/34475076-metadata_video_720p_c15d8e1b-92b0-4266-b13e-36064173c613_refiner.mp4"></video>
+              <div class="thumb-row">
+                <a href="../data/Data_results/picture_results/video_episode_002_womankingdom_cthulhu_v1/r2v_refs_tangseng_wrong_scripture/ref_01_scene.png"><img src="../data/Data_results/picture_results/video_episode_002_womankingdom_cthulhu_v1/r2v_refs_tangseng_wrong_scripture/ref_01_scene.png" alt="场景参考" /></a>
+                <a href="../data/Data_results/picture_results/video_episode_002_womankingdom_cthulhu_v1/r2v_refs_tangseng_wrong_scripture/ref_02_tangseng.png"><img src="../data/Data_results/picture_results/video_episode_002_womankingdom_cthulhu_v1/r2v_refs_tangseng_wrong_scripture/ref_02_tangseng.png" alt="唐僧参考" /></a>
+                <a href="../data/Data_results/picture_results/video_episode_002_womankingdom_cthulhu_v1/r2v_refs_tangseng_wrong_scripture/ref_03_scripture.png"><img src="../data/Data_results/picture_results/video_episode_002_womankingdom_cthulhu_v1/r2v_refs_tangseng_wrong_scripture/ref_03_scripture.png" alt="经卷参考" /></a>
+                <a href="../data/Data_results/picture_results/video_episode_002_womankingdom_cthulhu_v1/r2v_refs_tangseng_wrong_scripture/ref_04_robe.png"><img src="../data/Data_results/picture_results/video_episode_002_womankingdom_cthulhu_v1/r2v_refs_tangseng_wrong_scripture/ref_04_robe.png" alt="袈裟参考" /></a>
+                <a href="../data/Data_results/picture_results/video_episode_002_womankingdom_cthulhu_v1/r2v_refs_tangseng_wrong_scripture/ref_05_lantern.png"><img src="../data/Data_results/picture_results/video_episode_002_womankingdom_cthulhu_v1/r2v_refs_tangseng_wrong_scripture/ref_05_lantern.png" alt="宫灯参考" /></a>
+                <a href="../data/Data_results/picture_results/video_episode_002_womankingdom_cthulhu_v1/r2v_refs_tangseng_wrong_scripture/ref_06_ink_shadow.png"><img src="../data/Data_results/picture_results/video_episode_002_womankingdom_cthulhu_v1/r2v_refs_tangseng_wrong_scripture/ref_06_ink_shadow.png" alt="墨影参考" /></a>
+              </div>
+            </div>
+            <div class="test-detail-grid">
+              <div class="test-detail"><div class="label">输入资产</div><p>6 张参考图：场景、唐僧、经卷、袈裟、宫灯、墨影。补充资料：<a href="../data/Data_results/picture_results/video_episode_002_womankingdom_cthulhu_v1/r2v_refs_tangseng_wrong_scripture/tangseng_wrong_scripture_ref_sheet.png">动作参考图包</a>。</p></div>
+              <div class="test-detail"><div class="label">模型与参数</div><p><code>happyhorse-1.0-r2v</code>，<code>720P</code>，<code>ratio=9:16</code>，<code>duration=5</code>，<code>watermark=false</code>，<code>seed=2026052504</code></p></div>
+              <div class="test-detail"><div class="label">时间与任务</div><p>提交：2026-05-25 19:07:39.213<br>完成：2026-05-25 19:09:21.854<br>task_id：<code>c15d8e1b-92b0-4266-b13e-36064173c613</code></p></div>
+              <div class="test-detail"><div class="label">输出与记录</div><p><a href="../data/Data_results/video_results/happyhorse_womankingdom_r2v_test_20260525_002/34475076-metadata_video_720p_c15d8e1b-92b0-4266-b13e-36064173c613_refiner.mp4">输出视频</a> / <a href="../data/Data_results/video_results/happyhorse_womankingdom_r2v_test_20260525_002/run_config.json">run_config</a> / <a href="../data/Data_results/video_results/happyhorse_womankingdom_r2v_test_20260525_002/final_task_response.json">final_response</a><br>usage：<code>duration=5</code>，<code>SR=720</code>，<code>ratio=9:16</code></p></div>
+              <div class="test-detail full"><div class="label">结论、分析、下一步</div><ul><li>结论：HappyHorse r2v 不适合承担复杂人物分镜导演。</li><li>观察：视频和提示词、参考图差距大；没有按描述产生分镜变化；画面变化突兀且不流畅。</li><li>分析：多参考图被当作素材池，不是时间轴。全景、近景、特写、局部混传会增加融合变形，而不是增强导演控制。</li><li>下一步：停止综合段测试。拆成 2-3 秒单动作：经卷墨字游动、宫灯帷幔轻晃、墨影扩散。</li></ul></div>
+              <details class="test-detail full"><summary>Prompt 原文</summary><pre>以[Image 1]为完整场景、人物站位和宫殿构图基准。参考[Image 2]保持唐僧的脸型、僧帽、袈裟和手持经卷形象。动画重点来自[Image 3]到[Image 6]：唐僧低头诵经，嘴部轻微开合，手中经卷轻微抖动，[Image 3]中的黑色经文像活的水墨书法一样缓慢游动；[Image 4]中的袈裟和袖口轻轻摆动；[Image 5]中的宫灯和帷幔持续轻晃；[Image 6]中的王座后黑色墨影缓慢扩散和翻动。镜头固定，必须有角色和物体动画，不要只做静态推镜。不要新增人物，不要改变唐僧服装，不要切镜，不要写实化，不要3D化。</pre></details>
+            </div>
+          </div>
+        </article>
+
+        <article class="test-record">
+          <div class="test-record-head">
+            <div>
+              <h3>HH-005｜r2v｜子母河单参考图重测</h3>
+              <p class="muted">测试目标：验证 OPT-001 的核心假设——单参考图、单动作、3 秒短时长是否能比多参考图复杂 prompt 更可控。</p>
+            </div>
+            <span class="badge active">待人工复核</span>
+          </div>
+          <div class="test-record-body">
+            <div class="test-media">
+              <video controls src="../data/Data_results/video_results/happyhorse_womankingdom_r2v_test_20260603_001/35402056-metadata_video_720p_5e86ca71-7a86-4fdc-96d6-938d4cefbc7c_refiner.mp4"></video>
+              <div class="thumb-row">
+                <a href="../data/Data_results/picture_results/video_episode_002_womankingdom_cthulhu_v1/keyframes/shot_03_zimu_river_black_sea.png"><img src="../data/Data_results/picture_results/video_episode_002_womankingdom_cthulhu_v1/keyframes/shot_03_zimu_river_black_sea.png" alt="子母河单参考图" /></a>
+              </div>
+            </div>
+            <div class="test-detail-grid">
+              <div class="test-detail"><div class="label">输入资产</div><p>1 张参考图：<a href="../data/Data_results/picture_results/video_episode_002_womankingdom_cthulhu_v1/keyframes/shot_03_zimu_river_black_sea.png">shot_03_zimu_river_black_sea.png</a>。不再混入视觉设定图和角色定稿图。</p></div>
+              <div class="test-detail"><div class="label">模型与参数</div><p><code>happyhorse-1.0-r2v</code>，<code>720P</code>，<code>ratio=9:16</code>，<code>duration=3</code>，<code>watermark=false</code>，<code>seed=2026060301</code></p></div>
+              <div class="test-detail"><div class="label">时间与任务</div><p>提交：2026-06-03 16:52:36.618<br>完成：2026-06-03 16:53:35.874<br>task_id：<code>5e86ca71-7a86-4fdc-96d6-938d4cefbc7c</code></p></div>
+              <div class="test-detail"><div class="label">输出与记录</div><p><a href="../data/Data_results/video_results/happyhorse_womankingdom_r2v_test_20260603_001/35402056-metadata_video_720p_5e86ca71-7a86-4fdc-96d6-938d4cefbc7c_refiner.mp4">输出视频</a> / <a href="../data/Data_results/video_results/happyhorse_womankingdom_r2v_test_20260603_001/run_config.json">run_config</a> / <a href="../data/Data_results/video_results/happyhorse_womankingdom_r2v_test_20260603_001/final_task_response.json">final_response</a><br>usage：<code>duration=3</code>，<code>SR=720</code>，<code>ratio=9:16</code></p></div>
+              <div class="test-detail full"><div class="label">结论、分析、下一步</div><ul><li>结论：已生成，等待肉眼复核是否达到“可用环境素材”标准。</li><li>变量控制：相比 HH-003，去掉多参考图、去掉构图锁死语句、时长从 5 秒降到 3 秒。</li><li>验证点：墨影是否真的扩散；水波和荷叶是否有动画；画风是否比 HH-002 更稳；是否仍只是静态推镜。</li><li>下一步：如果可用，固化为环境动效模板；如果仍弱，停止用 HappyHorse 做主镜头，转合成层或 Seedance 2.0。</li></ul></div>
+              <details class="test-detail full"><summary>Prompt 原文</summary><pre>天书奇谭手绘动画风。黑色墨影从子母河水面中央缓慢向四周晕开，水面产生轻微涟漪，荷叶轻轻漂动。镜头固定。不写实化，不改变成现代3D风格。</pre></details>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="assets">
+      <div class="section-head">
+        <div>
+          <h2>制作资产库</h2>
+          <p>按用途分类：不是所有资源都同等重要。看板只展示能帮助做决策或直接参与生成的素材。</p>
+        </div>
+      </div>
+
+      <h3>视觉基准</h3>
+      <div class="asset-grid" style="margin-bottom:16px;">
+        <figure>
+          <img src="../data/Data_results/picture_results/video_episode_002_womankingdom_cthulhu_v1/references/visual_board_tianshu_style.png" alt="视觉设定图" />
+          <figcaption><strong>视觉设定图</strong><span>锁定整体老动画风格。</span></figcaption>
+        </figure>
+        <figure>
+          <img src="../data/Data_results/picture_results/video_episode_002_womankingdom_cthulhu_v1/references/character_turnaround_sheet.png" alt="角色定稿图" />
+          <figcaption><strong>角色定稿图</strong><span>判断唐僧与角色是否跑形。</span></figcaption>
+        </figure>
+        <figure>
+          <img src="../data/Data_results/picture_results/video_episode_002_womankingdom_cthulhu_v1/references/shot_tangseng_wrong_scripture_v0.png" alt="早期唐僧镜头" />
+          <figcaption><strong>早期镜头 v0</strong><span>保留为风格对比样本。</span></figcaption>
+        </figure>
+      </div>
+
+      <h3>关键帧</h3>
+      <div class="asset-grid" style="margin-bottom:16px;">
+        <figure>
+          <img src="../data/Data_results/picture_results/video_episode_002_womankingdom_cthulhu_v1/keyframes/shot_01_bajie_shadow_escape.png" alt="八戒影子逃逸" />
+          <figcaption><strong>八戒影子逃逸</strong><span>开场钩子，视频测试已穿帮。</span></figcaption>
+        </figure>
+        <figure>
+          <img src="../data/Data_results/picture_results/video_episode_002_womankingdom_cthulhu_v1/keyframes/shot_02_tangseng_wrong_scripture.png" alt="唐僧念错经" />
+          <figcaption><strong>唐僧念错经</strong><span>核心事件，需拆短镜头。</span></figcaption>
+        </figure>
+        <figure>
+          <img src="../data/Data_results/picture_results/video_episode_002_womankingdom_cthulhu_v1/keyframes/shot_03_zimu_river_black_sea.png" alt="子母河黑海" />
+          <figcaption><strong>子母河黑海</strong><span>适合继续做单动作环境测试。</span></figcaption>
+        </figure>
+      </div>
+
+      <h3>动作参考图包</h3>
+      <div class="asset-grid">
+        <figure>
+          <img src="../data/Data_results/picture_results/video_episode_002_womankingdom_cthulhu_v1/r2v_refs_tangseng_wrong_scripture/ref_01_scene.png" alt="场景" />
+          <figcaption><strong>场景</strong><span>锁站位和空间。</span></figcaption>
+        </figure>
+        <figure>
+          <img src="../data/Data_results/picture_results/video_episode_002_womankingdom_cthulhu_v1/r2v_refs_tangseng_wrong_scripture/ref_02_tangseng.png" alt="唐僧" />
+          <figcaption><strong>唐僧</strong><span>锁脸、帽、袈裟。</span></figcaption>
+        </figure>
+        <figure>
+          <img src="../data/Data_results/picture_results/video_episode_002_womankingdom_cthulhu_v1/r2v_refs_tangseng_wrong_scripture/ref_03_scripture.png" alt="经卷" />
+          <figcaption><strong>经卷</strong><span>下一轮推荐测试素材。</span></figcaption>
+        </figure>
+        <figure>
+          <img src="../data/Data_results/picture_results/video_episode_002_womankingdom_cthulhu_v1/r2v_refs_tangseng_wrong_scripture/ref_04_robe.png" alt="袈裟" />
+          <figcaption><strong>袈裟</strong><span>衣物摆动参考。</span></figcaption>
+        </figure>
+        <figure>
+          <img src="../data/Data_results/picture_results/video_episode_002_womankingdom_cthulhu_v1/r2v_refs_tangseng_wrong_scripture/ref_05_lantern.png" alt="宫灯" />
+          <figcaption><strong>宫灯</strong><span>环境动效参考。</span></figcaption>
+        </figure>
+        <figure>
+          <img src="../data/Data_results/picture_results/video_episode_002_womankingdom_cthulhu_v1/r2v_refs_tangseng_wrong_scripture/ref_06_ink_shadow.png" alt="墨影" />
+          <figcaption><strong>墨影</strong><span>异变动效参考。</span></figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <div>
+          <h2>视频样片入口</h2>
+          <p>用于肉眼复核模型能力。这里展示的是证据，不是成片候选。</p>
+        </div>
+      </div>
+      <div class="grid-4">
+        <figure>
+          <video controls src="../data/Data_results/picture_results/video_episode_002_womankingdom_cthulhu_v1/womankingdom_6s_style_sample.mp4"></video>
+          <figcaption><strong>6 秒风格样片</strong><span>证明画风方向成立，仍是 PPT 级推进。</span></figcaption>
+        </figure>
+        <figure>
+          <video controls src="../data/Data_results/video_results/happyhorse_womankingdom_test_20260525_001/61769428-metadata_video_720p_9123e9fb-02d2-4019-99c0-a99979e7be38_refiner.mp4"></video>
+          <figcaption><strong>HH-001 i2v</strong><span>八戒影子，穿帮。</span></figcaption>
+        </figure>
+        <figure>
+          <video controls src="../data/Data_results/video_results/happyhorse_womankingdom_r2v_test_20260525_001/241262-metadata_video_720p_e1ee9051-450d-4a76-96f7-5e9feb14e848_refiner.mp4"></video>
+          <figcaption><strong>HH-003 r2v</strong><span>风格较稳，动作弱。</span></figcaption>
+        </figure>
+        <figure>
+          <video controls src="../data/Data_results/video_results/happyhorse_womankingdom_r2v_test_20260525_002/34475076-metadata_video_720p_c15d8e1b-92b0-4266-b13e-36064173c613_refiner.mp4"></video>
+          <figcaption><strong>HH-004 r2v</strong><span>复杂人物分镜失败。</span></figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="section" id="docs">
+      <div class="section-head">
+        <div>
+          <h2>原始资料与脚本入口</h2>
+          <p>HTML 看板吸收关键结论，MD 和脚本保留为底层来源。你需要编辑长文时回到底层资料；做决策时看本页。</p>
+        </div>
+      </div>
+      <div class="source-list">
+        <div class="source">
+          <div class="type">方案 HTML</div>
+          <h3><a href="womankingdom_cthulhu_video_plan.html">视频方案总页</a></h3>
+          <p>当前故事、视觉、模型路线的方案型说明。用于确认项目是否跑偏。</p>
+        </div>
+        <div class="source">
+          <div class="type">复盘 HTML</div>
+          <h3><a href="happyhorse_video_tests_20260525.html">HappyHorse 测试复盘</a></h3>
+          <p>记录四轮测试、prompt、输出和失败原因。用于避免重复烧钱。</p>
+        </div>
+        <div class="source">
+          <div class="type">脚本方案 MD</div>
+          <h3><a href="video_episode_002_womankingdom_cthulhu_pack.md">女儿国旧日神制作包</a></h3>
+          <p>原始脚本、分镜、旁白和画面设计。用于拆镜头和写提示词。</p>
+        </div>
+        <div class="source">
+          <div class="type">交接 MD</div>
+          <h3><a href="womankingdom_cthulhu_handoff.md">项目交接</a></h3>
+          <p>新会话恢复项目状态的最短路径。</p>
+        </div>
+        <div class="source">
+          <div class="type">账号策略 MD</div>
+          <h3><a href="main_account_content_strategy_v1.md">主账号内容策略</a></h3>
+          <p>判断这条视频是否符合账号长期定位。</p>
+        </div>
+        <div class="source">
+          <div class="type">API 脚本</div>
+          <h3><a href="../debug/dashscope/run_happyhorse_r2v.py">HappyHorse r2v 脚本</a></h3>
+          <p>多参考图视频测试入口。默认低成本参数，可复现实验。</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="next">
+      <div class="section-head">
+        <div>
+          <h2>下一步建议</h2>
+          <p>下一次 API 调用应该最小化变量，验证一个明确假设。</p>
+        </div>
+      </div>
+      <div class="decision" style="margin-bottom:14px;">
+        完整行动方案见 <a href="#opt-001">OPT-001</a>。此处列出当前三个优先级，供快速决策参考。
+      </div>
+      <div class="grid-3">
+        <div class="card">
+          <span class="badge next">Tier 1 · 立刻</span>
+          <h3>子母河单参考图重测</h3>
+          <p>只传 1 张同尺度场景图，动作只写墨影扩散 + 水波，时长 3s，去掉所有"保持不变"。</p>
+          <div class="path">目标：用正确 Prompt 结构产出第一条可用素材。</div>
+        </div>
+        <div class="card">
+          <span class="badge active">Tier 2 · 下轮</span>
+          <h3>接入 Seedance 2.0</h3>
+          <p>用角色定稿图 + 八戒关键帧测试首帧模式，验证跨镜头人物一致性上限。</p>
+          <div class="path">目标：确认是否能替代 HappyHorse 承担角色镜头。</div>
+        </div>
+        <div class="card">
+          <span class="badge paused">Tier 3 · 并行准备</span>
+          <h3>建立合成层能力</h3>
+          <p>确认 DaVinci / AE / CapCut 可用；准备影子遮罩合成方案；修复 ffmpeg drawtext。</p>
+          <div class="path">目标：让影子逃逸等效果脱离生成层，在合成层可控实现。</div>
+        </div>
+      </div>
+    </section>
+
+    <p class="small" style="margin:18px 0 0;">本页是制作看板，不是唯一事实源。底层资料仍以对应 MD、JSON、图片和视频文件为准。</p>
+  </main>
+</div>
+</body>
+</html>

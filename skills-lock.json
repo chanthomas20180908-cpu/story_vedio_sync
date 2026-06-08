@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "skills": {
+    "creative-writing-craft": {
+      "source": "4444j99/a-i--skills",
+      "sourceType": "github",
+      "skillPath": "skills/creative/creative-writing-craft/SKILL.md",
+      "computedHash": "02166af8ffad33921c9fd231b9484a4d543a2548e8a930721ad88e4b60e47ecb"
+    }
+  }
+}
