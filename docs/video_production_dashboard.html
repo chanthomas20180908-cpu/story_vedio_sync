@@ -1104,7 +1104,7 @@
         <div class="test-stat"><span class="n">0</span><span class="t">可直接进成片</span></div>
         <div class="test-stat"><span class="n">4</span><span class="t">可复用结论</span></div>
         <div class="test-stat"><span class="n">2</span><span class="t">脚本：i2v / r2v</span></div>
-        <div class="test-stat"><span class="n">1</span><span class="t">推荐下一测：经卷特写</span></div>
+        <div class="test-stat"><span class="n">1</span><span class="t">脚本改写方案 · 待执行</span></div>
       </div>
 
       <div class="test-records">
@@ -1241,6 +1241,43 @@
               <div class="test-detail"><div class="label">输出与记录</div><p><a href="../data/Data_results/video_results/happyhorse_womankingdom_r2v_test_20260603_001/35402056-metadata_video_720p_5e86ca71-7a86-4fdc-96d6-938d4cefbc7c_refiner.mp4">输出视频</a> / <a href="../data/Data_results/video_results/happyhorse_womankingdom_r2v_test_20260603_001/run_config.json">run_config</a> / <a href="../data/Data_results/video_results/happyhorse_womankingdom_r2v_test_20260603_001/final_task_response.json">final_response</a><br>usage：<code>duration=3</code>，<code>SR=720</code>，<code>ratio=9:16</code></p></div>
               <div class="test-detail full"><div class="label">结论、分析、下一步</div><ul><li>结论：已生成，等待肉眼复核是否达到“可用环境素材”标准。</li><li>变量控制：相比 HH-003，去掉多参考图、去掉构图锁死语句、时长从 5 秒降到 3 秒。</li><li>验证点：墨影是否真的扩散；水波和荷叶是否有动画；画风是否比 HH-002 更稳；是否仍只是静态推镜。</li><li>下一步：如果可用，固化为环境动效模板；如果仍弱，停止用 HappyHorse 做主镜头，转合成层或 Seedance 2.0。</li></ul></div>
               <details class="test-detail full"><summary>Prompt 原文</summary><pre>天书奇谭手绘动画风。黑色墨影从子母河水面中央缓慢向四周晕开，水面产生轻微涟漪，荷叶轻轻漂动。镜头固定。不写实化，不改变成现代3D风格。</pre></details>
+            </div>
+          </div>
+        </article>
+
+        <article class="test-record">
+          <div class="test-record-head">
+            <div>
+              <h3>SC-001｜脚本改写｜原文腔调双参照系 · 5 弱帧改写</h3>
+              <p class="muted">测试目标：以吴承恩原文（第五十四回）+ 洛夫克拉夫特原文（《异乡人》《大衮》）为双参照，改写连环画 A07 / A17 / A19 / A20 / A31 五个弱帧字幕，解决 AI 原创腔调失真问题。</p>
+            </div>
+            <span class="badge next">方案确认·待执行</span>
+          </div>
+          <div class="test-record-body">
+            <div class="test-detail-grid">
+              <div class="test-detail full"><div class="label">根因诊断</div><p>连环画字幕 AI 味过重，缺少真实作品输入；AI 凭空生成无法还原吴承恩腔调或洛夫克拉夫特意象，诊断为"原创性价比太低"。解法：先拿到两套原著，再以原文腔调为标准逐帧改写。</p></div>
+              <div class="test-detail"><div class="label">输入资产</div><ul>
+                <li>西游记 第五十四回（<code>法性西来逢女国</code>，md）</li>
+                <li>西游记 第五十五回（<code>色邪淫戏唐三藏</code>，md）</li>
+                <li>洛夫克拉夫特《异乡人》（克苏鲁大书 chapters_simple）</li>
+                <li>洛夫克拉夫特《大衮》（克苏鲁大书 chapters_simple）</li>
+                <li><a href="video_episode_002_comic_storyboard.html">连环画分镜 HTML</a>（当前版本）</li>
+              </ul></div>
+              <div class="test-detail"><div class="label">模型与工具</div><p><code>claude-sonnet-4-6</code>（Claude Code 本地），无外部 API 调用；原文 → 腔调分析 → 逐帧改写，全流程在上下文内完成。<br><span class="muted" style="font-size:12px;">方案确认：2026-06-08</span></p></div>
+              <div class="test-detail full"><div class="label">方案：双参照系腔调特征</div><ul>
+                <li><strong>吴承恩腔调</strong>：动词先行、一帧一动、说书口吻（"行者道""只见"），无解释句，结果比过程更短</li>
+                <li><strong>洛夫克拉夫特腔调</strong>：感觉先于判断（"不安"早于"危险"），不可名状替代具体描述，镜像顿悟（主角发现怪物=自己），身体反应替代情绪词</li>
+                <li><strong>混写原则</strong>：环境 / 动作句用吴承恩腔调；旧日神 / 意识污染场面用洛夫克拉夫特意象；不堆典故，各取一点直接对标</li>
+              </ul></div>
+              <div class="test-detail full"><div class="label">改写目标帧与诊断</div><ul>
+                <li><strong>A07</strong> 跳接断层 — 经书凭空出现，上下文断开；方向：用"影子留下的物件"衔接，让经书有来处</li>
+                <li><strong>A17</strong> 双人对话塞一帧 — 八戒 / 悟空台词堆在单帧，信息过载；方向：保留最短动词句 + 一句台词，删掉说明</li>
+                <li><strong>A19</strong> 纯解释句 — "原来女儿国的女人们都……"，明写原因；方向：换成具体场面，让读者自己读出含义</li>
+                <li><strong>A20</strong> 砸镜无动机 — 照妖镜指向水面后直接砸，缺少过渡；方向：加"镜子拒绝照"的中间步骤，砸镜才有依据</li>
+                <li><strong>A31</strong> 说教式揭示 — 唐僧直接说出主题；方向：用动作（合上经书、手抖）替代台词揭示</li>
+              </ul></div>
+              <div class="test-detail"><div class="label">预期产出</div><p>5 个帧的改写版字幕，写入 <a href="video_episode_002_comic_storyboard.html">连环画分镜</a>。</p></div>
+              <div class="test-detail"><div class="label">验证标准</div><p>改写后每句删掉后，画面含义不丢失（无解释句测试）；且字幕中无"原来""其实""因为"等判断性连词。</p></div>
             </div>
           </div>
         </article>

@@ -604,6 +604,125 @@
           ["连环画分镜", "video_episode_002_comic_storyboard.html"],
           ["制作看板", "video_episode_002_timeline_production_board.html"]
         ]
+      },
+      {
+        id: "WL-011",
+        date: "2026-06-08",
+        stage: "阅读沉淀",
+        type: "story",
+        title: "西游记 epub 按章节拆分为 Markdown 原文库",
+        summary: "用户指出连环画字幕“AI 原创性价比太低”，根因是缺少真实作品输入；将西游记 epub 拆分为 101 个章节 md 文件，以吴承恩原文作为参考素材。",
+        purpose: "解决“AI 原创腔调假、无依据”的问题——用原文腔调替代凭空创作，字幕改写要有一手来源。",
+        input: "西游记 (吴承恩) epub 文件；Python zipfile + beautifulsoup4 解析，无额外依赖。",
+        output: "split_epub.py 拆分脚本；chapters/ 目录下 101 个 .md 章节文件，含第五十三回、第五十四回（法性西来逢女国）、第五十五回（色邪淫戏唐三藏）。",
+        conclusion: "女儿国三回（53-55）原文可直接引用；吴承恩叙事腔调为：动词先行、说书口吻、细节密集。与当前连环画字幕差距明显。",
+        next: "以第五十四回原文为基准，改写连环画 A07、A17、A19、A20、A31 五个弱帧字幕，对齐原文腔调。",
+        links: [
+          ["拆分脚本", "../data/input_md/xiyouji/split_epub.py"],
+          ["第五十四回原文", "../data/input_md/xiyouji/chapters/第五十四回_法性西来逢女国_心猿定计脱烟花.md"],
+          ["第五十五回原文", "../data/input_md/xiyouji/chapters/第五十五回_色邪淫戏唐三藏_性正修持不坏身.md"],
+          ["连环画分镜", "video_episode_002_comic_storyboard.html"]
+        ]
+      },
+      {
+        id: "WL-012",
+        date: "2026-06-08",
+        stage: "阅读沉淀",
+        type: "story",
+        title: "连环画全 32 帧字幕改写：双原文腔调融合",
+        summary: "以吴承恩说书腔为语言载体、洛夫克拉夫特意象为内容来源，按三幕渗透曲线一次性改写全部 32 帧字幕，解决 AI 原创腔调失真问题。",
+        purpose: "彻底解决连环画字幕“AI 味”问题——不是修补个别帧，而是建立统一腔调体系，让 32 帧读起来像同一个叙事声音。",
+        input: "西游记第五十四回原文（吴承恩腔调参照）、《异乡人》《大衮》（洛夫克拉夫特意象参照）、当前连环画分镜 HTML（32 帧原稿）。",
+        output: "video_episode_002_comic_storyboard.html 全部 32 帧字幕更新。三幕各有重点：Act1 每帧一个 wrong 细节不解释；Act2 说书腔结构说旧日神内容；Act3 说书腔语法包裹克苏鲁现实。",
+        conclusion: "核心策略：载体与内容分离（吴承恩管句式，洛夫克拉夫特管意象，我们的故事线管情节节点）。最大改动：A19 删旁白改河水画线；A31 删台词揭示改动作收尾；A32 删解释改影子还在喝水。",
+        next: "阅读改写后连环画，检查三幕节奏是否流畅；随后进入 P0 关键帧补图阶段。",
+        links: [
+          ["连环画分镜（已更新）", "video_episode_002_comic_storyboard.html"],
+          ["《异乡人》原文", "../data/input_md/kesulu/唐僧克苏鲁/克苏鲁大书/原文/chapters_simple/04_异乡人.md"],
+          ["《大衮》原文", "../data/input_md/kesulu/唐僧克苏鲁/克苏鲁大书/原文/chapters_simple/02_大衮.md"]
+        ]
+      },
+      {
+        id: "WL-013",
+        date: "2026-06-09",
+        stage: "阅读沉淀",
+        type: "story",
+        title: "混搭故事生成器：原文驱动的连环画字幕生成方案",
+        summary: "设计并实现一个基于 Claude Subagent 的故事生成器，将西游记原文与洛夫克拉夫特原文全文嵌入 prompt 模板，用「故事灵感」作为唯一变量输入，生成完整连环画字幕 JSON。",
+        purpose: "解决手工改写的两个根本问题：连贯性差（帧与帧之间不连通）、原文利用不足（腔调参考而非内容来源）。生成器让原文驱动情节，而非情节驱动写法。",
+        input: "西游记第五十四回全文、《大衮》《异乡人》全文、故事灵感（4句话方向描述）。",
+        output: "prompts/generator_v1.md（生成器模板，含两份原文全文 + 5条硬约束规则 + 输出格式）；prompts/README.md（用法文档）；首次测试运行输出 32 帧 JSON。",
+        conclusion: "核心机制：Subagent 冷启动做隔离——每次 spawn 只看模板内容，不受当前对话上下文干扰，模板固定则生成风格一致。硬约束三条：情节必须有原文原型、句型必须来自西游记、意象细节必须来自原文。首次测试通过，A22-A27 影子跟随序列质量明显优于手工版本。",
+        next: "评估首次生成的 32 帧输出，决定是否写入 HTML；或用不同灵感多跑几次对比。",
+        links: [
+          ["生成器模板", "../prompts/generator_v1.md"],
+          ["生成器用法 README", "../prompts/README.md"],
+          ["《大衮》原文", "../data/input_md/kesulu/唐僧克苏鲁/克苏鲁大书/原文/chapters_simple/02_大衮.md"],
+          ["《异乡人》原文", "../data/input_md/kesulu/唐僧克苏鲁/克苏鲁大书/原文/chapters_simple/04_异乡人.md"]
+        ]
+      },
+      {
+        id: "WL-014",
+        date: "2026-06-09",
+        stage: "阅读沉淀",
+        type: "story",
+        title: "补充原文素材：封神演义、古龙七种武器、斗破苍穹 epub 拆分",
+        summary: "为解决生成器输出语言冷淡、缺乏情绪表达的问题，下载三本新原文并拆分为章节 MD 文件，作为后续生成器情绪化句型的补充素材来源。",
+        purpose: "当前生成器素材 A（西游记说书腔）和素材 B（洛夫克拉夫特冷淡旁观）都不提供煽情句型，导致输出文学性强但叙述冷淡、大众看不懂。需要引入有情绪外显和爽点节奏的原文，替换或补充进生成器模板。",
+        input: "封神演义.epub（许仲琳）、古龙文集·七种武器.epub（古龙，4册）、斗破苍穹.epub（天蚕土豆）。",
+        output: "三套章节 MD 文件：封神演义 101章、古龙七种武器 8个故事、斗破苍穹前100章。各自 split_epub.py 脚本放在对应子目录。路径：data/input_md/other/封神演义/chapters/、古龙七种武器/chapters/、斗破苍穹/chapters/。",
+        conclusion: "封神演义适合补充战斗情绪和旁白模式；古龙适合补充极短句和犀利旁白；斗破苍穹适合补充爽点升级节奏。三者分别对应三种不同的情绪表达需求。",
+        next: "从三本中挑选典型片段，补入 prompts/generator_v1.md 作为新素材，重新测试生成效果。",
+        links: [
+          ["封神演义章节目录", "../data/input_md/other/封神演义/chapters/"],
+          ["古龙七种武器章节目录", "../data/input_md/other/古龙七种武器/chapters/"],
+          ["斗破苍穹章节目录", "../data/input_md/other/斗破苍穹/chapters/"],
+          ["生成器模板", "../prompts/generator_v1.md"]
+        ]
+      },
+      {
+        id: "WL-015",
+        date: "2026-06-10",
+        stage: "阅读沉淀",
+        type: "story",
+        title: "生成器升级：加入三新素材，修复冷淡叙述问题，生成 story_003",
+        summary: "从封神演义、古龙七种武器、斗破苍穹中各挑选一段典型片段，作为素材C/D/E嵌入 generator_v1.md；同步修改 Rule 2（情绪绑定行为）和 Rule 4（增加旁观者反应帧要求）；用新灵感生成35帧故事《女儿国债主》。",
+        purpose: "上一版生成器输出文学性好但叙述冷淡：规则禁止情绪词、无情绪示范素材，导致所有情绪都被压掉。三新素材各解决一个问题：封神演义补充骂战直给、古龙补充极短句节奏、斗破苍穹补充围观群体反应。",
+        input: "封神演义第十二回（哪吒战敖丙）片段、古龙长生剑开篇片段、斗破苍穹第17章（围观反击）片段。灵感：悟空在女儿国广场被触手古神当众按倒，古神追讨三藏许下的婚约债。",
+        output: "generator_v1.md 升级：新增素材C/D/E（封神/古龙/斗破），Rule2加情绪绑定行为要求，Rule4加旁观者反应帧要求。story_003_女儿国债主.json（35帧）存入 data/output/stories/。",
+        conclusion: "情绪密度显著提升：A04「脖子上青筋暴起，脚跟在石板上蹭出两道深痕」、A08-A09 直接复刻斗破的「诡异目光/嘴角掀起/牙咬嘎吱」、A10「黑色黏液溅了悟空一脸，他没擦」；旁观者反应帧出现7次（A02/A05/A11/A17/A22/A28/A33）；素材溯源明确：西游记「捻手矬腰」、洛夫克拉夫特「点了一下头慢慢沉下去」、古龙「白马钉在门檐上」意象全部归位。",
+        next: "考虑将 story_003 写入分镜 HTML，或用相同灵感再跑一版对比两次迭代差异。",
+        links: [
+          ["生成器模板（升级版）", "../prompts/generator_v1.md"],
+          ["story_003 输出 JSON", "../data/output/stories/story_003_女儿国债主.json"],
+          ["封神演义章节目录", "../data/input_md/other/封神演义/chapters/"],
+          ["古龙七种武器章节目录", "../data/input_md/other/古龙七种武器/chapters/"],
+          ["斗破苍穹章节目录", "../data/input_md/other/斗破苍穹/chapters/"]
+        ]
+      },
+      {
+        id: "WL-016",
+        date: "2026-06-11",
+        stage: "视觉定调",
+        type: "visual",
+        title: "Story 003 前五帧连续生图与完整入参归档",
+        summary: "沿用既有角色定稿和主视觉风格，为新故事《女儿国债主》连续生成 A01-A05 五张竖屏分镜，并将固定参考图、逐镜完整提示词、输出规格和连续性结论写入测试记录。",
+        purpose: "验证旧视觉资产能否迁移到新故事，同时建立可复用、可追溯的连续分镜生图方法，避免后续只保留图片而丢失生成依据。",
+        input: "固定母参考为 character_turnaround_sheet.png 和 visual_board_tianshu_style.png；A01 使用两张母参考锁定悟空与画风，A02-A05 在相同约束上继续引用前序输出，分别描述围笑、地底发声、挣扎失败和围观审视。",
+        output: "生成 5 张 941×1672 PNG：A01_tentacle_chokes_wukong、A02_crowd_laughs、A03_voice_from_fissure、A04_wukong_struggles、A05_women_observe；已回填 story_003 连环画；测试 005 保存五条完整原始提示词和参考图职责。",
+        conclusion: "五张图形成“袭击—围笑—地底发声—挣扎失败—近距离审视”的连续动作链，画风、色彩和悟空主体识别较稳定。当前限制是文本连续性不等于像素级角色锁定，触手数量、服装细节、广场结构和人物站位仍会逐张漂移。",
+        next: "继续生成 A06-A10 时保留两张固定母参考，并以上一张输出约束动作连续性；每五张做一次角色、触手和场景漂移复核。",
+        links: [
+          ["Story 003 连环画", "story_003_comic_storyboard.html"],
+          ["测试 005：完整生图入参", "happyhorse_video_tests_20260525.html"],
+          ["角色定稿图", "../data/Data_results/picture_results/video_episode_002_womankingdom_cthulhu_v1/references/character_turnaround_sheet.png"],
+          ["主视觉风格图", "../data/Data_results/picture_results/video_episode_002_womankingdom_cthulhu_v1/references/visual_board_tianshu_style.png"],
+          ["A01 触手缠颈", "../data/Data_results/picture_results/story_003_女儿国债主/keyframes/A01_tentacle_chokes_wukong.png"],
+          ["A02 民众围笑", "../data/Data_results/picture_results/story_003_女儿国债主/keyframes/A02_crowd_laughs.png"],
+          ["A03 地底发声", "../data/Data_results/picture_results/story_003_女儿国债主/keyframes/A03_voice_from_fissure.png"],
+          ["A04 悟空挣扎", "../data/Data_results/picture_results/story_003_女儿国债主/keyframes/A04_wukong_struggles.png"],
+          ["A05 女人围观", "../data/Data_results/picture_results/story_003_女儿国债主/keyframes/A05_women_observe.png"]
+        ]
       }
     ];
 

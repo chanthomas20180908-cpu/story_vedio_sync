@@ -1,0 +1,382 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>女儿国债主 - 连环画分镜</title>
+  <style>
+    :root {
+      --ink: #f1e7cf;
+      --muted: #9f9278;
+      --line: #51472f;
+      --gold: #d4a94f;
+      --red: #d95b43;
+      --green: #7ea96f;
+      --paper: #17160f;
+      --panel: #232014;
+      --black: #0c0c08;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; background: var(--black); }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      font-family: "Songti SC", "STSong", "Noto Serif CJK SC", "Source Han Serif SC", serif;
+      background:
+        linear-gradient(90deg, rgba(212,169,79,.045) 1px, transparent 1px),
+        linear-gradient(rgba(212,169,79,.04) 1px, transparent 1px),
+        radial-gradient(circle at 50% 0, rgba(217,91,67,.09), transparent 42rem),
+        #10100b;
+      background-size: 38px 38px, 38px 38px, auto, auto;
+    }
+
+    a { color: #8fc7cf; text-decoration: none; }
+
+    .page {
+      width: min(1500px, calc(100vw - 36px));
+      margin: 0 auto;
+      padding: 26px 0 54px;
+    }
+
+    .header {
+      padding: 28px 0 18px;
+      border-bottom: 1px solid var(--line);
+      margin-bottom: 4px;
+    }
+
+    .kicker {
+      color: var(--gold);
+      font-size: 13px;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+
+    h1 {
+      margin: 0 0 12px;
+      font-size: clamp(36px, 5vw, 72px);
+      line-height: .98;
+      font-weight: 900;
+    }
+
+    .lead {
+      color: #d6c8aa;
+      font-size: 18px;
+      line-height: 1.72;
+      max-width: 860px;
+      margin: 0;
+    }
+
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      padding: 12px 0;
+      background: linear-gradient(#10100b 72%, rgba(16,16,11,0));
+    }
+
+    .nav a {
+      border: 1px solid var(--line);
+      background: rgba(35,32,20,.94);
+      color: var(--ink);
+      padding: 8px 10px;
+      font-size: 13px;
+    }
+
+    .nav a:hover {
+      border-color: var(--gold);
+      color: #ffe4a0;
+    }
+
+    .chapter {
+      margin-top: 30px;
+      border: 1px solid var(--line);
+      background: rgba(17,17,11,.82);
+    }
+
+    .chapter-head {
+      padding: 7px 14px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      border-bottom: 1px solid var(--line);
+      background: rgba(0,0,0,.32);
+    }
+
+    .act-label {
+      color: var(--red);
+      font-size: 13px;
+      font-weight: 900;
+      letter-spacing: .16em;
+    }
+
+    .act-range { color: var(--muted); font-size: 12px; }
+    .act-time  { color: var(--gold);  font-size: 12px; }
+    .act-desc  { color: var(--muted); font-size: 13px; margin-left: auto; }
+
+    .strip {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 0;
+    }
+
+    .frame {
+      min-height: 480px;
+      border-right: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      background: var(--panel);
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+    }
+
+    .frame-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      padding: 9px 10px;
+      border-bottom: 1px solid rgba(81,71,47,.82);
+      background: rgba(0,0,0,.2);
+    }
+
+    .id {
+      color: var(--gold);
+      font-size: 20px;
+      font-weight: 900;
+      line-height: 1;
+    }
+
+    .time {
+      color: #e8dcc2;
+      border: 1px solid var(--line);
+      padding: 3px 6px;
+      font-size: 12px;
+      background: rgba(0,0,0,.28);
+    }
+
+    .picture {
+      position: relative;
+      aspect-ratio: 9 / 16;
+      margin: 10px 10px 0;
+      border: 1px solid var(--line);
+      background:
+        linear-gradient(135deg, rgba(217,91,67,.1), rgba(126,169,111,.08)),
+        #0a0a07;
+      overflow: hidden;
+    }
+
+    .picture img,
+    .picture video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .missing {
+      height: 100%;
+      display: grid;
+      place-items: center;
+      padding: 18px;
+      text-align: center;
+      color: #d6c8aa;
+      line-height: 1.7;
+      font-size: 14px;
+      background:
+        linear-gradient(45deg, rgba(212,169,79,.04) 25%, transparent 25% 50%, rgba(212,169,79,.04) 50% 75%, transparent 75%),
+        #10100b;
+      background-size: 18px 18px;
+    }
+
+    .tag {
+      position: absolute;
+      left: 8px;
+      bottom: 8px;
+      border: 1px solid rgba(212,169,79,.62);
+      background: rgba(8,8,5,.74);
+      color: #d6c8aa;
+      padding: 4px 6px;
+      font-size: 11px;
+    }
+
+    .caption {
+      padding: 13px 14px 16px;
+      min-height: 150px;
+      background:
+        linear-gradient(180deg, rgba(241,231,207,.025), transparent),
+        rgba(0,0,0,.12);
+    }
+
+    .caption p {
+      margin: 0;
+      color: #f1e7cf;
+      font-size: 17px;
+      line-height: 1.72;
+    }
+
+    .caption .dialogue {
+      display: block;
+      margin-top: 8px;
+      color: #ffe5a3;
+      font-size: 20px;
+      font-weight: 900;
+    }
+
+    .end-note {
+      margin-top: 28px;
+      border: 1px solid var(--line);
+      background: rgba(35,32,20,.86);
+      padding: 18px;
+      color: #d6c8aa;
+      line-height: 1.72;
+      font-size: 17px;
+    }
+
+    @media (max-width: 980px) {
+      .chapter-head { flex-wrap: wrap; }
+      .act-desc { margin-left: 0; }
+    }
+
+    @media (max-width: 560px) {
+      .page { width: min(100vw - 18px, 1500px); padding-top: 10px; }
+      .strip { grid-template-columns: 1fr; }
+      .frame { min-height: 0; }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+
+    <div class="header">
+      <div class="kicker">story 003 · 混搭档案</div>
+      <h1>女儿国债主</h1>
+      <p class="lead">古神从地砖下钻出来，拿三藏的婚约找悟空讨债。女儿国民众围成一圈，有人在笑。悟空第一次站不起来了。</p>
+    </div>
+
+    <nav class="nav">
+      <a href="#act1">压（A01–A11）</a>
+      <a href="#act2">升（A12–A22）</a>
+      <a href="#act3">封（A23–A35）</a>
+    </nav>
+
+    <div id="chapters"></div>
+
+    <section class="end-note">
+      那只古神答应了，沉下去了。但它点了一下头。那不是求饶的点头，是下次见的那种点头。
+    </section>
+
+  </main>
+
+  <script>
+    const acts = [
+      {
+        id: "act1",
+        label: "压",
+        range: "A01–A11",
+        time: "0–33s",
+        desc: "被按倒 · 民众围笑 · 挣不动",
+        frames: [
+          ["A01", "0-3s",   "../data/Data_results/picture_results/story_003_女儿国债主/keyframes/A01_tentacle_chokes_wukong.png", "广场地砖裂开，一条覆着黏液的触手从缝里钻出来，直接缠上悟空脖子。", "触手缠颈"],
+          ["A02", "3-6s",   "../data/Data_results/picture_results/story_003_女儿国债主/keyframes/A02_crowd_laughs.png", "女儿国民众退开两步，然后笑了，笑声从四面合拢，整整齐齐。", "民众围笑"],
+          ["A03", "6-9s",   "../data/Data_results/picture_results/story_003_女儿国债主/keyframes/A03_voice_from_fissure.png", "<span class='dialogue'>「你师父欠的债，你来还。」</span>声音从地底传上来，像死鱼堆里漏出的水声。", "债主报名"],
+          ["A04", "9-12s",  "../data/Data_results/picture_results/story_003_女儿国债主/keyframes/A04_wukong_struggles.png", "悟空双手扣住触手，脖子上青筋暴起，脚跟在石板上蹭出两道深痕，没挣动半分。", "悟空挣扎"],
+          ["A05", "12-15s", "../data/Data_results/picture_results/story_003_女儿国债主/keyframes/A05_women_observe.png", "围观的女人们捻着手，把腰一矬，歪头看他，眼神和看稀奇货一样。", "女人围观"],
+          ["A06", "15-18s", "", "触手往下一压，悟空一个膝盖砸在地上，石板碎成四块。", "膝盖砸地"],
+          ["A07", "18-21s", "", "<span class='dialogue'>「猴子，挣不动的。」</span>另一条触手从旁边砖缝里探出来，缠上他右臂。", "二爪并缠"],
+          ["A08", "21-24s", "", "悟空偏了偏头，用一种极其诡异的目光把那两条触手从头到尾打量了一遍。", "诡异打量"],
+          ["A09", "24-27s", "", "他嘴角掀起来，牙咬得嘎吱响，右手反抓住触手往反方向猛拧。", "反拧触手"],
+          ["A10", "27-30s", "", "触手发出一声像鳗鱼被踩断的闷响，黑色黏液溅了悟空一脸，他没擦。", "黏液溅脸"],
+          ["A11", "30-33s", "", "围观人群先是沉默，然后后排有人惊叫了一声，前排的笑声硬生生停住。", "笑声停住"]
+        ]
+      },
+      {
+        id: "act2",
+        label: "升",
+        range: "A12–A22",
+        time: "33–66s",
+        desc: "触手升级 · 被举入空中 · 砸入坑",
+        frames: [
+          ["A12", "33-36s", "", "地底有什么东西在动，整个广场的石板轻轻起伏，像海浪拍巨石脚下。", "石板起伏"],
+          ["A13", "36-39s", "", "更粗的一条触手破地而出，上面密密麻麻刻着悟空看不懂的象形纹路，像鱼鳃，像章鱼爪。", "新触手出"],
+          ["A14", "39-42s", "", "这条触手直接把悟空整个人卷起来，高高举到半空，女儿国的屋檐齐腰。", "悟空被举空"],
+          ["A15", "42-45s", "", "悟空在空中伸手，金箍棒啪地落进掌心。", "金箍棒出手"],
+          ["A16", "45-48s", "", "他往触手根部猛地一杵，棒子穿进去，触手在空中抖了一下，像被钉住的白马，四下乱挣却落不下来。", "棒穿触手根"],
+          ["A17", "48-51s", "", "广场上的人全跑开了，只有几个人捂着眼睛，从指缝里往外看。", "众人逃散"],
+          ["A18", "51-54s", "", "<span class='dialogue'>「你师父昨天坐了朕的龙车，喜筵也吃了，说好的事——」</span>地底的声音变成了女声，低沉，带着腐臭的潮湿气。", "债主自报家门"],
+          ["A19", "54-57s", "", "<span class='dialogue'>「他跑了，和你有什么关系？」</span>悟空把棒子再往里捅了三寸。", "悟空怼回去"],
+          ["A20", "57-60s", "", "触手猛地一收，把悟空往地上砸，广场中间凹下去一个坑，尘土冲到屋顶高。", "摔入坑中"],
+          ["A21", "60-63s", "", "尘土散开，悟空站在坑里，一只手撑着棒子，另一只手擦了擦嘴角的血。", "坑中站起"],
+          ["A22", "63-66s", "", "坑边缘，一个女官弓着腰张望，后面挤了七八个人，都不敢下来，都不肯走。", "女官探看"]
+        ]
+      },
+      {
+        id: "act3",
+        label: "封",
+        range: "A23–A35",
+        time: "66–105s",
+        desc: "棒作门闩 · 硬压不让 · 古神沉去",
+        frames: [
+          ["A23", "66-69s",  "", "地缝更宽了，宽到能看见下面有水在涌，黑色的，发着腐臭。", "地缝扩大"],
+          ["A24", "69-72s",  "", "一个庞大的轮廓在水下移动，鳞片在漆黑里反一点白光，手臂张开，朝地缝的方向缓缓游来。", "水下轮廓"],
+          ["A25", "72-75s",  "", "悟空把金箍棒往掌心一磕，棒身变粗，变长，两头顶住地缝两侧的石板，像一根门闩。", "棒作门闩"],
+          ["A26", "75-78s",  "", "地缝停住了，水声被压下去，但棒子在颤，发出低鸣，像被什么东西从下面顶着。", "缝停棒颤"],
+          ["A27", "78-81s",  "", "<span class='dialogue'>「债不是我的，但这里是我师父走过的路。」</span>悟空两只脚踩上棒身，往下压。", "悟空表态"],
+          ["A28", "81-84s",  "", "坑边那个女官直起腰，看了看悟空，看了看地缝，把手里的茶盏放到地上，退开了三步。", "女官退步"],
+          ["A29", "84-87s",  "", "水声变成怒吼，整条街的窗户哗哗抖动，屋顶的瓦片滑下来，在石板上碎成粉。", "水声怒吼"],
+          ["A30", "87-90s",  "", "悟空牙关咬出声，脊背往下压，棒子嵌进地缝两侧的石板里，石头开始碎，但缝没再开。", "硬压不让"],
+          ["A31", "90-93s",  "", "水下的轮廓停住了，巨大的鳞状手臂悬在黑暗里，点了一下头，然后慢慢沉下去。", "古神沉去"],
+          ["A32", "93-96s",  "", "地鸣声收住，广场重新安静，只剩棒子嵌在石缝里，悟空站在上面，大口喘气。", "广场归静"],
+          ["A33", "96-99s",  "", "那个女官弯腰捡起茶盏，走回来，把茶端到坑边，搁在地上，没说话，直接走了。", "女官端茶"],
+          ["A34", "99-102s", "", "悟空跳出坑，拔出棒子，地缝哗地合死，什么都看不出来，只剩石板上两道深深的划痕。", "地缝合死"],
+          ["A35", "102-105s","", "他抱着棒子，头也不回，大步往西走，背后又有人开始笑，笑声追了他很远。", "头也不回"]
+        ]
+      }
+    ];
+
+    function mediaNode(src, label) {
+      if (!src) return `<div class="missing">${label}</div>`;
+      if (src.endsWith(".mp4")) return `<video controls src="${src}"></video>`;
+      return `<img src="${src}" alt="${label}">`;
+    }
+
+    function render() {
+      const root = document.getElementById("chapters");
+      root.innerHTML = acts.map(act => `
+        <section class="chapter" id="${act.id}">
+          <div class="chapter-head">
+            <span class="act-label">${act.label}</span>
+            <span class="act-range">${act.range}</span>
+            <span class="act-time">${act.time}</span>
+            <span class="act-desc">${act.desc}</span>
+          </div>
+          <div class="strip">
+            ${act.frames.map(frame => `
+              <article class="frame">
+                <div class="frame-top">
+                  <span class="id">${frame[0]}</span>
+                  <span class="time">${frame[1]}</span>
+                </div>
+                <div class="picture">
+                  ${mediaNode(frame[2], frame[4])}
+                  <span class="tag">${frame[4]}</span>
+                </div>
+                <div class="caption">
+                  <p>${frame[3]}</p>
+                </div>
+              </article>
+            `).join("")}
+          </div>
+        </section>
+      `).join("");
+    }
+
+    render();
+  </script>
+</body>
+</html>
